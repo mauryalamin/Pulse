@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    
+    @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     
     @Query(sort: \Moment.timestamp) var moments: [Moment]
@@ -25,7 +25,13 @@ struct HomeView: View {
                         
                     }
                 }
+                .onDelete { IndexSet in
+                    for index in IndexSet {
+                        context.delete(moments[index])
+                    }
+                }
             }
+            
             .navigationTitle("Moments")
             .sheet(isPresented: $isShowingLogMomentSheet) { LogMomentView() }
             .toolbar {

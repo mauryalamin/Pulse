@@ -11,7 +11,7 @@ import SwiftData
 struct HomeView: View {
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
-    
+    @State private var momentToEdit: Moment?
     @Query(sort: \Moment.timestamp) var moments: [Moment]
     
     var body: some View {
@@ -24,6 +24,9 @@ struct HomeView: View {
                         Text("\(moment.intensity)")
                         
                     }
+                    .onTapGesture {
+                        momentToEdit = moment
+                    }
                 }
                 .onDelete { IndexSet in
                     for index in IndexSet {
@@ -34,6 +37,9 @@ struct HomeView: View {
             
             .navigationTitle("Moments")
             .sheet(isPresented: $isShowingLogMomentSheet) { LogMomentView() }
+            .sheet(item: $momentToEdit) { moment in
+                UpdateMomentView(moment: moment)
+            }
             .toolbar {
                 ToolbarItem {
                     Button {

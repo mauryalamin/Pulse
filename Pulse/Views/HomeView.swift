@@ -28,45 +28,70 @@ struct HomeView: View {
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
     // @Query(sort: \Moment.timestamp) var moments: [Moment]
-    var moments: [Moment] = [Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false)]
+    var moments: [Moment] = [Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: false),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: true),
+                             Moment(vice: Vice(name: "Cannabis", colorHex: "#6C8E3F"), intensity: 3, gaveIn: true),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: true),
+                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false)]
     
     var body: some View {
         NavigationStack {
-            
-            VStack {
-                HStack {
-                    FactoidGroupView()
-                    Spacer()
-                    Divider().frame(width: 1)
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                            .font(.largeTitle)
-                            .fontWeight(.light)
-                    }
-
-                }
-                .frame(height: 50)
-                .padding(.horizontal)
-                List {
-                    ForEach(moments) { moment in
-                        VStack (alignment: .leading) {
-                            Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
-                            Text(moment.vice.name)
-                            Text("\(moment.intensity)")
+            ZStack (alignment: .bottom){
+                Color(.grayBackground)
+                    .ignoresSafeArea()
+                VStack {
+                    HStack {
+                        FactoidGroupView()
+                        Spacer()
+                        Divider().frame(width: 1)
+                        Button {
                             
+                        } label: {
+                            Image(systemName: "line.3.horizontal.decrease.circle")
+                                .font(.largeTitle)
+                                .fontWeight(.light)
                         }
-                        .onTapGesture {
-                            momentToEdit = moment
-                        }
+
                     }
-                    .onDelete { IndexSet in
-                        for index in IndexSet {
-                            context.delete(moments[index])
+                    .frame(height: 50)
+                    .padding(.horizontal)
+                    List {
+                        ForEach(moments) { moment in
+                            MomentListRowView(moment: moment)
+                            .onTapGesture {
+                                momentToEdit = moment
+                            }
                         }
+                        .onDelete { IndexSet in
+                            for index in IndexSet {
+                                context.delete(moments[index])
+                            }
+                        }
+                        .listRowBackground(Color.clear)
+                    }
+                    .listStyle(.plain)
+                    
+                }
+                
+                Button {
+                    isShowingLogMomentSheet.toggle()
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color.pulseBlue)
+                            .frame(width: 72, height: 72)
+                        Image(systemName: "plus")
+                            .font(.title)
+                            .foregroundStyle(.white)
                     }
                 }
+                .buttonStyle(PlainButtonStyle())
+                .shadow(radius: 12)
+
             }
             
             .navigationTitle("Moments")

@@ -16,8 +16,10 @@ struct MomentListRowView: View {
     var body: some View {
         HStack {
             VStack (alignment: .leading) {
-                Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
+                // Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
+                Text(moment.timestamp.smartRelativeDescription())
                     .font(.footnote)
+                    .foregroundStyle(.secondary)
                     .fontWeight(.semibold)
                     .padding(.vertical, 4)
                 HStack {
@@ -41,6 +43,7 @@ struct MomentListRowView: View {
                     .foregroundStyle(moment.gaveIn ? .gaveIn : .sageGreen)
             }
         }
+        
     }
 }
 

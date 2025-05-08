@@ -24,7 +24,8 @@ struct FactoidView: View {
                     .fontDesign(.rounded)
             }
             Text(typeLabel)
-                .font(.caption2)
+                .font(.footnote)
+                .fontWidth(.condensed)
         }
     }
 }

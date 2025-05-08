@@ -19,6 +19,7 @@
 		AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */; };
 		AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */; };
 		AEF1495F2DCCFA3C00690F5E /* ViceDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495E2DCCFA3C00690F5E /* ViceDefaults.swift */; };
+		AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149602DCD4D4300690F5E /* Date+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidGroupView.swift; sourceTree = "<group>"; };
 		AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentListRowView.swift; sourceTree = "<group>"; };
 		AEF1495E2DCCFA3C00690F5E /* ViceDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceDefaults.swift; sourceTree = "<group>"; };
+		AEF149602DCD4D4300690F5E /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -128,6 +130,7 @@
 			children = (
 				AEF1495E2DCCFA3C00690F5E /* ViceDefaults.swift */,
 				AEF149462DCBFFE800690F5E /* Color+Extension.swift */,
+				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				AEF1495F2DCCFA3C00690F5E /* ViceDefaults.swift in Sources */,
 				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Vice.swift in Sources */,
+				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,

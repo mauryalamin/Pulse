@@ -24,19 +24,24 @@ struct HomeView: View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "PulseBlue") ?? UIColor.blue, .font: titleFont]
     }
     
+    func logNewMoment() {
+        isShowingLogMomentSheet.toggle()
+    }
+    
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
     // @Query(sort: \Moment.timestamp) var moments: [Moment]
-    var moments: [Moment] = [Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: false),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: true),
-                             Moment(vice: Vice(name: "Cannabis", colorHex: "#6C8E3F"), intensity: 3, gaveIn: true),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: true),
-                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false)]
+    var moments: [Moment] = []
+//    var moments: [Moment] = [Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: false),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: true),
+//                             Moment(vice: Vice(name: "Cannabis", colorHex: "#6C8E3F"), intensity: 3, gaveIn: true),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: true),
+//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false)]
     
     var body: some View {
         NavigationStack {
@@ -78,16 +83,9 @@ struct HomeView: View {
                 }
                 
                 Button {
-                    isShowingLogMomentSheet.toggle()
+                    logNewMoment()
                 } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color.pulseBlue)
-                            .frame(width: 72, height: 72)
-                        Image(systemName: "plus")
-                            .font(.title)
-                            .foregroundStyle(.white)
-                    }
+                    LogMomentButton(size: 72)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .shadow(radius: 12)
@@ -102,18 +100,17 @@ struct HomeView: View {
             .toolbar {
                 ToolbarItem {
                     Button {
-                        isShowingLogMomentSheet.toggle()
+                        
                     } label: {
-                        Label("Log Moment", systemImage: "plus")
+                        Label("Settings", systemImage: "gearshape")
                     }
                     
                 }
             }
             .overlay {
                 if moments.isEmpty {
-                    ContentUnavailableView("Every journey begins with noticing",
-                                           systemImage: "square.and.arrow.up.circle.fill",
-                                           description: Text("Pulse is ready whenever you are"))
+                    EmptyStateView(logMoment: logNewMoment)
+                        .offset(y:-40)
                 }
             }
             

@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
-    
+    // Style Navigation Title
     init() {
         var titleFont = UIFont.preferredFont(forTextStyle: .largeTitle) /// the default large title font
                 titleFont = UIFont(
@@ -21,7 +21,6 @@ struct HomeView: View {
                         titleFont.fontDescriptor, /// return the normal title if customization failed
                     size: titleFont.pointSize
                 )
-        
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "PulseBlue") ?? UIColor.blue, .font: titleFont]
     }
     
@@ -32,21 +31,39 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(moments) { moment in
-                    VStack (alignment: .leading) {
-                        Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
-                        Text(moment.vice)
-                        Text("\(moment.intensity)")
+            
+            VStack {
+                HStack {
+                    FactoidGroupView()
+                    Spacer()
+                    Divider().frame(width: 1)
+                    Button {
                         
+                    } label: {
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .font(.largeTitle)
+                            .fontWeight(.light)
                     }
-                    .onTapGesture {
-                        momentToEdit = moment
-                    }
+
                 }
-                .onDelete { IndexSet in
-                    for index in IndexSet {
-                        context.delete(moments[index])
+                .frame(height: 50)
+                .padding(.horizontal)
+                List {
+                    ForEach(moments) { moment in
+                        VStack (alignment: .leading) {
+                            Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
+                            Text(moment.vice)
+                            Text("\(moment.intensity)")
+                            
+                        }
+                        .onTapGesture {
+                            momentToEdit = moment
+                        }
+                    }
+                    .onDelete { IndexSet in
+                        for index in IndexSet {
+                            context.delete(moments[index])
+                        }
                     }
                 }
             }

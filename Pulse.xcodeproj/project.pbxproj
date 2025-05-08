@@ -15,6 +15,8 @@
 		AEF149522DCBFFE800690F5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEF1494A2DCBFFE800690F5E /* Assets.xcassets */; };
 		AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149532DCC04D000690F5E /* LogMomentView.swift */; };
 		AEF149562DCC245800690F5E /* UpdateMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149552DCC245800690F5E /* UpdateMomentView.swift */; };
+		AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149572DCCE79E00690F5E /* FactoidView.swift */; };
+		AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		AEF1494B2DCBFFE800690F5E /* PulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseApp.swift; sourceTree = "<group>"; };
 		AEF149532DCC04D000690F5E /* LogMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMomentView.swift; sourceTree = "<group>"; };
 		AEF149552DCC245800690F5E /* UpdateMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMomentView.swift; sourceTree = "<group>"; };
+		AEF149572DCCE79E00690F5E /* FactoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidView.swift; sourceTree = "<group>"; };
+		AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidGroupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -138,11 +142,21 @@
 			children = (
 				AEF1494B2DCBFFE800690F5E /* PulseApp.swift */,
 				AEF149492DCBFFE800690F5E /* Views */,
+				AEF149592DCCE7B200690F5E /* SubViews */,
 				AEF149452DCBFFE800690F5E /* Models */,
 				AEF149472DCBFFE800690F5E /* Utilities */,
 				AEF1494A2DCBFFE800690F5E /* Assets.xcassets */,
 			);
 			path = Pulse;
+			sourceTree = "<group>";
+		};
+		AEF149592DCCE7B200690F5E /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149572DCCE79E00690F5E /* FactoidView.swift */,
+				AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +302,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
+				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
+				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Vice.swift in Sources */,
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,

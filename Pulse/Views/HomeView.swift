@@ -9,6 +9,22 @@ import SwiftUI
 import SwiftData
 
 struct HomeView: View {
+    
+    init() {
+        var titleFont = UIFont.preferredFont(forTextStyle: .largeTitle) /// the default large title font
+                titleFont = UIFont(
+                    descriptor:
+                        titleFont.fontDescriptor
+                        .withDesign(.rounded)? /// make rounded
+                        .withSymbolicTraits(.traitBold) /// make bold
+                        ??
+                        titleFont.fontDescriptor, /// return the normal title if customization failed
+                    size: titleFont.pointSize
+                )
+        
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "PulseBlue") ?? UIColor.blue, .font: titleFont]
+    }
+    
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?

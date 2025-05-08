@@ -24,7 +24,7 @@ struct LogMomentView: View {
                 TextField("Intensity", text: $intensity)
                 Button("Log Moment") {
                     
-                    let moment = Moment(timestamp: timestamp, vice: vice, intensity: Int(intensity) ?? 0, gaveIn: false, note: nil)
+                    let moment = Moment(timestamp: timestamp, vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: Int(intensity) ?? 0, gaveIn: false, note: nil)
                     context.insert(moment)
                     
                     dismiss()

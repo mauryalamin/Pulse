@@ -15,7 +15,7 @@ struct UpdateMomentView: View {
     var body: some View {
         NavigationStack {
             List {
-                TextField("Vice", text: $moment.vice)
+                TextField("Vice", text: $moment.vice.name)
                 Button("Log Moment") {
                 
                     
@@ -29,5 +29,5 @@ struct UpdateMomentView: View {
 }
 
 #Preview {
-    UpdateMomentView(moment: Moment(vice: "Drugs", intensity: 5, gaveIn: false))
+    UpdateMomentView(moment: Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: false))
 }

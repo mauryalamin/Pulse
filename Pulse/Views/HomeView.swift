@@ -27,7 +27,8 @@ struct HomeView: View {
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
-    @Query(sort: \Moment.timestamp) var moments: [Moment]
+    // @Query(sort: \Moment.timestamp) var moments: [Moment]
+    var moments: [Moment] = [Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false)]
     
     var body: some View {
         NavigationStack {
@@ -52,7 +53,7 @@ struct HomeView: View {
                     ForEach(moments) { moment in
                         VStack (alignment: .leading) {
                             Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
-                            Text(moment.vice)
+                            Text(moment.vice.name)
                             Text("\(moment.intensity)")
                             
                         }

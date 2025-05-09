@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		AE0F9A802DCE453900C1CC62 /* ViceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A7F2DCE453900C1CC62 /* ViceMenuView.swift */; };
+		AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */; };
+		AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */; };
 		AE5ED4D92DCD888E009F3F58 /* ViceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5ED4D82DCD888E009F3F58 /* ViceListView.swift */; };
 		AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149432DCBFFE800690F5E /* Moment.swift */; };
 		AEF1494E2DCBFFE800690F5E /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149442DCBFFE800690F5E /* Vice.swift */; };
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		AE0F9A7F2DCE453900C1CC62 /* ViceMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceMenuView.swift; sourceTree = "<group>"; };
+		AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButtonView.swift; sourceTree = "<group>"; };
+		AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGroupView.swift; sourceTree = "<group>"; };
 		AE5ED4D82DCD888E009F3F58 /* ViceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceListView.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +183,8 @@
 				AEF149662DCD54D400690F5E /* LogMomentButton.swift */,
 				AE0F9A7F2DCE453900C1CC62 /* ViceMenuView.swift */,
 				AE5ED4D82DCD888E009F3F58 /* ViceListView.swift */,
+				AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */,
+				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -337,7 +343,9 @@
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,
 				AE5ED4D92DCD888E009F3F58 /* ViceListView.swift in Sources */,
+				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,
+				AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */,
 				AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */,
 				AE0F9A802DCE453900C1CC62 /* ViceMenuView.swift in Sources */,
 				AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */,

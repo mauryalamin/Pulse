@@ -17,19 +17,27 @@ struct LogMomentView: View {
     @State private var timestamp: Date = .now
     @State private var intensity: String = ""
     
+    func setViceAs(_ thisVice: String) {
+        vice = thisVice
+    }
+    
     var body: some View {
         NavigationStack {
-            List {
-                TextField("Vice", text: $vice)
-                TextField("Intensity", text: $intensity)
-                Button("Log Moment") {
-                    
-                    let moment = Moment(timestamp: timestamp, vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: Int(intensity) ?? 0, gaveIn: false, note: nil)
-                    context.insert(moment)
-                    
-                    dismiss()
+            ScrollView {
+                VStack (alignment: .leading){
+                    VStack (alignment: .leading){
+                        Text("What are you craving?")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                        ViceMenuView()
+                    }
+
+                    Text("How strong is the urge?")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
                 }
-                
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
             }
             .navigationTitle("Log Moment")
         }

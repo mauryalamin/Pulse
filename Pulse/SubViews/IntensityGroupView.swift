@@ -18,7 +18,6 @@ struct IntensityGroupView: View {
                     isSelected: selectedIntensity == number,
                     action: {
                         selectedIntensity = number
-                        print("\(number) selected")
                     })
             }
         }

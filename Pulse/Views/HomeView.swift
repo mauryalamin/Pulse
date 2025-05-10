@@ -31,17 +31,7 @@ struct HomeView: View {
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
-    // @Query(sort: \Moment.timestamp) var moments: [Moment]
-    var moments: [Moment] = []
-//    var moments: [Moment] = [Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: false),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: true),
-//                             Moment(vice: Vice(name: "Cannabis", colorHex: "#6C8E3F"), intensity: 3, gaveIn: true),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 3, gaveIn: false),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 1, gaveIn: true),
-//                             Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 2, gaveIn: false)]
+    @Query(sort: \Moment.timestamp, order: .reverse) var moments: [Moment]
     
     var body: some View {
         NavigationStack {
@@ -60,7 +50,6 @@ struct HomeView: View {
                                 .font(.largeTitle)
                                 .fontWeight(.light)
                         }
-
                     }
                     .frame(height: 50)
                     .padding(.horizontal)
@@ -79,7 +68,6 @@ struct HomeView: View {
                         .listRowBackground(Color.clear)
                     }
                     .listStyle(.plain)
-                    
                 }
                 
                 Button {
@@ -104,7 +92,6 @@ struct HomeView: View {
                     } label: {
                         Label("Settings", systemImage: "gearshape")
                     }
-                    
                 }
             }
             .overlay {
@@ -113,8 +100,6 @@ struct HomeView: View {
                         .offset(y:-40)
                 }
             }
-            
-            
         }
     }
 }

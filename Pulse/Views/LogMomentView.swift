@@ -9,19 +9,49 @@ import SwiftUI
 import SwiftData
 
 struct LogMomentView: View {
-    @Environment(\.modelContext) var context
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) var dismiss
     
-    @State private var moment: Moment?
+    // Moment Components
     @State private var selectedVice: Vice? = nil
-    
-    @State private var timestamp: Date = .now
-    @State private var intensity: String = ""
-    
-    @State private var urgeFollowed = false
-    @State private var notes: String = ""
-    
     @State private var selectedIntensity: Int? = nil
+    @State private var gaveIn = false
+    @State private var noteText: String = ""
+    @State private var moment: Moment?
+    
+    @State private var showConfirmation: Bool = false
+    
+    private func logMoment() {
+        guard let vice = selectedVice, let intensity = selectedIntensity else { return }
+
+        let newMoment = Moment (
+            timestamp: Date(),
+            vice: vice,
+            intensity: intensity,
+            gaveIn: gaveIn,
+            note: noteText.isEmpty ? nil : noteText
+        )
+
+        context.insert(newMoment)
+        try? context.save()
+
+        moment = newMoment
+        showConfirmation = true
+
+        // ✅ Async reset after delay
+        Task {
+            try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
+            showConfirmation = false
+            resetForm()
+        }
+    }
+    
+    private func resetForm() {
+            selectedVice = nil
+            selectedIntensity = nil
+            gaveIn = false
+            noteText = ""
+        }
     
     var body: some View {
         NavigationStack {
@@ -51,7 +81,7 @@ struct LogMomentView: View {
                                 Text("Urge\rFollowed?")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
-                                Toggle("Filter", isOn: $urgeFollowed)
+                                Toggle("Filter", isOn: $gaveIn)
                                     .labelsHidden()
                             }
                         }
@@ -71,7 +101,7 @@ struct LogMomentView: View {
                             Text("Notes")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                            TextField("Anything else you'd like to note?", text: $notes, axis: .vertical)
+                            TextField("Anything else you'd like to note?", text: $noteText, axis: .vertical)
                                 .textFieldStyle(.roundedBorder)
                         }
                         
@@ -79,11 +109,10 @@ struct LogMomentView: View {
                             Spacer()
                             VStack (spacing: 24) {
                                 Button("Save Moment") {
-                                    if let unwrapped = selectedVice?.name {
-                                        print("\(unwrapped) was selected")
-                                    } else {
-                                        print("Missing name.")
-                                    }
+                                    
+                                    logMoment()
+                                    
+                                    dismiss()
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .controlSize(.large)

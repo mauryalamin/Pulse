@@ -10,7 +10,8 @@ import SwiftUI
 struct ViceMenuView: View {
     // @Query var vices: [Vice]
     let vices = ViceDefaults.builtIn
-    @State private var selectedVice: Vice?
+    @Binding var selectedVice: Vice?
+    // @State private var selectedVice: Vice?
 
     var body: some View {
         Menu {
@@ -51,5 +52,5 @@ struct ViceMenuView: View {
 }
 
 #Preview {
-    ViceMenuView()
+    ViceMenuView(selectedVice: .constant(Vice(name: "Alcohol", colorHex: "#8B3A3A")))
 }

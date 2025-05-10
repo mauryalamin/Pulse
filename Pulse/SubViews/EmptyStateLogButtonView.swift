@@ -10,7 +10,7 @@ import SwiftUI
 struct EmptyStateLogButtonView: View {
     var body: some View {
         HStack (spacing: 8) {
-            LogMomentButton(size: 42)
+            LogMomentButton(size: 42, fontSize: 17)
                 //.padding()
             Text("Log a Moment")
                 .font(.callout)

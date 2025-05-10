@@ -10,6 +10,7 @@ import SwiftUI
 struct LogMomentButton: View {
     
     var size: CGFloat
+    var fontSize: CGFloat
     
     var body: some View {
         ZStack {
@@ -17,12 +18,13 @@ struct LogMomentButton: View {
                 .fill(Color.pulseBlue)
                 .frame(width: size, height: size)
             Image(systemName: "plus")
-                .font(.title)
+                //.font(.title)
+                .font(.system(size: fontSize))
                 .foregroundStyle(.white)
         }
     }
 }
 
 #Preview {
-    LogMomentButton(size: 72)
+    LogMomentButton(size: 72, fontSize: 28)
 }

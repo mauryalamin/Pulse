@@ -85,7 +85,7 @@ struct HomeView: View {
                 Button {
                     logNewMoment()
                 } label: {
-                    LogMomentButton(size: 72)
+                    LogMomentButton(size: 72, fontSize: 28)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .shadow(radius: 12)
@@ -109,7 +109,7 @@ struct HomeView: View {
             }
             .overlay {
                 if moments.isEmpty {
-                    EmptyStateView(logMoment: logNewMoment)
+                    EmptyStateView(action: logNewMoment)
                         .offset(y:-40)
                 }
             }

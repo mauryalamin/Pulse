@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmptyStateView: View {
     
-    var logMoment: (() -> Void)?
+    var action: () -> Void
     
     var body: some View {
         VStack (alignment: .center, spacing: 24){
@@ -29,7 +29,7 @@ struct EmptyStateView: View {
                 .scaledToFill()
                 .frame(width: 200, height: 200)
             Button {
-                self.logMoment?()
+                self.action()
             } label: {
                 EmptyStateLogButtonView()
             }
@@ -45,5 +45,5 @@ struct EmptyStateView: View {
 }
 
 #Preview {
-    EmptyStateView()
+    EmptyStateView(action: {})
 }

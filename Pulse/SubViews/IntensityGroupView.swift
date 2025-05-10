@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct IntensityGroupView: View {
+    @Binding var selectedIntensity: Int?
+    
     var body: some View {
         HStack (spacing: 20) {
-            IntensityButtonView(intensity: 1)
-            IntensityButtonView(intensity: 2)
-            IntensityButtonView(intensity: 3)
-            IntensityButtonView(intensity: 4)
-            IntensityButtonView(intensity: 5)
+            ForEach(1...5, id: \.self) { number in
+                IntensityButtonView(
+                    number: number,
+                    isSelected: selectedIntensity == number,
+                    action: {
+                        selectedIntensity = number
+                        print("\(number) selected")
+                    })
+            }
         }
     }
 }
 
 #Preview {
-    IntensityGroupView()
+    IntensityGroupView(selectedIntensity: .constant(1))
 }

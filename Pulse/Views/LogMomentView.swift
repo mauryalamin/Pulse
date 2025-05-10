@@ -15,16 +15,13 @@ struct LogMomentView: View {
     @State private var moment: Moment?
     @State private var selectedVice: Vice? = nil
     
-    // @State private var vice: String = ""
     @State private var timestamp: Date = .now
     @State private var intensity: String = ""
     
     @State private var urgeFollowed = false
-    @State private var notes: String = "Hello"
+    @State private var notes: String = ""
     
-//    func setViceAs(_ thisVice: String) {
-//        vice = thisVice
-//    }
+    @State private var selectedIntensity: Int? = nil
     
     var body: some View {
         NavigationStack {
@@ -38,7 +35,7 @@ struct LogMomentView: View {
                             Text("What are you craving?")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                            ViceMenuView()
+                            ViceMenuView(selectedVice: $selectedVice)
                         }
                         
                         // Intensity
@@ -47,7 +44,7 @@ struct LogMomentView: View {
                                 Text("How strong is the urge?")
                                     .font(.subheadline)
                                     .fontWeight(.semibold)
-                                IntensityGroupView()
+                                IntensityGroupView(selectedIntensity: $selectedIntensity)
                             }
                             Divider()
                             VStack (alignment: .leading, spacing: 12) {
@@ -82,8 +79,11 @@ struct LogMomentView: View {
                             Spacer()
                             VStack (spacing: 24) {
                                 Button("Save Moment") {
-                                    
-                                    dismiss()
+                                    if let unwrapped = selectedVice?.name {
+                                        print("\(unwrapped) was selected")
+                                    } else {
+                                        print("Missing name.")
+                                    }
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .controlSize(.large)

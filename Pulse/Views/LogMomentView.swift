@@ -38,7 +38,7 @@ struct LogMomentView: View {
         moment = newMoment
         showConfirmation = true
 
-        // ✅ Async reset after delay
+        // Async reset after delay
         Task {
             try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
             showConfirmation = false
@@ -98,18 +98,22 @@ struct LogMomentView: View {
                         
                         // Add Notes
                         VStack (alignment: .leading, spacing: 12) {
-                            Text("Notes")
+                            Text("Optional Notes")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                             TextField("Anything else you'd like to note?", text: $noteText, axis: .vertical)
-                                .textFieldStyle(.roundedBorder)
+                                .padding()
+                                    .background(Color(UIColor.systemGray5))
+                                    .cornerRadius(10)
+                                //.textFieldStyle(.roundedBorder)
                         }
+                        
+                        Divider()
                         
                         HStack {
                             Spacer()
                             VStack (spacing: 24) {
                                 Button("Save Moment") {
-                                    
                                     logMoment()
                                     
                                     dismiss()

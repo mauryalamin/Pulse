@@ -11,7 +11,7 @@ struct IntensityGroupView: View {
     @Binding var selectedIntensity: Int?
     
     var body: some View {
-        HStack (spacing: 20) {
+        HStack (spacing: 14) {
             ForEach(1...5, id: \.self) { number in
                 IntensityButtonView(
                     number: number,

@@ -17,22 +17,17 @@ struct IntensityButtonView: View {
         Button (action: action) {
             ZStack {
                 Circle()
-                    .fill(isSelected ? Color.accentColor : Color.gray.opacity(0.2))
-                    .frame(width: 32, height: 32)
+                    .fill(Color.white)
+                    .frame(width: 38, height: 38)
                     .overlay(
                         Circle()
-                            .stroke(Color.accentColor, lineWidth: isSelected ? 2 : 0)
+                            .stroke(isSelected ? Color.pulseBlue : Color(UIColor.systemGray5), lineWidth: 4)
                     )
                 
-                //                .stroke(Color(UIColor.lightGray), lineWidth: 10)
-                //                .fill(Color.white)
-                //                .frame(width: 32, height: 32)
                 Text("\(number)")
                     .font(.headline)
-                    .foregroundColor(isSelected ? .white : .primary)
-                //                .font(.title3)
-                //                .fontWeight(.semibold)
-                //                .foregroundStyle(.secondary)
+                    .fontWeight(isSelected ? .bold : .semibold)
+                    .foregroundColor(isSelected ? .pulseBlue : Color.secondary)
             }
         }
         .buttonStyle(.plain)

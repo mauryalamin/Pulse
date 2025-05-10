@@ -37,12 +37,12 @@ struct ViceMenuView: View {
                         .foregroundStyle(.primary)
                 } else {
                     Text("Add")
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(.accent)
                 }
 
                 Spacer()
                 Image(systemName: "chevron.down")
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(.accent)
             }
             .padding()
             .background(.ultraThinMaterial)

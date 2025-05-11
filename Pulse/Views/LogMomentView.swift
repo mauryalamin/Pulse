@@ -20,9 +20,14 @@ struct LogMomentView: View {
     @State private var moment: Moment?
     
     @State private var showConfirmation: Bool = false
+    @State private var showingAlert = false
     
-    private func logMoment() {
-        guard let urge = selectedUrge, let intensity = selectedIntensity else { return }
+    private func logMoment(onSuccess: @escaping () -> Void) {
+        guard let urge = selectedUrge,
+              let intensity = selectedIntensity else {
+            showingAlert = true
+            return
+        }
         
         let newMoment = Moment (
             timestamp: Date(),
@@ -43,6 +48,7 @@ struct LogMomentView: View {
             try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
             showConfirmation = false
             resetForm()
+            onSuccess()
         }
     }
     
@@ -58,6 +64,7 @@ struct LogMomentView: View {
             ZStack {
                 Color(.grayBackground)
                     .ignoresSafeArea()
+                
                 ScrollView {
                     VStack (alignment: .leading, spacing: 32){
                         // Urge Picker
@@ -102,7 +109,9 @@ struct LogMomentView: View {
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                             TextField("Anything else you'd like to note?", text: $noteText, axis: .vertical)
+                                .textFieldStyle(.plain)
                                 .padding()
+                                .frame(minHeight: 100, alignment: .top) // helps prevent layout thrashing
                                 .background(Color(UIColor.systemGray5))
                                 .cornerRadius(10)
                         }
@@ -113,8 +122,12 @@ struct LogMomentView: View {
                             Spacer()
                             VStack (spacing: 24) {
                                 Button("Save Moment") {
-                                    logMoment()
-                                    dismiss()
+                                    logMoment {
+                                        dismiss()
+                                    }
+                                }
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text("Missing Information"), message: Text("A Moment needs both an Urge Type and an Urge Intensity"), dismissButton: .default(Text("OK")))
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .controlSize(.large)
@@ -125,11 +138,27 @@ struct LogMomentView: View {
                             }
                             Spacer()
                         }
+                        
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     .padding()
                 }
+                if showConfirmation {
+                    ZStack {
+                        Color.white.opacity(0.8)
+                            .ignoresSafeArea()
+
+                        Text("Moment Logged")
+                            .font(.body)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.pulseBlue)
+                            .offset(y: -70)
+                    }
+                    .transition(.opacity)
+                }
             }
+            .animation(.easeInOut, value: showConfirmation)
             .navigationTitle("Log Moment")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -139,8 +168,10 @@ struct LogMomentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                        logMoment()
-                        dismiss()
+                        logMoment {
+                            dismiss()
+                        }
+                        
                     }
                 }
             }

@@ -1,5 +1,5 @@
 //
-//  ViceMenuView.swift
+//  UrgeMenuView.swift
 //  Pulse
 //
 //  Created by Maury Alamin on 5/9/25.
@@ -7,29 +7,29 @@
 
 import SwiftUI
 
-struct ViceMenuView: View {
-    // @Query var vices: [Vice]
-    let vices = ViceDefaults.builtIn
-    @Binding var selectedVice: Vice?
-    // @State private var selectedVice: Vice?
+struct UrgeMenuView: View {
+    // @Query var urges: [Urge]
+    let urges = UrgeDefaults.builtIn
+    @Binding var selectedUrge: Urge?
+    // @State private var selectedUrge: Urge?
 
     var body: some View {
         Menu {
-            ForEach(vices) { vice in
+            ForEach(urges) { urge in
                 Button(action: {
-                    selectedVice = vice
+                    selectedUrge = urge
                 }) {
                     HStack {
                         Circle()
-                            .fill(Color(hex: vice.colorHex) ?? .gray)
+                            .fill(Color(hex: urge.colorHex) ?? .gray)
                             .frame(width: 15, height: 15)
-                        Text(vice.name)
+                        Text(urge.name)
                     }
                 }
             }
         } label: {
             HStack {
-                if let selected = selectedVice {
+                if let selected = selectedUrge {
                     Circle()
                         .fill(Color(hex: selected.colorHex) ?? .gray)
                         .frame(width: 15, height: 15)
@@ -52,5 +52,5 @@ struct ViceMenuView: View {
 }
 
 #Preview {
-    ViceMenuView(selectedVice: .constant(Vice(name: "Alcohol", colorHex: "#8B3A3A")))
+    UrgeMenuView(selectedUrge: .constant(Urge(name: "Alcohol", colorHex: "#8B3A3A")))
 }

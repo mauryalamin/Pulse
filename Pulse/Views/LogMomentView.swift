@@ -13,7 +13,7 @@ struct LogMomentView: View {
     @Environment(\.dismiss) var dismiss
     
     // Moment Components
-    @State private var selectedVice: Vice? = nil
+    @State private var selectedUrge: Urge? = nil
     @State private var selectedIntensity: Int? = nil
     @State private var gaveIn = false
     @State private var noteText: String = ""
@@ -22,11 +22,11 @@ struct LogMomentView: View {
     @State private var showConfirmation: Bool = false
     
     private func logMoment() {
-        guard let vice = selectedVice, let intensity = selectedIntensity else { return }
+        guard let urge = selectedUrge, let intensity = selectedIntensity else { return }
         
         let newMoment = Moment (
             timestamp: Date(),
-            vice: vice,
+            urge: urge,
             intensity: intensity,
             gaveIn: gaveIn,
             note: noteText.isEmpty ? nil : noteText
@@ -47,7 +47,7 @@ struct LogMomentView: View {
     }
     
     private func resetForm() {
-        selectedVice = nil
+        selectedUrge = nil
         selectedIntensity = nil
         gaveIn = false
         noteText = ""
@@ -60,12 +60,12 @@ struct LogMomentView: View {
                     .ignoresSafeArea()
                 ScrollView {
                     VStack (alignment: .leading, spacing: 32){
-                        // Vice Picker
+                        // Urge Picker
                         VStack (alignment: .leading, spacing: 12){
-                            Text("What are you craving?")
+                            Text("What do you feel the urge for?")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                            ViceMenuView(selectedVice: $selectedVice)
+                            UrgeMenuView(selectedUrge: $selectedUrge)
                         }
                         
                         // Intensity
@@ -131,6 +131,19 @@ struct LogMomentView: View {
                 }
             }
             .navigationTitle("Log Moment")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        logMoment()
+                        dismiss()
+                    }
+                }
+            }
         }
     }
 }

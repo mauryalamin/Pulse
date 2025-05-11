@@ -1,5 +1,5 @@
 //
-//  ViceListView.swift
+//  UrgeListView.swift
 //  Pulse
 //
 //  Created by Maury Alamin on 5/8/25.
@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct ViceListView: View {
+struct UrgeListView: View {
     
-    let defaultVices = ViceDefaults.builtIn
-    var selectedVice: Vice?
+    let defaultUrges = UrgeDefaults.builtIn
+    var selectedUrge: Urge?
     
     var body: some View {
         List {
-            ForEach(defaultVices) { vice in
+            ForEach(defaultUrges) { urge in
                 HStack (alignment: .center){
                     Image(systemName: "circle.fill")
-                        .foregroundStyle(Color(hex: vice.colorHex) ?? .gray)
-                    Text(vice.name)
+                        .foregroundStyle(Color(hex: urge.colorHex) ?? .gray)
+                    Text(urge.name)
                 }
             }
             Button(action: {
@@ -36,5 +36,5 @@ struct ViceListView: View {
 }
 
 #Preview {
-    ViceListView()
+    UrgeListView()
 }

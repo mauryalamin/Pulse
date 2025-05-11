@@ -11,15 +11,15 @@ import SwiftData
 @Model
 class Moment {
     var timestamp: Date
-    var vice: Vice
+    var urge: Urge
     var intensity: Int
     var gaveIn: Bool
     // Add Tags
     var note: String?
     
-    init(timestamp: Date = .now, vice: Vice, intensity: Int, gaveIn: Bool, note: String? = nil) {
+    init(timestamp: Date = .now, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil) {
         self.timestamp = timestamp
-        self.vice = vice
+        self.urge = urge
         self.intensity = intensity
         self.gaveIn = gaveIn
         self.note = note

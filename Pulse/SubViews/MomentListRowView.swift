@@ -25,14 +25,14 @@ struct MomentListRowView: View {
                 HStack {
                     ZStack {
                         Circle()
-                            .fill(Color(hex: moment.vice.colorHex) ?? .gray)
+                            .fill(Color(hex: moment.urge.colorHex) ?? .gray)
                             .frame(width: 34, height: 34)
                         Text("\(moment.intensity)")
                             .foregroundStyle(.white)
                             .font(.title2)
                             .fontWeight(.bold)
                     }
-                    Text(moment.vice.name)
+                    Text(moment.urge.name)
                         .font(.body)
                 }
             }
@@ -48,5 +48,5 @@ struct MomentListRowView: View {
 }
 
 #Preview {
-    MomentListRowView(moment: Moment(vice: Vice(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false))
+    MomentListRowView(moment: Moment(urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false))
 }

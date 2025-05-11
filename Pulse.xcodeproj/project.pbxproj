@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AE0F9A802DCE453900C1CC62 /* ViceMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A7F2DCE453900C1CC62 /* ViceMenuView.swift */; };
+		AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */; };
 		AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */; };
 		AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */; };
-		AE5ED4D92DCD888E009F3F58 /* ViceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5ED4D82DCD888E009F3F58 /* ViceListView.swift */; };
+		AE5ED4D92DCD888E009F3F58 /* UrgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5ED4D82DCD888E009F3F58 /* UrgeListView.swift */; };
 		AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */; };
 		AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */; };
 		AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */; };
 		AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */; };
 		AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149432DCBFFE800690F5E /* Moment.swift */; };
-		AEF1494E2DCBFFE800690F5E /* Vice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149442DCBFFE800690F5E /* Vice.swift */; };
+		AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149442DCBFFE800690F5E /* Urge.swift */; };
 		AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149462DCBFFE800690F5E /* Color+Extension.swift */; };
 		AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149482DCBFFE800690F5E /* HomeView.swift */; };
 		AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1494B2DCBFFE800690F5E /* PulseApp.swift */; };
@@ -26,7 +26,7 @@
 		AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149572DCCE79E00690F5E /* FactoidView.swift */; };
 		AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */; };
 		AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */; };
-		AEF1495F2DCCFA3C00690F5E /* ViceDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495E2DCCFA3C00690F5E /* ViceDefaults.swift */; };
+		AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */; };
 		AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149602DCD4D4300690F5E /* Date+Extension.swift */; };
 		AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149622DCD50FA00690F5E /* EmptyStateView.swift */; };
 		AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */; };
@@ -51,10 +51,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		AE0F9A7F2DCE453900C1CC62 /* ViceMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceMenuView.swift; sourceTree = "<group>"; };
+		AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeMenuView.swift; sourceTree = "<group>"; };
 		AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButtonView.swift; sourceTree = "<group>"; };
 		AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGroupView.swift; sourceTree = "<group>"; };
-		AE5ED4D82DCD888E009F3F58 /* ViceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceListView.swift; sourceTree = "<group>"; };
+		AE5ED4D82DCD888E009F3F58 /* UrgeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeListView.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +63,7 @@
 		AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepTwoView.swift; sourceTree = "<group>"; };
 		AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepThreeView.swift; sourceTree = "<group>"; };
 		AEF149432DCBFFE800690F5E /* Moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
-		AEF149442DCBFFE800690F5E /* Vice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vice.swift; sourceTree = "<group>"; };
+		AEF149442DCBFFE800690F5E /* Urge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Urge.swift; sourceTree = "<group>"; };
 		AEF149462DCBFFE800690F5E /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AEF149482DCBFFE800690F5E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AEF1494A2DCBFFE800690F5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 		AEF149572DCCE79E00690F5E /* FactoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidView.swift; sourceTree = "<group>"; };
 		AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidGroupView.swift; sourceTree = "<group>"; };
 		AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentListRowView.swift; sourceTree = "<group>"; };
-		AEF1495E2DCCFA3C00690F5E /* ViceDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViceDefaults.swift; sourceTree = "<group>"; };
+		AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeDefaults.swift; sourceTree = "<group>"; };
 		AEF149602DCD4D4300690F5E /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		AEF149622DCD50FA00690F5E /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateLogButtonView.swift; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				AEF149432DCBFFE800690F5E /* Moment.swift */,
-				AEF149442DCBFFE800690F5E /* Vice.swift */,
+				AEF149442DCBFFE800690F5E /* Urge.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,7 +150,7 @@
 		AEF149472DCBFFE800690F5E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				AEF1495E2DCCFA3C00690F5E /* ViceDefaults.swift */,
+				AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */,
 				AEF149462DCBFFE800690F5E /* Color+Extension.swift */,
 				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
 			);
@@ -193,8 +193,8 @@
 				AEF149622DCD50FA00690F5E /* EmptyStateView.swift */,
 				AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */,
 				AEF149662DCD54D400690F5E /* LogMomentButton.swift */,
-				AE0F9A7F2DCE453900C1CC62 /* ViceMenuView.swift */,
-				AE5ED4D82DCD888E009F3F58 /* ViceListView.swift */,
+				AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */,
+				AE5ED4D82DCD888E009F3F58 /* UrgeListView.swift */,
 				AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */,
 				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
 			);
@@ -346,24 +346,24 @@
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
-				AEF1495F2DCCFA3C00690F5E /* ViceDefaults.swift in Sources */,
+				AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */,
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,
 				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
-				AEF1494E2DCBFFE800690F5E /* Vice.swift in Sources */,
+				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
 				AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */,
 				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,
 				AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */,
 				AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */,
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,
-				AE5ED4D92DCD888E009F3F58 /* ViceListView.swift in Sources */,
+				AE5ED4D92DCD888E009F3F58 /* UrgeListView.swift in Sources */,
 				AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */,
 				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,
 				AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */,
 				AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */,
 				AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */,
-				AE0F9A802DCE453900C1CC62 /* ViceMenuView.swift in Sources */,
+				AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */,
 				AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */,
 				AEF149562DCC245800690F5E /* UpdateMomentView.swift in Sources */,
 			);

@@ -23,7 +23,7 @@ struct LogMomentView: View {
     
     private func logMoment() {
         guard let vice = selectedVice, let intensity = selectedIntensity else { return }
-
+        
         let newMoment = Moment (
             timestamp: Date(),
             vice: vice,
@@ -31,13 +31,13 @@ struct LogMomentView: View {
             gaveIn: gaveIn,
             note: noteText.isEmpty ? nil : noteText
         )
-
+        
         context.insert(newMoment)
         try? context.save()
-
+        
         moment = newMoment
         showConfirmation = true
-
+        
         // Async reset after delay
         Task {
             try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
@@ -47,11 +47,11 @@ struct LogMomentView: View {
     }
     
     private func resetForm() {
-            selectedVice = nil
-            selectedIntensity = nil
-            gaveIn = false
-            noteText = ""
-        }
+        selectedVice = nil
+        selectedIntensity = nil
+        gaveIn = false
+        noteText = ""
+    }
     
     var body: some View {
         NavigationStack {
@@ -103,9 +103,8 @@ struct LogMomentView: View {
                                 .fontWeight(.semibold)
                             TextField("Anything else you'd like to note?", text: $noteText, axis: .vertical)
                                 .padding()
-                                    .background(Color(UIColor.systemGray5))
-                                    .cornerRadius(10)
-                                //.textFieldStyle(.roundedBorder)
+                                .background(Color(UIColor.systemGray5))
+                                .cornerRadius(10)
                         }
                         
                         Divider()
@@ -115,14 +114,12 @@ struct LogMomentView: View {
                             VStack (spacing: 24) {
                                 Button("Save Moment") {
                                     logMoment()
-                                    
                                     dismiss()
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .controlSize(.large)
                                 
                                 Button("Cancel") {
-                                    
                                     dismiss()
                                 }
                             }

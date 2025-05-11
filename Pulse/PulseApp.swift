@@ -10,10 +10,18 @@ import SwiftData
 
 @main
 struct PulseApp: App {
+    
+    @AppStorage("isOnboarding") var isOnboarding: Bool = true
+    
     var body: some Scene {
         WindowGroup {
-            HomeView()
-                .modelContainer(for: [Moment.self])
+            if isOnboarding {
+                OnboardingFlowView()
+            } else {
+                HomeView()
+                    .modelContainer(for: [Moment.self])
+            }
+
         }
     }
 }

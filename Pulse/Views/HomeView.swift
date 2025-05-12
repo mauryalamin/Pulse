@@ -104,6 +104,29 @@ struct HomeView: View {
     }
 }
 
-#Preview {
+#Preview("Empty State") {
     HomeView()
+        .modelContainer(for: [Moment.self, Urge.self], inMemory: true)
+}
+
+#Preview("With Moments") {
+    let container = try! ModelContainer(
+        for: Moment.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+
+    let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
+    container.mainContext.insert(urge)
+
+    let moment = Moment (
+        timestamp: .now,
+        urge: urge,
+        intensity: 4,
+        gaveIn: false,
+        note: "Felt the urge after work"
+    )
+    container.mainContext.insert(moment)
+
+    return HomeView()
+        .modelContainer(container)
 }

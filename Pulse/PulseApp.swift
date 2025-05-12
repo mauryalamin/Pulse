@@ -19,7 +19,7 @@ struct PulseApp: App {
                 OnboardingFlowView()
             } else {
                 HomeView()
-                    .modelContainer(for: [Moment.self])
+                    .modelContainer(for: [Moment.self, Urge.self])
             }
 
         }

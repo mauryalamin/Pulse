@@ -12,6 +12,8 @@ struct LogMomentView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) var dismiss
     
+    @StateObject private var keyboard = KeyboardResponder()
+    
     // Moment Components
     @State private var selectedUrge: Urge? = nil
     @State private var selectedIntensity: Int? = nil
@@ -66,7 +68,7 @@ struct LogMomentView: View {
                     .ignoresSafeArea()
                 
                 ScrollView {
-                    VStack (alignment: .leading, spacing: 32){
+                    VStack (alignment: .leading, spacing: 32) {
                         // Urge Picker
                         VStack (alignment: .leading, spacing: 12){
                             Text("What do you feel the urge for?")
@@ -108,16 +110,12 @@ struct LogMomentView: View {
                             Text("Optional Notes")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                            TextField("Anything else you'd like to note?", text: $noteText, axis: .vertical)
-                                .textFieldStyle(.plain)
-                                .padding()
-                                .frame(minHeight: 100, alignment: .top) // helps prevent layout thrashing
-                                .background(Color(UIColor.systemGray5))
-                                .cornerRadius(10)
+                            NoteInputView(text: $noteText)
                         }
                         
                         Divider()
                         
+                        // Button Group
                         HStack {
                             Spacer()
                             VStack (spacing: 24) {
@@ -141,25 +139,41 @@ struct LogMomentView: View {
                         
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    
                     .padding()
                 }
+                .safeAreaInset(edge: .bottom) {
+                    Spacer().frame(height: keyboard.keyboardHeight + 40)
+                }
+                
+                .scrollDismissesKeyboard(.interactively)
+                .animation(.easeInOut(duration: 0.3), value: keyboard.keyboardHeight)
+                
+                // Confirmation Toast
                 if showConfirmation {
                     ZStack {
-                        Color.white.opacity(0.8)
+                        Color.white.opacity(0.9)
                             .ignoresSafeArea()
-
-                        Text("Moment Logged")
-                            .font(.body)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.pulseBlue)
-                            .offset(y: -70)
+                        
+                        VStack (alignment: .center) {
+                            Image(.pulseBeat)
+                                .resizable()
+                                .frame(width: 153, height: 90)
+                                .scaledToFit()
+                            Text("Moment Logged")
+                                .font(.headline)
+                                .fontDesign(.rounded)
+                                .fontWeight(.semibold)
+                                .foregroundStyle(.pulseBlue)
+                        }
+                        .offset(y: -90)
                     }
                     .transition(.opacity)
                 }
             }
+            .ignoresSafeArea(.keyboard)
             .animation(.easeInOut, value: showConfirmation)
             .navigationTitle("Log Moment")
+            // Top Toolbar
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {

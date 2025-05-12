@@ -55,9 +55,8 @@ struct HomeView: View {
                     .padding(.horizontal)
                     List {
                         ForEach(moments) { moment in
-                            MomentListRowView(moment: moment)
-                            .onTapGesture {
-                                momentToEdit = moment
+                            NavigationLink(value: moment) {
+                                MomentListRowView(moment: moment)
                             }
                         }
                         .onDelete { IndexSet in
@@ -69,7 +68,9 @@ struct HomeView: View {
                     }
                     .listStyle(.plain)
                 }
-                
+                .navigationDestination(for: Moment.self) { moment in
+                    MomentDetailView(moment: moment)
+                }
                 Button {
                     logNewMoment()
                 } label: {

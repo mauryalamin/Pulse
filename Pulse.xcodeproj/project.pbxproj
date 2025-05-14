@@ -10,7 +10,6 @@
 		AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */; };
 		AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */; };
 		AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */; };
-		AE5ED4D92DCD888E009F3F58 /* UrgeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE5ED4D82DCD888E009F3F58 /* UrgeListView.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -58,7 +57,6 @@
 		AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeMenuView.swift; sourceTree = "<group>"; };
 		AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButtonView.swift; sourceTree = "<group>"; };
 		AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGroupView.swift; sourceTree = "<group>"; };
-		AE5ED4D82DCD888E009F3F58 /* UrgeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeListView.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -205,7 +203,6 @@
 				AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */,
 				AEF149662DCD54D400690F5E /* LogMomentButton.swift */,
 				AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */,
-				AE5ED4D82DCD888E009F3F58 /* UrgeListView.swift */,
 				AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */,
 				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
 				AE88040E2DD28ACA0076B724 /* NoteInputView.swift */,
@@ -369,7 +366,6 @@
 				AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */,
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,
-				AE5ED4D92DCD888E009F3F58 /* UrgeListView.swift in Sources */,
 				AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */,
 				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,

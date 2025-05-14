@@ -29,12 +29,12 @@ struct MomentDetailView: View {
                             // Urge Type
                             HStack (spacing: 12) {
                                 Image(systemName: "circle.fill")
-                                    .font(.system(size: 44))
+                                    .font(.system(size: 42))
                                     .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
                                 VStack (alignment: .leading) {
                                     Text("What did you feel the urge for?")
                                         .font(.title3)
-                                        .fontWeight(.semibold)
+                                        .fontWeight(.medium)
                                     Text(moment.urge.name)
                                         .fontWeight(.light)
                                 }
@@ -45,12 +45,12 @@ struct MomentDetailView: View {
                             if let descriptor = IntensityLabel.from(moment.intensity) {
                                 HStack(spacing: 12) {
                                     Image(systemName: descriptor.symbolName)
-                                        .font(.system(size: 44))
+                                        .font(.system(size: 42))
                                         .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
                                     VStack (alignment: .leading) {
                                         Text("How strong was the urge?")
                                             .font(.title3)
-                                            .fontWeight(.semibold)
+                                            .fontWeight(.medium)
                                         Text(descriptor.label)
                                             .font(.body)
                                             .fontWeight(.light)
@@ -62,12 +62,12 @@ struct MomentDetailView: View {
                             // Response
                             HStack (spacing: 12) {
                                 Image(systemName: moment.gaveIn ? "exclamationmark.triangle.fill" : "checkmark.seal.fill")
-                                    .font(.system(size: 44))
+                                    .font(.system(size: 42))
                                     .foregroundStyle(moment.gaveIn ? .gaveIn : .sageGreen)
                                 VStack (alignment: .leading) {
                                     Text("How did you respond?")
                                         .font(.title3)
-                                        .fontWeight(.semibold)
+                                        .fontWeight(.medium)
                                     Text(moment.gaveIn ? "I gave in" : "Stayed Present")
                                         .fontWeight(.light)
                                 }

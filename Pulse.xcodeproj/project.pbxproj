@@ -34,6 +34,7 @@
 		AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149622DCD50FA00690F5E /* EmptyStateView.swift */; };
 		AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */; };
 		AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149662DCD54D400690F5E /* LogMomentButton.swift */; };
+		AEF5D6E02DD4E67B0013E213 /* IntensityLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		AEF149622DCD50FA00690F5E /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateLogButtonView.swift; sourceTree = "<group>"; };
 		AEF149662DCD54D400690F5E /* LogMomentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMomentButton.swift; sourceTree = "<group>"; };
+		AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -156,6 +158,7 @@
 		AEF149472DCBFFE800690F5E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */,
 				AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */,
 				AEF149462DCBFFE800690F5E /* Color+Extension.swift */,
 				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
@@ -378,6 +381,7 @@
 				AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */,
 				AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */,
 				AEF149562DCC245800690F5E /* UpdateMomentView.swift in Sources */,
+				AEF5D6E02DD4E67B0013E213 /* IntensityLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

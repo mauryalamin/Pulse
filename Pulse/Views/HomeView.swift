@@ -12,15 +12,15 @@ struct HomeView: View {
     // Style Navigation Title
     init() {
         var titleFont = UIFont.preferredFont(forTextStyle: .largeTitle) /// the default large title font
-                titleFont = UIFont(
-                    descriptor:
-                        titleFont.fontDescriptor
-                        .withDesign(.rounded)? /// make rounded
-                        .withSymbolicTraits(.traitBold) /// make bold
-                        ??
-                        titleFont.fontDescriptor, /// return the normal title if customization failed
-                    size: titleFont.pointSize
-                )
+        titleFont = UIFont(
+            descriptor:
+                titleFont.fontDescriptor
+                .withDesign(.rounded)? /// make rounded
+                .withSymbolicTraits(.traitBold) /// make bold
+            ??
+            titleFont.fontDescriptor, /// return the normal title if customization failed
+            size: titleFont.pointSize
+        )
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "PulseBlue") ?? UIColor.blue, .font: titleFont]
     }
     
@@ -53,6 +53,18 @@ struct HomeView: View {
                     }
                     .frame(height: 50)
                     .padding(.horizontal)
+                    
+                    // List Header
+                    VStack (alignment: .leading) {
+                        Text("RECENT MOMENTS")
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.pulseBlue)
+                    }
+                    .padding(.top)
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     List {
                         ForEach(moments) { moment in
                             NavigationLink(value: moment) {
@@ -78,7 +90,7 @@ struct HomeView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 .shadow(radius: 12)
-
+                
             }
             
             .navigationTitle("Moments")
@@ -115,10 +127,10 @@ struct HomeView: View {
         for: Moment.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
     )
-
+    
     let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
     container.mainContext.insert(urge)
-
+    
     let moment = Moment (
         timestamp: .now,
         urge: urge,
@@ -127,7 +139,7 @@ struct HomeView: View {
         note: "Felt the urge after work"
     )
     container.mainContext.insert(moment)
-
+    
     return HomeView()
         .modelContainer(container)
 }

@@ -23,3 +23,9 @@ extension Color {
         self.init(red: r, green: g, blue: b)
     }
 }
+
+extension Color {
+    var toHex: String {
+        UIColor(self).toHex ?? "#000000"
+    }
+}

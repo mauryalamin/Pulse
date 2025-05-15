@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct UrgeMenuView: View {
-    // @Query var urges: [Urge]
-    let urges = UrgeDefaults.builtIn
     @Binding var selectedUrge: Urge?
-    // @State private var selectedUrge: Urge?
-
+    @Query private var urges: [Urge] // Automatically fetches all urges from SwiftData
+    @State private var showingNewUrgeSheet = false
+    
     var body: some View {
         Menu {
             ForEach(urges) { urge in
@@ -27,6 +27,11 @@ struct UrgeMenuView: View {
                     }
                 }
             }
+            Button {
+                showingNewUrgeSheet = true
+            } label: {
+                Label("Add New…", systemImage: "plus")
+            }
         } label: {
             HStack {
                 if let selected = selectedUrge {
@@ -39,7 +44,7 @@ struct UrgeMenuView: View {
                     Text("Add")
                         .foregroundStyle(.accent)
                 }
-
+                
                 Spacer()
                 Image(systemName: "chevron.down")
                     .foregroundStyle(.accent)
@@ -48,9 +53,14 @@ struct UrgeMenuView: View {
             .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
+        .sheet(isPresented: $showingNewUrgeSheet) {
+            NewUrgeView { newUrge in
+                selectedUrge = newUrge
+            }
+        }
     }
 }
 
 #Preview {
-    UrgeMenuView(selectedUrge: .constant(Urge(name: "Alcohol", colorHex: "#8B3A3A")))
+    UrgeMenuView(selectedUrge: .constant(Urge(name: "Test Urge", colorHex: "#FF0000")))
 }

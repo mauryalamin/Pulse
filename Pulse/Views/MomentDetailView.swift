@@ -156,6 +156,7 @@ struct MomentDetailView: View {
                 }
                 .padding(.bottom, 200)
                 .background(.white)
+                .cornerRadius(20)
             }
             
             .navigationTitle("Logged Moment")

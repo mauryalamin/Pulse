@@ -18,10 +18,10 @@ struct PulseApp: App {
             if isOnboarding {
                 OnboardingFlowView()
             } else {
-                HomeView()
+                ContentStartupWrapper()
                     .modelContainer(for: [Moment.self, Urge.self])
             }
-
+            
         }
     }
 }

@@ -70,13 +70,13 @@ struct OnboardingStepThreeView: View {
                                     
                                 }
                                 
-                                Button("Enable Stealth Mode") {
-                                    
+                                NavigationLink(destination: OnboardingStepFourView(headline: "Stealth Mode helps Pulse blend in", subtitle: "Pick a name and icon to help Pulse appear neutral on your phone. You can always change this later.", image: "Onboarding-4")) {
+                                    Text("Enable Stealth Mode")
                                 }
                             }
                             Spacer()
                         }
-                        .padding(.bottom, 8)
+                        .padding(.bottom)
                         Text("You can change these settings anytime in the app")
                             .font(.caption)
                     }
@@ -97,6 +97,7 @@ struct OnboardingStepThreeView: View {
                     }
                 }
             }
+            .scrollIndicators(.hidden)
             .offset(y: 20)
             .padding(.horizontal)
         }

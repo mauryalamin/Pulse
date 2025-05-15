@@ -13,6 +13,8 @@
 		AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */; };
 		AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */; };
 		AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */; };
+		AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D12DD65A4E000DF21E /* Tag.swift */; };
+		AE2CA1D42DD65ABD000DF21E /* TagDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -65,6 +67,8 @@
 		AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUrgeView.swift; sourceTree = "<group>"; };
 		AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStartupWrapper.swift; sourceTree = "<group>"; };
+		AE2CA1D12DD65A4E000DF21E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDefaults.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +163,7 @@
 			children = (
 				AEF149432DCBFFE800690F5E /* Moment.swift */,
 				AEF149442DCBFFE800690F5E /* Urge.swift */,
+				AE2CA1D12DD65A4E000DF21E /* Tag.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */,
 				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
 				AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */,
+				AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -179,6 +185,7 @@
 		AEF149492DCBFFE800690F5E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */,
 				AEF149482DCBFFE800690F5E /* HomeView.swift */,
 				AEF149532DCC04D000690F5E /* LogMomentView.swift */,
 				AE8804102DD2A97D0076B724 /* MomentDetailView.swift */,
@@ -188,7 +195,6 @@
 				AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */,
 				AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */,
 				AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */,
-				AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,6 +373,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */,
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
@@ -397,6 +404,7 @@
 				AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */,
 				AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */,
 				AEF149562DCC245800690F5E /* UpdateMomentView.swift in Sources */,
+				AE2CA1D42DD65ABD000DF21E /* TagDefaults.swift in Sources */,
 				AEF5D6E02DD4E67B0013E213 /* IntensityLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

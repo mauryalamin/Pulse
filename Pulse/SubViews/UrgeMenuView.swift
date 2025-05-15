@@ -27,6 +27,7 @@ struct UrgeMenuView: View {
                     }
                 }
             }
+            Divider()
             Button {
                 showingNewUrgeSheet = true
             } label: {

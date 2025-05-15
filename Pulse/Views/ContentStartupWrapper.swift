@@ -12,6 +12,7 @@ struct ContentStartupWrapper: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var urges: [Urge]
+    @Query private var tags: [Tag]
     
     var body: some View {
         HomeView()
@@ -20,6 +21,11 @@ struct ContentStartupWrapper: View {
                     for urge in UrgeDefaults.builtIn {
                         modelContext.insert(urge)
                     }
+                    try? modelContext.save()
+                }
+                
+                if tags.isEmpty {
+                    TagDefaults.builtIn.forEach { modelContext.insert($0) }
                     try? modelContext.save()
                 }
             }

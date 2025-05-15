@@ -28,9 +28,14 @@ struct MomentDetailView: View {
                             
                             // Urge Type
                             HStack (spacing: 12) {
-                                Image(systemName: "circle.fill")
-                                    .font(.system(size: 42))
-                                    .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
+                                ZStack (alignment: .center) {
+                                    Image(systemName: "circle.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
+                                    Image(systemName: "circle.fill")
+                                        .font(.system(size: 42))
+                                        .foregroundColor(Color(hex: moment.urge.colorHex)?.opacity(0.5) ?? .gray)
+                                }
                                 VStack (alignment: .leading) {
                                     Text("What did you feel the urge for?")
                                         .font(.title3)

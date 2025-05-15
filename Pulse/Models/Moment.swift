@@ -14,15 +14,17 @@ class Moment {
     var urge: Urge
     var intensity: Int
     var gaveIn: Bool
-    // Add Tags
     var note: String?
     
-    init(timestamp: Date = .now, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil) {
+    @Relationship(deleteRule: .nullify, inverse: \Tag.moments)
+    var tags: [Tag]?
+    
+    init(timestamp: Date = .now, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil, tags: [Tag]? = nil) {
         self.timestamp = timestamp
         self.urge = urge
         self.intensity = intensity
         self.gaveIn = gaveIn
         self.note = note
+        self.tags = tags
     }
-    
 }

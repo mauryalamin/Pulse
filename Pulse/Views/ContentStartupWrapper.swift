@@ -21,11 +21,15 @@ struct ContentStartupWrapper: View {
                     for urge in UrgeDefaults.builtIn {
                         modelContext.insert(urge)
                     }
-                    try? modelContext.save()
                 }
                 
                 if tags.isEmpty {
-                    TagDefaults.builtIn.forEach { modelContext.insert($0) }
+                    for tag in TagDefaults.builtIn {
+                        modelContext.insert(tag)
+                    }
+                }
+                
+                if urges.isEmpty || tags.isEmpty {
                     try? modelContext.save()
                 }
             }

@@ -76,6 +76,7 @@ struct LogMomentView: View {
                     .ignoresSafeArea()
                 
                 ScrollView {
+                    // MARK: - View Content
                     VStack (alignment: .leading, spacing: 32) {
                         // MARK: - Urge Picker
                         VStack (alignment: .leading, spacing: 12){

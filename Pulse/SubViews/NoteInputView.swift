@@ -18,7 +18,7 @@ struct NoteInputView: View {
                             .foregroundColor(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 10)
-                            .padding(.leading, 14)
+                            .padding(.leading, 10)
                     }
 
                     TextEditor(text: $text)

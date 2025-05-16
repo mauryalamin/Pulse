@@ -20,6 +20,8 @@ struct OnboardingStepThreeView: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack (spacing: 32) {
+                    
+                    // MARK: - Header Content
                     VStack (spacing: 12) {
                         Text(headline)
                             .multilineTextAlignment(.center)
@@ -33,10 +35,14 @@ struct OnboardingStepThreeView: View {
                             .fontWeight(.semibold)
                             .frame(width: 366)
                     }
+                    
+                    // MARK: - Hero Image
                     Image(image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 220, height: 220)
+                    
+                    // MARK: - Body Content
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Everything stays on your phone—no accounts, no syncing, no tracking. You can protect Pulse with Face ID and hide its purpose with Stealth Mode.")
                         VStack(alignment: .leading, spacing: 8) {
@@ -62,6 +68,7 @@ struct OnboardingStepThreeView: View {
                     .fontWeight(.light)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    // MARK: - Privacy Options
                     VStack (alignment: .center) {
                         HStack {
                             Spacer()
@@ -81,6 +88,7 @@ struct OnboardingStepThreeView: View {
                             .font(.caption)
                     }
                     
+                    // MARK: - Next Button
                     Button {
                         isOnboarding = false
                     } label: {

@@ -26,7 +26,7 @@ struct MomentDetailView: View {
                                 .foregroundStyle(.pulseBlue)
                             Divider()
                             
-                            // Urge Type
+                            // MARK: - Urge Type
                             HStack (spacing: 12) {
                                 ZStack (alignment: .center) {
                                     Image(systemName: "circle.fill")
@@ -46,7 +46,7 @@ struct MomentDetailView: View {
                             }
                             Divider()
                             
-                            // Intensity
+                            // MARK: - Intensity
                             if let descriptor = IntensityLabel.from(moment.intensity) {
                                 HStack(spacing: 12) {
                                     Image(systemName: descriptor.symbolName)
@@ -64,7 +64,7 @@ struct MomentDetailView: View {
                             }
                             Divider()
                             
-                            // Response
+                            // MARK: - Response
                             HStack (spacing: 12) {
                                 Image(systemName: moment.gaveIn ? "exclamationmark.triangle.fill" : "checkmark.seal.fill")
                                     .font(.system(size: 42))
@@ -99,6 +99,7 @@ struct MomentDetailView: View {
                             //                                    .background(Color.pulseBlue.opacity(0.2))
                             //                                    .cornerRadius(4)
                             //                            }
+                            // MARK: - Tags
                             if let tags = moment.tags {
                                 HStack {
                                     ForEach (tags) { tag in
@@ -111,7 +112,7 @@ struct MomentDetailView: View {
                                 }
                             }
                             
-                            // Notes
+                            // MARK: - Notes
                             if let note = moment.note {
                                 Text(note)
                             } else {
@@ -122,6 +123,7 @@ struct MomentDetailView: View {
                             Divider()
                         }
                         
+                        // MARK: - Contextual Content
                         VStack (alignment: .leading, spacing: 12) {
                             Text("AROUND THIS MOMENT")
                                 .font(.subheadline)
@@ -157,6 +159,7 @@ struct MomentDetailView: View {
                             
                         }
                         
+                        // MARK: - Edit Moment
                         HStack {
                             Spacer()
                             Button("Edit This Moment") {

@@ -19,6 +19,7 @@ struct OnboardingStepOneView: View {
                 .ignoresSafeArea()
                 VStack {
                     VStack (spacing: 32) {
+                        // MARK: - Header Content
                         VStack (spacing: 12) {
                             Text(headline)
                                 .multilineTextAlignment(.center)
@@ -32,10 +33,14 @@ struct OnboardingStepOneView: View {
                                 .fontWeight(.semibold)
                                 .frame(width: 366)
                         }
+                        
+                        // MARK: - Hero Image
                         Image(image)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 220, height: 220)
+                        
+                        // MARK: - Body Content
                         VStack(alignment: .leading, spacing: 24) {
                             Text("Your moments matter.")
                                 .font(.title3)
@@ -51,6 +56,7 @@ struct OnboardingStepOneView: View {
                     }
                     Spacer()
                     
+                    // MARK: - Next Button
                     NavigationLink(destination: OnboardingStepTwoView(headline: "Quietly track cravings, urges, and thoughts", subtitle: "Here’s what Pulse helps you do:", image: "Onboarding-2")) {
                         Text("Next")
                             .foregroundStyle(.white)

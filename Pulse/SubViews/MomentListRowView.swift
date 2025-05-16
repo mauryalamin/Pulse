@@ -11,8 +11,6 @@ struct MomentListRowView: View {
     
     let moment: Moment
     
-    
-    
     var body: some View {
         HStack {
             VStack (alignment: .leading) {

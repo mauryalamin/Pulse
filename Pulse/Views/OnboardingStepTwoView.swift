@@ -19,6 +19,7 @@ struct OnboardingStepTwoView: View {
                 .ignoresSafeArea()
             VStack {
                 VStack (spacing: 32) {
+                    // MARK: - Header Content
                     VStack (spacing: 12) {
                         Text(headline)
                             .multilineTextAlignment(.center)
@@ -32,10 +33,14 @@ struct OnboardingStepTwoView: View {
                             .fontWeight(.semibold)
                             .frame(width: 366)
                     }
+                    
+                    // MARK: - Hero image
                     Image(image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 220, height: 220)
+                    
+                    // MARK: - Body Content
                     VStack(alignment: .leading, spacing: 8) {
                         HStack (alignment: .top){
                             Text("•")
@@ -60,6 +65,7 @@ struct OnboardingStepTwoView: View {
                 }
                 Spacer()
                 
+                // MARK: - Next Button
                 NavigationLink(destination: OnboardingStepThreeView(headline: "Your privacy comes first", subtitle: "Everything stays on your phone…", image: "Onboarding-3")) {
                     Text("Next")
                         .foregroundStyle(.white)

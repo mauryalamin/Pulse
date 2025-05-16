@@ -77,7 +77,7 @@ struct LogMomentView: View {
                 
                 ScrollView {
                     VStack (alignment: .leading, spacing: 32) {
-                        // Urge Picker
+                        // MARK: - Urge Picker
                         VStack (alignment: .leading, spacing: 12){
                             Text("What do you feel the urge for?")
                                 .font(.subheadline)
@@ -85,7 +85,7 @@ struct LogMomentView: View {
                             UrgeMenuView(selectedUrge: $selectedUrge)
                         }
                         
-                        // Intensity
+                        // MARK: - Intensity
                         HStack (spacing: 24) {
                             VStack (alignment: .leading, spacing: 12){
                                 Text("How strong is the urge?")
@@ -103,7 +103,7 @@ struct LogMomentView: View {
                             }
                         }
                         
-                        // Add Tags
+                        // MARK: - Tags
                         VStack (alignment: .leading, spacing: 12) {
                             Text("Tags")
                                 .font(.subheadline)
@@ -117,7 +117,6 @@ struct LogMomentView: View {
                                     TagView(tag: tag.name)
                                 }
                                 
-                                // "Add" chip-style button
                                 Button(action: { showTagPicker = true }) {
                                     Label("Add", systemImage: "plus")
                                         .padding(.horizontal, 16)
@@ -131,7 +130,7 @@ struct LogMomentView: View {
                             }
                         }
                         
-                        // Add Notes
+                        // MARK: - Notes
                         VStack (alignment: .leading, spacing: 12) {
                             Text("Optional Notes")
                                 .font(.subheadline)
@@ -141,7 +140,7 @@ struct LogMomentView: View {
                         
                         Divider()
                         
-                        // Button Group
+                        // MARK: - Button Group
                         HStack {
                             Spacer()
                             VStack (spacing: 24) {

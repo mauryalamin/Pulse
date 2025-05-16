@@ -20,7 +20,7 @@ struct OnboardingStepFourView: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack (spacing: 32) {
-                    // Header Content
+                    // MARK: - Header Content
                     VStack (spacing: 12) {
                         Text(headline)
                             .multilineTextAlignment(.center)
@@ -34,12 +34,14 @@ struct OnboardingStepFourView: View {
                             .fontWeight(.semibold)
                             .frame(width: 366)
                     }
+                    
+                    // MARK: - Hero Image
                     Image(image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 220, height: 220)
                     
-                    // Bullet List
+                    // MARK: - Body Content
                     VStack (spacing: 18) {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack (alignment: .top){
@@ -76,7 +78,7 @@ struct OnboardingStepFourView: View {
                     
                     Divider()
                     
-                    // Custom Name and Icon
+                    // MARK: -  Custom Name and Icon
                     VStack (alignment: .leading, spacing: 8) {
                         Text("Stealth App Name")
                             .font(.subheadline)
@@ -164,6 +166,7 @@ struct OnboardingStepFourView: View {
                     
                     Divider()
                     
+                    // MARK: - Preview
                     VStack (alignment: .center, spacing: 10) {
                         Text("How It Will Look")
                             .font(.subheadline)
@@ -174,6 +177,7 @@ struct OnboardingStepFourView: View {
                             .frame(width: 292, height: 101)
                     }
                     
+                    // MARK: - Save Configuration
                     VStack (alignment: .center, spacing: 8) {
                         Button("Save Changes") {
                             
@@ -192,7 +196,7 @@ struct OnboardingStepFourView: View {
                             .padding(.bottom)
                     }
                     
-                    
+                    // MARK: - Next Button
                     Button {
                         isOnboarding = false
                     } label: {

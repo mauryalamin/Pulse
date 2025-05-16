@@ -54,7 +54,7 @@ struct HomeView: View {
                     .frame(height: 50)
                     .padding(.horizontal)
                     
-                    // List Header
+                    // MARK: - Header
                     VStack (alignment: .leading) {
                         Text("RECENT MOMENTS")
                             .font(.subheadline)
@@ -65,6 +65,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    // MARK: - Timeline
                     List {
                         ForEach(moments) { moment in
                             NavigationLink(value: moment) {
@@ -92,7 +93,6 @@ struct HomeView: View {
                 .shadow(radius: 12)
                 
             }
-            
             .navigationTitle("Moments")
             .sheet(isPresented: $isShowingLogMomentSheet) { LogMomentView() }
             .sheet(item: $momentToEdit) { moment in

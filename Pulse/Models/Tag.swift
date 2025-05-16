@@ -11,6 +11,7 @@ import SwiftData
 @Model
 class Tag: Identifiable {
     var name: String
+    var usageCount: Int = 0
     
     var moments: [Moment] = []
     

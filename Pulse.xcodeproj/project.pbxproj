@@ -15,6 +15,9 @@
 		AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */; };
 		AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D12DD65A4E000DF21E /* Tag.swift */; };
 		AE2CA1D42DD65ABD000DF21E /* TagDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */; };
+		AE2CA1D62DD662C8000DF21E /* TagPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */; };
+		AE2CA1D82DD664C0000DF21E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D72DD664C0000DF21E /* TagView.swift */; };
+		AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -69,6 +72,9 @@
 		AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStartupWrapper.swift; sourceTree = "<group>"; };
 		AE2CA1D12DD65A4E000DF21E /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagDefaults.swift; sourceTree = "<group>"; };
+		AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerView.swift; sourceTree = "<group>"; };
+		AE2CA1D72DD664C0000DF21E /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +144,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE2CA1DB2DD692ED000DF21E /* HelperViews */ = {
+			isa = PBXGroup;
+			children = (
+				AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */,
+			);
+			path = HelperViews;
+			sourceTree = "<group>";
+		};
 		AE7BFDE12DCBEE4900A5836B = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +219,7 @@
 				AEF1494B2DCBFFE800690F5E /* PulseApp.swift */,
 				AEF149492DCBFFE800690F5E /* Views */,
 				AEF149592DCCE7B200690F5E /* SubViews */,
+				AE2CA1DB2DD692ED000DF21E /* HelperViews */,
 				AEF149452DCBFFE800690F5E /* Models */,
 				AEF149472DCBFFE800690F5E /* Utilities */,
 				AEF1494A2DCBFFE800690F5E /* Assets.xcassets */,
@@ -227,6 +242,8 @@
 				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
 				AE88040E2DD28ACA0076B724 /* NoteInputView.swift */,
 				AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */,
+				AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */,
+				AE2CA1D72DD664C0000DF21E /* TagView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -384,7 +401,9 @@
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,
 				AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */,
 				AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */,
+				AE2CA1D82DD664C0000DF21E /* TagView.swift in Sources */,
 				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
+				AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
 				AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */,
 				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,
@@ -398,6 +417,7 @@
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,
 				AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */,
 				AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */,
+				AE2CA1D62DD662C8000DF21E /* TagPickerView.swift in Sources */,
 				AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */,
 				AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */,
 				AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */,

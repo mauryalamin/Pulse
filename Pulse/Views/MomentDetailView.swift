@@ -87,17 +87,28 @@ struct MomentDetailView: View {
                                 .foregroundStyle(.pulseBlue)
                             
                             // Tags (will need to be converted to a grid)
-                            HStack (spacing: 12) {
-                                Text("Nervous")
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 4)
-                                    .background(Color.pulseBlue.opacity(0.2))
-                                    .cornerRadius(4)
-                                Text("Hungry")
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 4)
-                                    .background(Color.pulseBlue.opacity(0.2))
-                                    .cornerRadius(4)
+                            //                            HStack (spacing: 12) {
+                            //                                Text("Nervous")
+                            //                                    .padding(.horizontal, 16)
+                            //                                    .padding(.vertical, 4)
+                            //                                    .background(Color.pulseBlue.opacity(0.2))
+                            //                                    .cornerRadius(4)
+                            //                                Text("Hungry")
+                            //                                    .padding(.horizontal, 16)
+                            //                                    .padding(.vertical, 4)
+                            //                                    .background(Color.pulseBlue.opacity(0.2))
+                            //                                    .cornerRadius(4)
+                            //                            }
+                            if let tags = moment.tags {
+                                HStack {
+                                    ForEach (tags) { tag in
+                                        TagView(tag: tag.name)
+                                    }
+                                }
+                            } else {
+                                HStack {
+                                    Text("No tags")
+                                }
                             }
                             
                             // Notes

@@ -24,6 +24,9 @@ struct LogMomentView: View {
     @State private var showConfirmation: Bool = false
     @State private var showingAlert = false
     
+    @State private var selectedTags: [Tag] = []
+    @State private var showTagPicker = false
+    
     private func logMoment(onSuccess: @escaping () -> Void) {
         guard let urge = selectedUrge,
               let intensity = selectedIntensity else {
@@ -31,13 +34,18 @@ struct LogMomentView: View {
             return
         }
         
-        let newMoment = Moment (
+        let newMoment = Moment(
             timestamp: Date(),
             urge: urge,
             intensity: intensity,
             gaveIn: gaveIn,
-            note: noteText.isEmpty ? nil : noteText
+            note: noteText.isEmpty ? nil : noteText,
+            tags: selectedTags
         )
+        
+        for tag in selectedTags {
+            tag.usageCount += 1
+        }
         
         context.insert(newMoment)
         try? context.save()
@@ -100,8 +108,26 @@ struct LogMomentView: View {
                             Text("Tags")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                            Button("Add") {
+                            LazyVGrid(
+                                columns: [GridItem(.adaptive(minimum: 90), spacing: 6)],
+                                alignment: .leading,
+                                spacing: 6
+                            ) {
+                                ForEach(selectedTags, id: \.id) { tag in
+                                    TagView(tag: tag.name)
+                                }
                                 
+                                // "Add" chip-style button
+                                Button(action: { showTagPicker = true }) {
+                                    Label("Add", systemImage: "plus")
+                                        .padding(.horizontal, 16)
+                                        .padding(.vertical, 4)
+                                        .background(Color.pulseBlue.opacity(0.2))
+                                        .foregroundColor(.blue)
+                                        .font(.subheadline)
+                                        .cornerRadius(6)
+                                }
+                                .buttonStyle(.plain)
                             }
                         }
                         
@@ -169,6 +195,9 @@ struct LogMomentView: View {
                     }
                     .transition(.opacity)
                 }
+            }
+            .sheet(isPresented: $showTagPicker) {
+                TagPickerView(selectedTags: $selectedTags)
             }
             .ignoresSafeArea(.keyboard)
             .animation(.easeInOut, value: showConfirmation)

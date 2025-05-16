@@ -11,6 +11,8 @@ struct MomentDetailView: View {
     
     let moment: Moment
     
+    @State private var showingEditSheet = false
+    
     var body: some View {
         ZStack {
             Color(.grayBackground)
@@ -30,10 +32,10 @@ struct MomentDetailView: View {
                             HStack (spacing: 12) {
                                 ZStack (alignment: .center) {
                                     Image(systemName: "circle.fill")
-                                        .font(.system(size: 20))
+                                        .font(.system(size: 19))
                                         .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
                                     Image(systemName: "circle.fill")
-                                        .font(.system(size: 42))
+                                        .font(.system(size: 38))
                                         .foregroundColor(Color(hex: moment.urge.colorHex)?.opacity(0.5) ?? .gray)
                                 }
                                 VStack (alignment: .leading) {
@@ -50,7 +52,8 @@ struct MomentDetailView: View {
                             if let descriptor = IntensityLabel.from(moment.intensity) {
                                 HStack(spacing: 12) {
                                     Image(systemName: descriptor.symbolName)
-                                        .font(.system(size: 42))
+                                        .font(.system(size: 38))
+                                        .fontWeight(.semibold)
                                         .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
                                     VStack (alignment: .leading) {
                                         Text("How strong was the urge?")
@@ -67,7 +70,7 @@ struct MomentDetailView: View {
                             // MARK: - Response
                             HStack (spacing: 12) {
                                 Image(systemName: moment.gaveIn ? "exclamationmark.triangle.fill" : "checkmark.seal.fill")
-                                    .font(.system(size: 42))
+                                    .font(.system(size: 38))
                                     .foregroundStyle(moment.gaveIn ? .gaveIn : .sageGreen)
                                 VStack (alignment: .leading) {
                                     Text("How did you respond?")
@@ -86,30 +89,17 @@ struct MomentDetailView: View {
                                 .fontWeight(.semibold)
                                 .foregroundStyle(.pulseBlue)
                             
-                            // Tags (will need to be converted to a grid)
-                            //                            HStack (spacing: 12) {
-                            //                                Text("Nervous")
-                            //                                    .padding(.horizontal, 16)
-                            //                                    .padding(.vertical, 4)
-                            //                                    .background(Color.pulseBlue.opacity(0.2))
-                            //                                    .cornerRadius(4)
-                            //                                Text("Hungry")
-                            //                                    .padding(.horizontal, 16)
-                            //                                    .padding(.vertical, 4)
-                            //                                    .background(Color.pulseBlue.opacity(0.2))
-                            //                                    .cornerRadius(4)
-                            //                            }
                             // MARK: - Tags
-                            if let tags = moment.tags {
-                                HStack {
-                                    ForEach (tags) { tag in
+                            if let tags = moment.tags, !tags.isEmpty {
+                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80), spacing: 8)], alignment: .leading, spacing: 8) {
+                                    ForEach(tags, id: \.id) { tag in
                                         TagView(tag: tag.name)
                                     }
                                 }
                             } else {
-                                HStack {
-                                    Text("No tags")
-                                }
+                                Text("No tags added")
+                                    .foregroundStyle(.secondary)
+                                    .font(.subheadline)
                             }
                             
                             // MARK: - Notes
@@ -117,6 +107,7 @@ struct MomentDetailView: View {
                                 Text(note)
                             } else {
                                 Text("No notes")
+                                    .font(.subheadline)
                                     .foregroundStyle(.secondary)
                             }
                             
@@ -159,12 +150,13 @@ struct MomentDetailView: View {
                             
                         }
                         
-                        // MARK: - Edit Moment
+                        // MARK: - Edit Moment Button
                         HStack {
                             Spacer()
                             Button("Edit This Moment") {
-                                
+                                showingEditSheet = true
                             }
+                            
                             Spacer()
                         }
                     }
@@ -177,8 +169,19 @@ struct MomentDetailView: View {
                 .background(.white)
                 .cornerRadius(20)
             }
-            
             .navigationTitle("Logged Moment")
+            .sheet(isPresented: $showingEditSheet) {
+                NavigationStack {
+                        UpdateMomentView(moment: moment)
+                    }
+            }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Edit") {
+                        showingEditSheet = true
+                    }
+                }
+            }
         }
     }
     

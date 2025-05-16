@@ -171,9 +171,7 @@ struct MomentDetailView: View {
             }
             .navigationTitle("Logged Moment")
             .sheet(isPresented: $showingEditSheet) {
-                NavigationStack {
-                        UpdateMomentView(moment: moment)
-                    }
+                UpdateMomentView(moment: moment)
             }
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {

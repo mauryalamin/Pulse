@@ -95,9 +95,6 @@ struct HomeView: View {
             }
             .navigationTitle("Moments")
             .sheet(isPresented: $isShowingLogMomentSheet) { LogMomentView() }
-            .sheet(item: $momentToEdit) { moment in
-                UpdateMomentView(moment: moment)
-            }
             .toolbar {
                 ToolbarItem {
                     Button {

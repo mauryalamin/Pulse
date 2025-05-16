@@ -18,6 +18,9 @@ struct UpdateMomentView: View {
     @State private var noteText: String = ""
     @State private var selectedTags: [Tag] = []
     
+    @State private var showDiscardAlert = false
+    @State private var hasUnsavedChanges = false
+    
     @State private var showTagPicker = false
     
     private func preloadFields() {
@@ -40,55 +43,81 @@ struct UpdateMomentView: View {
     }
     
     var body: some View {
-        Form {
-            Section(header: Text("Urge")) {
-                UrgeMenuView(selectedUrge: $selectedUrge)
-            }
+        ZStack {
+            Color(.grayBackground)
+                .ignoresSafeArea()
             
-            Section(header: Text("Intensity")) {
-                IntensityGroupView(selectedIntensity: $selectedIntensity)
-            }
-            
-            Section(header: Text("Note")) {
-                NoteInputView(text: $noteText)
-            }
-            
-            Section(header: Text("Tags")) {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 8)], spacing: 8) {
-                    ForEach(selectedTags, id: \.id) { tag in
-                        TagView(tag: tag.name)
+            NavigationStack {
+                Form {
+                    Section(header: Text("Urge")) {
+                        UrgeMenuView(selectedUrge: $selectedUrge)
                     }
                     
-                    Button(action: {
-                        showTagPicker = true
-                    }) {
-                        Label("Add", systemImage: "plus")
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 4)
-                            .background(Color.pulseBlue.opacity(0.2))
-                            .cornerRadius(6)
-                            .font(.subheadline)
+                    Section(header: Text("Intensity")) {
+                        IntensityGroupView(selectedIntensity: $selectedIntensity)
+                    }
+                    
+                    Section(header: Text("Note")) {
+                        NoteInputView(text: $noteText)
+                    }
+                    
+                    Section(header: Text("Tags")) {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 90), spacing: 8)], spacing: 8) {
+                            ForEach(selectedTags, id: \.id) { tag in
+                                TagView(tag: tag.name)
+                            }
+                            
+                            Button(action: {
+                                showTagPicker = true
+                            }) {
+                                Label("Add", systemImage: "plus")
+                                    .padding(.horizontal, 16)
+                                    .padding(.vertical, 4)
+                                    .background(Color.pulseBlue.opacity(0.2))
+                                    .cornerRadius(6)
+                                    .font(.subheadline)
+                            }
+                        }
+                    }
+                    
+                }
+                .navigationTitle("Edit Moment")
+                // .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                            Button("Cancel") {
+                                if hasUnsavedChanges {
+                                    showDiscardAlert = true
+                                } else {
+                                    dismiss()
+                                }
+                            }
+                        }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("Save") { updateMoment() }
+                            .disabled(selectedUrge == nil || selectedIntensity == nil)
                     }
                 }
+                
+                .sheet(isPresented: $showTagPicker) {
+                    TagPickerView(selectedTags: $selectedTags)
+                }
+                .alert("Discard changes?", isPresented: $showDiscardAlert) {
+                            Button("Discard Changes", role: .destructive) {
+                                dismiss()
+                            }
+                            Button("Keep Editing", role: .cancel) { }
+                        } message: {
+                            Text("You’ve made edits to this Moment. Are you sure you want to cancel?")
+                        }
+                .onAppear {
+                    preloadFields()
+                }
             }
-            
-        }
-        .navigationTitle("Edit Moment")
-        // .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") { dismiss() }
-            }
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") { updateMoment() }
-                    .disabled(selectedUrge == nil || selectedIntensity == nil)
-            }
-        }
-        .onAppear {
-            preloadFields()
-        }
-        .sheet(isPresented: $showTagPicker) {
-            TagPickerView(selectedTags: $selectedTags)
+            .onChange(of: selectedUrge) { _, _ in hasUnsavedChanges = true }
+            .onChange(of: selectedIntensity) { _, _ in hasUnsavedChanges = true }
+            .onChange(of: noteText) { _, _ in hasUnsavedChanges = true }
+            .onChange(of: selectedTags) { _, _ in hasUnsavedChanges = true }
         }
     }
 }

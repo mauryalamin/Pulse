@@ -23,6 +23,7 @@ struct UpdateMomentView: View {
     
     @State private var showTagPicker = false
     
+    @StateObject private var keyboard = KeyboardResponder()
     
     private func preloadFields() {
         selectedUrge = moment.urge
@@ -183,8 +184,8 @@ struct UpdateMomentView: View {
                         preloadFields()
                     }
                 }
-                
-                
+                .scrollDismissesKeyboard(.interactively)
+                .animation(.easeInOut(duration: 0.3), value: keyboard.keyboardHeight)
             }
         }
         

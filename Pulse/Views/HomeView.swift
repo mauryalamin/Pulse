@@ -24,14 +24,32 @@ struct HomeView: View {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "PulseBlue") ?? UIColor.blue, .font: titleFont]
     }
     
-    func logNewMoment() {
-        isShowingLogMomentSheet.toggle()
-    }
-    
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
-    @Query(sort: \Moment.timestamp, order: .reverse) var moments: [Moment]
+
+    @State private var selectedUrgeFilter: Urge?
+    @State private var selectedTagFilter: Tag?
+    @State private var selectedIntensityFilter: Int?
+    @State private var stayedPresentOnly: Bool = false
+    @State private var followedOnly: Bool = false
+    @State private var showFilterSheet: Bool = false
+    
+    @Query(sort: \Moment.timestamp, order: .reverse) private var allMoments: [Moment]
+
+    var filteredMoments: [Moment] {
+        allMoments.filter { moment in
+            (selectedUrgeFilter == nil || moment.urge.id == selectedUrgeFilter?.id) &&
+            (selectedTagFilter == nil || moment.tags?.contains(where: { $0.id == selectedTagFilter?.id }) == true) &&
+            (selectedIntensityFilter == nil || moment.intensity == selectedIntensityFilter) &&
+            (!stayedPresentOnly || moment.gaveIn == false) &&
+            (!followedOnly || moment.gaveIn == true)
+        }
+    }
+    
+    func logNewMoment() {
+        isShowingLogMomentSheet.toggle()
+    }
     
     var body: some View {
         NavigationStack {
@@ -44,7 +62,7 @@ struct HomeView: View {
                         Spacer()
                         Divider().frame(width: 1)
                         Button {
-                            
+                            showFilterSheet = true
                         } label: {
                             Image(systemName: "line.3.horizontal.decrease.circle")
                                 .font(.largeTitle)
@@ -56,7 +74,7 @@ struct HomeView: View {
                     
                     // MARK: - Header
                     VStack (alignment: .leading) {
-                        Text("RECENT MOMENTS")
+                        Text(filtersAreActive ? "FILTERED MOMENTS" : "ALL MOMENTS")
                             .font(.subheadline)
                             .fontWeight(.semibold)
                             .foregroundStyle(.pulseBlue)
@@ -67,14 +85,14 @@ struct HomeView: View {
                     
                     // MARK: - Timeline
                     List {
-                        ForEach(moments) { moment in
+                        ForEach(filteredMoments) { moment in
                             NavigationLink(value: moment) {
                                 MomentListRowView(moment: moment)
                             }
                         }
                         .onDelete { IndexSet in
                             for index in IndexSet {
-                                context.delete(moments[index])
+                                context.delete(filteredMoments[index])
                             }
                         }
                         .listRowBackground(Color.clear)
@@ -95,6 +113,16 @@ struct HomeView: View {
             }
             .navigationTitle("Moments")
             .sheet(isPresented: $isShowingLogMomentSheet) { LogMomentView() }
+            .sheet(isPresented: $showFilterSheet) {
+                MomentFilterSheetView(
+                    selectedUrge: $selectedUrgeFilter,
+                    selectedTag: $selectedTagFilter,
+                    selectedIntensity: $selectedIntensityFilter,
+                    stayedPresentOnly: $stayedPresentOnly,
+                    followedOnly: $followedOnly
+                )
+                .presentationDetents([.medium, .large])
+            }
             .toolbar {
                 ToolbarItem {
                     Button {
@@ -105,7 +133,7 @@ struct HomeView: View {
                 }
             }
             .overlay {
-                if moments.isEmpty {
+                if filteredMoments.isEmpty {
                     EmptyStateView(action: logNewMoment)
                         .offset(y:-40)
                 }
@@ -113,6 +141,17 @@ struct HomeView: View {
         }
     }
 }
+
+private extension HomeView {
+    var filtersAreActive: Bool {
+        selectedUrgeFilter != nil ||
+        selectedTagFilter != nil ||
+        selectedIntensityFilter != nil ||
+        stayedPresentOnly ||
+        followedOnly
+    }
+}
+
 
 #Preview("Empty State") {
     HomeView()

@@ -170,7 +170,6 @@ struct LogMomentView: View {
                 .safeAreaInset(edge: .bottom) {
                     Spacer().frame(height: keyboard.keyboardHeight + 40)
                 }
-                
                 .scrollDismissesKeyboard(.interactively)
                 .animation(.easeInOut(duration: 0.3), value: keyboard.keyboardHeight)
                 

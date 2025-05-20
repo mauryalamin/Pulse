@@ -36,6 +36,10 @@ struct HomeView: View {
     @State private var showFilterSheet: Bool = false
     
     @Query(sort: \Moment.timestamp, order: .reverse) private var allMoments: [Moment]
+    
+    private var isTrulyEmpty: Bool {
+        allMoments.isEmpty
+    }
 
     var filteredMoments: [Moment] {
         allMoments.filter { moment in
@@ -134,8 +138,27 @@ struct HomeView: View {
             }
             .overlay {
                 if filteredMoments.isEmpty {
-                    EmptyStateView(action: logNewMoment)
-                        .offset(y:-40)
+                    if isTrulyEmpty {
+                        EmptyStateView(action: logNewMoment)
+                            .offset(y: -40)
+                    } else {
+                        VStack(spacing: 12) {
+                            Text("No moments match your filters.")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+
+                            Button("Clear Filters") {
+                                selectedUrgeFilter = nil
+                                selectedTagFilter = nil
+                                selectedIntensityFilter = nil
+                                stayedPresentOnly = false
+                                followedOnly = false
+                            }
+                            .font(.subheadline)
+                            .foregroundColor(.blue)
+                        }
+                        .padding(.top, 64)
+                    }
                 }
             }
         }

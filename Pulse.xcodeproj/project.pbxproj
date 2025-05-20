@@ -18,6 +18,8 @@
 		AE2CA1D62DD662C8000DF21E /* TagPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */; };
 		AE2CA1D82DD664C0000DF21E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D72DD664C0000DF21E /* TagView.swift */; };
 		AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */; };
+		AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */; };
+		AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE31EDA72DDD27DD009F838C /* CapsuleButton.swift */; };
 		AE4311072DDBACCD00EF0DF1 /* MomentFilterSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
@@ -76,6 +78,8 @@
 		AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPickerView.swift; sourceTree = "<group>"; };
 		AE2CA1D72DD664C0000DF21E /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSectionHeader.swift; sourceTree = "<group>"; };
+		AE31EDA72DDD27DD009F838C /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
 		AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentFilterSheetView.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -247,6 +251,8 @@
 				AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */,
 				AE2CA1D72DD664C0000DF21E /* TagView.swift */,
 				AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */,
+				AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */,
+				AE31EDA72DDD27DD009F838C /* CapsuleButton.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -397,8 +403,10 @@
 				AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */,
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
+				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,
+				AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */,
 				AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
 				AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */,

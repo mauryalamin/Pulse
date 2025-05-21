@@ -18,12 +18,15 @@ struct UpdateMomentView: View {
     @State private var noteText: String = ""
     @State private var selectedTags: [Tag] = []
     @State private var gaveIn = false
+    @State private var locationDescription: String?
+    @State private var showDeleteLocationAlert = false
     
     @State private var showDiscardAlert = false
     
     @State private var showTagPicker = false
     
     @StateObject private var keyboard = KeyboardResponder()
+    @StateObject private var locationManager = LocationManager()
     
     private func preloadFields() {
         selectedUrge = moment.urge
@@ -31,17 +34,19 @@ struct UpdateMomentView: View {
         noteText = moment.note ?? ""
         selectedTags = moment.tags ?? []
         gaveIn = moment.gaveIn
+        locationDescription = moment.locationDescription
     }
     
     private func updateMoment() {
         guard let urge = selectedUrge, let intensity = selectedIntensity else { return }
-        
+
         moment.urge = urge
         moment.intensity = intensity
         moment.note = noteText.isEmpty ? nil : noteText
         moment.tags = selectedTags
         moment.gaveIn = gaveIn
-        
+        moment.locationDescription = locationDescription
+
         try? modelContext.save()
         dismiss()
     }
@@ -51,6 +56,7 @@ struct UpdateMomentView: View {
         if selectedIntensity != moment.intensity { return true }
         if noteText != (moment.note ?? "") { return true }
         if gaveIn != moment.gaveIn { return true }
+        if locationDescription != moment.locationDescription { return true }
 
         let selectedTagIDs = Set(selectedTags.map(\.id))
         let originalTagIDs = Set((moment.tags ?? []).map(\.id))
@@ -130,6 +136,41 @@ struct UpdateMomentView: View {
                         
                         Divider()
                         
+                        // MARK: - Location
+                        VStack (alignment: .leading, spacing: 12) {
+                            Text("Location")
+                                .font(.subheadline)
+                                .fontWeight(.semibold)
+                            let nonOptionalLocation = Binding<String>(
+                                get: { locationDescription ?? "" },
+                                set: { locationDescription = $0 }
+                            )
+                            if locationDescription != nil {
+                                TextField("Location", text: nonOptionalLocation)
+                                    .textInputAutocapitalization(.words)
+
+                                Button("Remove Location", role: .destructive) {
+                                    showDeleteLocationAlert = true
+                                }
+                                .alert("Remove Location?", isPresented: $showDeleteLocationAlert) {
+                                    Button("Remove", role: .destructive) {
+                                        locationDescription = nil
+                                    }
+                                    Button("Cancel", role: .cancel) { }
+                                } message: {
+                                    Text("This Moment’s location will be permanently removed.")
+                                }
+                                Button("Update with My Current Location") {
+                                    locationManager.requestPermissionAndLocation()
+                                }
+                            } else {
+                                Text("No location was captured.")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        
+                        Divider()
+                        
                         // MARK: - Button Group
                         HStack {
                             Spacer()
@@ -153,6 +194,7 @@ struct UpdateMomentView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                     .navigationTitle("Edit Moment")
+                    
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Cancel") {

@@ -46,5 +46,5 @@ struct MomentListRowView: View {
 }
 
 #Preview {
-    MomentListRowView(moment: Moment(urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false))
+    MomentListRowView(moment: Moment(timestamp: .now, urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false))
 }

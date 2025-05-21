@@ -187,6 +187,6 @@ struct MomentDetailView: View {
 
 #Preview {
     NavigationStack {
-        MomentDetailView(moment: Moment(urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: false))
+        MomentDetailView(moment: Moment(timestamp: .now, urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: false))
     }
 }

@@ -13,6 +13,7 @@ struct LogMomentView: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject private var keyboard = KeyboardResponder()
+    @StateObject private var locationManager = LocationManager()
     
     // Moment Components
     @State private var selectedUrge: Urge? = nil
@@ -141,6 +142,24 @@ struct LogMomentView: View {
                         
                         Divider()
                         
+                        // MARK: - Location
+                        
+                        Group {
+                            if let place = locationManager.placemark {
+                                Text("📍 Location: \(place.locality ?? "Unknown")")
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
+                            } else if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+                                Text("📍 Retrieving location…")
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding(.top, 8)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Divider()
+                        
                         // MARK: - Button Group
                         HStack {
                             Spacer()
@@ -166,6 +185,9 @@ struct LogMomentView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
+                }
+                .task {
+                    locationManager.requestPermissionAndLocation()
                 }
                 .safeAreaInset(edge: .bottom) {
                     Spacer().frame(height: keyboard.keyboardHeight + 40)

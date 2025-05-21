@@ -19,12 +19,19 @@ class Moment {
     @Relationship(deleteRule: .nullify, inverse: \Tag.moments)
     var tags: [Tag]?
     
-    init(timestamp: Date = .now, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil, tags: [Tag]? = nil) {
+    var locationDescription: String?   // e.g. “Chicago” or “Home”
+    var latitude: Double?
+    var longitude: Double?
+    
+    init(timestamp: Date, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil, tags: [Tag]? = nil, locationDescription: String? = nil, latitude: Double? = nil, longitude: Double? = nil) {
         self.timestamp = timestamp
         self.urge = urge
         self.intensity = intensity
         self.gaveIn = gaveIn
         self.note = note
         self.tags = tags
+        self.locationDescription = locationDescription
+        self.latitude = latitude
+        self.longitude = longitude
     }
 }

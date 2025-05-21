@@ -19,6 +19,7 @@ protocol WeatherService {
 struct WeatherSnapshot: Codable {
     var temperature: Double?
     var conditionCode: Int?
+    
     var summary: String {
         WeatherSnapshot.codeDescription[conditionCode ?? -1] ?? "Unknown"
     }
@@ -43,4 +44,19 @@ struct WeatherSnapshot: Codable {
         81: "Moderate rain showers",
         82: "Violent rain showers"
     ]
+    
+    var sfSymbol: String {
+        switch conditionCode {
+        case 0: return "sun.max.fill"         // Clear
+        case 1: return "sun.min.fill"         // Mainly clear
+        case 2: return "cloud.sun.fill"       // Partly cloudy
+        case 3: return "cloud.fill"           // Overcast
+        case 45, 48: return "cloud.fog.fill"  // Fog
+        case 51, 53, 55: return "cloud.drizzle.fill"
+        case 61, 63, 65: return "cloud.rain.fill"
+        case 71, 73, 75: return "snow"
+        case 80, 81, 82: return "cloud.heavyrain.fill"
+        default: return "cloud"               // Fallback
+        }
+    }
 }

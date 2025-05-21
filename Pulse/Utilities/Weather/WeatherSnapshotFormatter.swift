@@ -9,11 +9,12 @@ import Foundation
 
 
 struct WeatherSnapshotFormatter {
-    static func formatted(_ snapshot: WeatherSnapshot) -> String {
-        if let temp = snapshot.temperature {
-            return "\(snapshot.summary), \(Int(temp))°"
+    static func formatted(code: Int?, temp: Double?) -> String {
+        let summary = WeatherSnapshot.codeDescription[code ?? -1] ?? "Unknown"
+        if let temp = temp {
+            return "\(Int(temp))°, \(summary)"
         } else {
-            return snapshot.summary
+            return summary
         }
     }
 }

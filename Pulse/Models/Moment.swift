@@ -23,7 +23,10 @@ class Moment {
     var latitude: Double?
     var longitude: Double?
     
-    init(timestamp: Date, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil, tags: [Tag]? = nil, locationDescription: String? = nil, latitude: Double? = nil, longitude: Double? = nil) {
+    var temperature: Double?
+    var weatherCode: Int?
+    
+    init(timestamp: Date, urge: Urge, intensity: Int, gaveIn: Bool, note: String? = nil, tags: [Tag]? = nil, locationDescription: String? = nil, latitude: Double? = nil, longitude: Double? = nil, temperature: Double? = nil, weatherCode: Int? = nil) {
         self.timestamp = timestamp
         self.urge = urge
         self.intensity = intensity
@@ -33,5 +36,13 @@ class Moment {
         self.locationDescription = locationDescription
         self.latitude = latitude
         self.longitude = longitude
+        self.temperature = temperature
+        self.weatherCode = weatherCode
+    }
+}
+
+extension Moment {
+    var weatherIcon: String {
+        WeatherSnapshot(temperature: temperature, conditionCode: weatherCode).sfSymbol
     }
 }

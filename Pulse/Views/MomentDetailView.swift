@@ -124,17 +124,38 @@ struct MomentDetailView: View {
                             // Timestamp
                             Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
                             
-                            HStack (spacing: 24) {
-                                HStack {
-                                    Image(systemName: "cloud.drizzle.fill")
-                                        .font(.body)
-                                        .foregroundStyle(.gray)
-                                    Text("65°F")
+                            HStack (alignment: .top, spacing: 32) {
+                                // MARK: - Weather
+                                if moment.temperature != nil || moment.weatherCode != nil {
+                                    HStack(alignment: .top, spacing: 8) {
+                                        Image(systemName: WeatherSnapshot(temperature: moment.temperature, conditionCode: moment.weatherCode).sfSymbol)
+                                            .font(.body)
+                                            .foregroundStyle(.secondary)
+
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text(WeatherSnapshotFormatter.formatted(code: moment.weatherCode, temp: moment.temperature))
+
+                                            
+                                        }
+                                    }
+                                } else {
+                                    HStack(alignment: .top, spacing: 8) {
+                                        Image(systemName: "cloud.sun.fill")
+                                            .font(.body)
+                                            .foregroundStyle(.secondary)
+
+                                        Text("No weather data was captured.")
+                                            .font(.body)
+                                            .foregroundStyle(.secondary)
+                                            .italic()
+                                    }
                                 }
+                                
+                                // MARK: - Location
                                 HStack(alignment: .top, spacing: 8) {
-                                    Image(systemName: "mappin.and.ellipse")
+                                    Image(systemName: "mappin.circle.fill")
                                         .font(.body)
-                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(.green)
                                     
                                     if let location = moment.locationDescription {
                                         Text(location)

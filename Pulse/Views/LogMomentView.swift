@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import CoreLocation
 
 struct LogMomentView: View {
     @Environment(\.modelContext) private var context
@@ -14,6 +15,7 @@ struct LogMomentView: View {
     
     @StateObject private var keyboard = KeyboardResponder()
     @StateObject private var locationManager = LocationManager()
+    private let weatherService: WeatherService = OpenMeteoWeatherService()
     
     // Moment Components
     @State private var selectedUrge: Urge? = nil
@@ -34,36 +36,51 @@ struct LogMomentView: View {
             showingAlert = true
             return
         }
-        
+
         let locationName = locationManager.placemark?.locality
         let latitude = locationManager.location?.coordinate.latitude
         let longitude = locationManager.location?.coordinate.longitude
-        
-        let newMoment = Moment(
-            timestamp: Date(),
-            urge: urge,
-            intensity: intensity,
-            gaveIn: gaveIn,
-            note: noteText.isEmpty ? nil : noteText,
-            tags: selectedTags,
-            locationDescription: locationName,
-            latitude: latitude,
-            longitude: longitude
-        )
-        
-        for tag in selectedTags {
-            tag.usageCount += 1
-        }
-        
-        context.insert(newMoment)
-        try? context.save()
-        
-        moment = newMoment
-        showConfirmation = true
-        
-        // Async reset after delay
+
         Task {
+            var weather: WeatherSnapshot? = nil
+
+            if let lat = latitude, let lon = longitude {
+                do {
+                    weather = try await weatherService.fetchWeather(
+                        for: CLLocationCoordinate2D(latitude: lat, longitude: lon),
+                        at: Date()
+                    )
+                } catch {
+                    print("⚠️ Weather fetch failed: \(error.localizedDescription)")
+                }
+            }
+
+            let newMoment = Moment(
+                timestamp: Date(),
+                urge: urge,
+                intensity: intensity,
+                gaveIn: gaveIn,
+                note: noteText.isEmpty ? nil : noteText,
+                tags: selectedTags,
+                locationDescription: locationName,
+                latitude: latitude,
+                longitude: longitude,
+                temperature: weather?.temperature,
+                weatherCode: weather?.conditionCode
+            )
+
+            for tag in selectedTags {
+                tag.usageCount += 1
+            }
+
+            context.insert(newMoment)
+            try? context.save()
+
+            moment = newMoment
+            showConfirmation = true
+
             try? await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
+
             showConfirmation = false
             resetForm()
             onSuccess()

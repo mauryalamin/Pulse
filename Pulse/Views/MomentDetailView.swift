@@ -131,11 +131,22 @@ struct MomentDetailView: View {
                                         .foregroundStyle(.gray)
                                     Text("65°F")
                                 }
-                                HStack {
-                                    Image(systemName: "mappin.circle.fill")
+                                HStack(alignment: .top, spacing: 8) {
+                                    Image(systemName: "mappin.and.ellipse")
                                         .font(.body)
-                                        .foregroundStyle(.green)
-                                    Text("Near Vernon Hills")
+                                        .foregroundStyle(.secondary)
+                                    
+                                    if let location = moment.locationDescription {
+                                        Text(location)
+                                            .font(.body)
+                                            .foregroundStyle(.primary)
+                                            .multilineTextAlignment(.leading)
+                                    } else {
+                                        Text("No location was captured.")
+                                            .font(.body)
+                                            .foregroundStyle(.secondary)
+                                            .italic()
+                                    }
                                 }
                             }
                             

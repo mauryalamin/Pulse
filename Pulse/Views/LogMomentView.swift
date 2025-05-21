@@ -35,13 +35,20 @@ struct LogMomentView: View {
             return
         }
         
+        let locationName = locationManager.placemark?.locality
+        let latitude = locationManager.location?.coordinate.latitude
+        let longitude = locationManager.location?.coordinate.longitude
+        
         let newMoment = Moment(
             timestamp: Date(),
             urge: urge,
             intensity: intensity,
             gaveIn: gaveIn,
             note: noteText.isEmpty ? nil : noteText,
-            tags: selectedTags
+            tags: selectedTags,
+            locationDescription: locationName,
+            latitude: latitude,
+            longitude: longitude
         )
         
         for tag in selectedTags {

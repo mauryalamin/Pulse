@@ -211,6 +211,7 @@
 		AEF149472DCBFFE800690F5E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AEE4DEE42DDE35B200FE46D6 /* Weather */,
 				AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */,
 				AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */,
 				AEF149462DCBFFE800690F5E /* Color+Extension.swift */,
@@ -219,7 +220,6 @@
 				AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */,
 				AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */,
 				AE31EDAD2DDD52A2009F838C /* LocationManager.swift */,
-				AEE4DEE42DDE35B200FE46D6 /* Weather */,
 				AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */,
 			);
 			path = Utilities;
@@ -630,6 +630,7 @@
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Pulse uses Face ID or Touch ID to securely unlock your Moments.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Pulse uses your location to add helpful context to logged moments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -660,6 +661,7 @@
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "Pulse uses Face ID or Touch ID to securely unlock your Moments.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Pulse uses your location to add helpful context to logged moments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

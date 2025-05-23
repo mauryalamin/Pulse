@@ -10,6 +10,7 @@
 		AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */; };
 		AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */; };
 		AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */; };
+		AE1635162DE0C6360077D14B /* BiometricAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */; };
 		AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */; };
 		AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */; };
 		AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */; };
@@ -74,6 +75,7 @@
 		AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeMenuView.swift; sourceTree = "<group>"; };
 		AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButtonView.swift; sourceTree = "<group>"; };
 		AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGroupView.swift; sourceTree = "<group>"; };
+		AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthManager.swift; sourceTree = "<group>"; };
 		AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUrgeView.swift; sourceTree = "<group>"; };
 		AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStartupWrapper.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */,
 				AE31EDAD2DDD52A2009F838C /* LocationManager.swift */,
 				AEE4DEE42DDE35B200FE46D6 /* Weather */,
+				AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */,
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
+				AE1635162DE0C6360077D14B /* BiometricAuthManager.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,

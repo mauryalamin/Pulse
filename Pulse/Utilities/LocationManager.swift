@@ -48,7 +48,6 @@ final class LocationManager: NSObject, ObservableObject, CLLocationManagerDelega
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("✅ didUpdateLocations fired")
         guard let loc = locations.first else { return }
 
         Task { @MainActor in

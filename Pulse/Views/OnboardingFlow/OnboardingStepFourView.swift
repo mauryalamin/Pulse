@@ -47,22 +47,12 @@ struct OnboardingStepFourView: View {
                             HStack (alignment: .top){
                                 Text("•")
                                     .frame(width: 20)
-                                Text("Hides the Pulse app name and icon")
+                                Text("Stealth Mode helps Pulse blend in by letting you choose a more neutral app icon.")
                             }
                             HStack (alignment: .top){
                                 Text("•")
                                     .frame(width: 20)
-                                Text("Uses neutral labels on widgets and Quick Actions")
-                            }
-                            HStack (alignment: .top){
-                                Text("•")
-                                    .frame(width: 20)
-                                Text("Hides log entries behind Face ID")
-                            }
-                            HStack (alignment: .top){
-                                Text("•")
-                                    .frame(width: 20)
-                                Text("Turns off all notifications")
+                                Text("Inside, your Moments stay secure — protected by Face ID and never surfaced through notifications.")
                             }
                         }
                         .multilineTextAlignment(.leading)
@@ -78,43 +68,7 @@ struct OnboardingStepFourView: View {
                     
                     Divider()
                     
-                    // MARK: -  Custom Name and Icon
-                    VStack (alignment: .leading, spacing: 8) {
-                        Text("Stealth App Name")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                        HStack (spacing: 32) {
-                            VStack (alignment: .leading, spacing: 12) {
-                                HStack (alignment: .center) {
-                                    Image(systemName: "circle")
-                                        .font(.title3)
-                                        .fontWeight(.light)
-                                    Text("Focus Log")
-                                }
-                                HStack (alignment: .center) {
-                                    Image(systemName: "circle")
-                                        .font(.title3)
-                                        .fontWeight(.light)
-                                    Text("Moment Journal")
-                                }
-                            }
-                            VStack (alignment: .leading, spacing: 12) {
-                                HStack (alignment: .center) {
-                                    Image(systemName: "circle")
-                                        .font(.title3)
-                                        .fontWeight(.light)
-                                    Text("Notes+")
-                                }
-                                HStack (alignment: .center) {
-                                    Image(systemName: "circle")
-                                        .font(.title3)
-                                        .fontWeight(.light)
-                                    Text("Archive")
-                                }
-                            }
-                        }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    // MARK: -  Custom Icon
                     
                     VStack (alignment: .leading, spacing: 8) {
                         Text("Stealth App Icon")
@@ -222,5 +176,5 @@ struct OnboardingStepFourView: View {
 }
 
 #Preview {
-    OnboardingStepFourView(headline: "Stealth Mode helps Pulse blend in", subtitle: "Pick a name and icon to help Pulse appear neutral on your phone. You can always change this later.", image: "Onboarding-4")
+    OnboardingStepFourView(headline: "Make Pulse less visible", subtitle: "Choose an icon that feels more private to you.", image: "Onboarding-4")
 }

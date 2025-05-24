@@ -188,6 +188,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		AEE2BD812DE292D6007A0497 /* OnboardingFlow */ = {
+			isa = PBXGroup;
+			children = (
+				AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */,
+				AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */,
+				AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */,
+				AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */,
+				AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */,
+			);
+			path = OnboardingFlow;
+			sourceTree = "<group>";
+		};
 		AEE4DEE42DDE35B200FE46D6 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,11 +245,7 @@
 				AEF149532DCC04D000690F5E /* LogMomentView.swift */,
 				AE8804102DD2A97D0076B724 /* MomentDetailView.swift */,
 				AEF149552DCC245800690F5E /* UpdateMomentView.swift */,
-				AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */,
-				AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */,
-				AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */,
-				AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */,
-				AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */,
+				AEE2BD812DE292D6007A0497 /* OnboardingFlow */,
 			);
 			path = Views;
 			sourceTree = "<group>";

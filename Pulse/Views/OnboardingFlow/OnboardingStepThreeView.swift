@@ -77,7 +77,7 @@ struct OnboardingStepThreeView: View {
                                     
                                 }
                                 
-                                NavigationLink(destination: OnboardingStepFourView(headline: "Stealth Mode helps Pulse blend in", subtitle: "Pick a name and icon to help Pulse appear neutral on your phone. You can always change this later.", image: "Onboarding-4")) {
+                                NavigationLink(destination: OnboardingStepFourView(headline: "Make Pulse less visible", subtitle: "Choose an icon that feels more private to you.", image: "Onboarding-4")) {
                                     Text("Enable Stealth Mode")
                                 }
                             }

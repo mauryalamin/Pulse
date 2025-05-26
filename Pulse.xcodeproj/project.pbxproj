@@ -26,6 +26,7 @@
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
+		AEBFBE3E2DE2C15000E45A43 /* StealthIconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEBFBE3D2DE2C15000E45A43 /* StealthIconPickerView.swift */; };
 		AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */; };
 		AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */; };
 		AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */; };
@@ -94,6 +95,8 @@
 		AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		AE88040E2DD28ACA0076B724 /* NoteInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInputView.swift; sourceTree = "<group>"; };
 		AE8804102DD2A97D0076B724 /* MomentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentDetailView.swift; sourceTree = "<group>"; };
+		AEBFBE3D2DE2C15000E45A43 /* StealthIconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StealthIconPickerView.swift; sourceTree = "<group>"; };
+		AEBFBE3F2DE2C76300E45A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepOneView.swift; sourceTree = "<group>"; };
 		AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepTwoView.swift; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 		AEF1494C2DCBFFE800690F5E /* Pulse */ = {
 			isa = PBXGroup;
 			children = (
+				AEBFBE3F2DE2C76300E45A43 /* Info.plist */,
 				AEF1494B2DCBFFE800690F5E /* PulseApp.swift */,
 				AEF149492DCBFFE800690F5E /* Views */,
 				AEF149592DCCE7B200690F5E /* SubViews */,
@@ -284,6 +288,7 @@
 				AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */,
 				AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */,
 				AE31EDA72DDD27DD009F838C /* CapsuleButton.swift */,
+				AEBFBE3D2DE2C15000E45A43 /* StealthIconPickerView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 				AEE4DEE32DDE35AB00FE46D6 /* WeatherSnapshot.swift in Sources */,
 				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,
+				AEBFBE3E2DE2C15000E45A43 /* StealthIconPickerView.swift in Sources */,
 				AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */,
 				AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */,
 				AE2CA1D62DD662C8000DF21E /* TagPickerView.swift in Sources */,
@@ -631,6 +637,7 @@
 		AE7BFE0C2DCBEE4A00A5836B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Stealth1 AppIcon-Stealth2 AppIcon-Stealth3 AppIcon-Stealth4 AppIcon-Stealth5 AppIcon-Stealth6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -638,6 +645,7 @@
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pulse/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Pulse uses Face ID or Touch ID to securely unlock your Moments.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Pulse uses your location to add helpful context to logged moments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -662,6 +670,7 @@
 		AE7BFE0D2DCBEE4A00A5836B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Stealth1 AppIcon-Stealth2 AppIcon-Stealth3 AppIcon-Stealth4 AppIcon-Stealth5 AppIcon-Stealth6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -669,6 +678,7 @@
 				DEVELOPMENT_TEAM = 7Y457JX2Z3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pulse/Info.plist;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "Pulse uses Face ID or Touch ID to securely unlock your Moments.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Pulse uses your location to add helpful context to logged moments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- REQUIRED for App Store -->
+    <key>CFBundleName</key>
+    <string>Pulse</string>
+
+    <key>NSFaceIDUsageDescription</key>
+    <string>Pulse uses Face ID or Touch ID to securely unlock your Moments.</string>
+</dict>
+</plist>

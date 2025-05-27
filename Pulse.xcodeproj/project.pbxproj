@@ -637,7 +637,7 @@
 		AE7BFE0C2DCBEE4A00A5836B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-StealthAlt1 AppIcon-Stealth2 AppIcon-Stealth3 AppIcon-Stealth4 AppIcon-Stealth5 AppIcon-Stealth6";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Stealth1 AppIcon-Stealth2 AppIcon-Stealth3 AppIcon-Stealth4 AppIcon-Stealth5 AppIcon-Stealth6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -670,7 +670,7 @@
 		AE7BFE0D2DCBEE4A00A5836B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-StealthAlt1 AppIcon-Stealth2 AppIcon-Stealth3 AppIcon-Stealth4 AppIcon-Stealth5 AppIcon-Stealth6";
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIcon-Stealth1 AppIcon-Stealth2 AppIcon-Stealth3 AppIcon-Stealth4 AppIcon-Stealth5 AppIcon-Stealth6";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

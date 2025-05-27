@@ -13,7 +13,7 @@ struct StealthIconPickerView: View {
     @State private var selectedIcon: String?
 
     private let availableIcons = [
-        "AppIcon-Stealth1",
+        "AppIcon-StealthAlt1",
         "AppIcon-Stealth2",
         "AppIcon-Stealth3",
         "AppIcon-Stealth4",
@@ -27,7 +27,7 @@ struct StealthIconPickerView: View {
             return
         }
 
-        UIApplication.shared.setAlternateIconName(iconName == "AppIcon-Stealth1" ? nil : iconName) { error in
+        UIApplication.shared.setAlternateIconName(iconName == "AppIcon" ? nil : iconName) { error in
             if let error = error {
                 print("❌ Failed to set icon: \(error.localizedDescription)")
             } else {
@@ -47,20 +47,32 @@ struct StealthIconPickerView: View {
 
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))], spacing: 12) {
                 ForEach(availableIcons, id: \.self) { iconName in
-                    let previewIndex = iconName.replacingOccurrences(of: "AppIcon-Stealth", with: "")
+                    let previewIndex = iconName
+                        .replacingOccurrences(of: "AppIcon-StealthAlt", with: "")
+                        .replacingOccurrences(of: "AppIcon-Stealth", with: "")
                     let previewName = "StealthIconPreview\(previewIndex)"
 
                     Button {
                         setAppIcon(to: iconName)
                     } label: {
-                        Image(previewName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 60, height: 60)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(selectedIcon == iconName ? Color.blue : Color.clear, lineWidth: 2)
-                            )
+                        if let uiImage = UIImage(named: previewName) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 60, height: 60)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(selectedIcon == iconName ? Color.blue : Color.clear, lineWidth: 2)
+                                )
+                        } else {
+                            Color.gray
+                                .frame(width: 60, height: 60)
+                                .overlay(
+                                    Text("?")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                )
+                        }
                     }
                     .buttonStyle(.plain)
                 }
@@ -70,9 +82,9 @@ struct StealthIconPickerView: View {
             selectedIcon = persistedIcon
         }
     }
-
-    
 }
+
+
 #Preview {
     StealthIconPickerView()
 }

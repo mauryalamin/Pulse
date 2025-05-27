@@ -75,56 +75,14 @@ struct OnboardingStepFourView: View {
                     
                     // MARK: -  Custom Icon
                     
-                    VStack(spacing: 16) {
-                        StealthIconPickerView()
+                    HStack {
+                        Spacer()
+                        VStack(spacing: 16) {
+                            StealthIconPickerView()
+                                .frame(width: 300)
+                        }
+                        Spacer()
                     }
-                    //                    VStack (alignment: .leading, spacing: 8) {
-                    //                        Text("Stealth App Icon")
-                    //                            .font(.subheadline)
-                    //                            .fontWeight(.semibold)
-                    //                        HStack  {
-                    //                            VStack (alignment: .center, spacing: 8) {
-                    //                                Image(.iconA)
-                    //                                    .resizable()
-                    //                                    .scaledToFit()
-                    //                                    .frame(width: 68, height: 68)
-                    //                                Image(systemName: "circle")
-                    //                                    .font(.title3)
-                    //                                    .fontWeight(.light)
-                    //                            }
-                    //                            Spacer()
-                    //                            VStack (alignment: .center, spacing: 8) {
-                    //                                Image(.iconB)
-                    //                                    .resizable()
-                    //                                    .scaledToFit()
-                    //                                    .frame(width: 68, height: 68)
-                    //                                Image(systemName: "circle")
-                    //                                    .font(.title3)
-                    //                                    .fontWeight(.light)
-                    //                            }
-                    //                            Spacer()
-                    //                            VStack (alignment: .center, spacing: 8) {
-                    //                                Image(.iconC)
-                    //                                    .resizable()
-                    //                                    .scaledToFit()
-                    //                                    .frame(width: 68, height: 68)
-                    //                                Image(systemName: "circle")
-                    //                                    .font(.title3)
-                    //                                    .fontWeight(.light)
-                    //                            }
-                    //                            Spacer()
-                    //                            VStack (alignment: .center, spacing: 8) {
-                    //                                Image(.iconD)
-                    //                                    .resizable()
-                    //                                    .scaledToFit()
-                    //                                    .frame(width: 68, height: 68)
-                    //                                Image(systemName: "circle")
-                    //                                    .font(.title3)
-                    //                                    .fontWeight(.light)
-                    //                            }
-                    //                        }
-                    //                    }
-                    //                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Divider()
                     

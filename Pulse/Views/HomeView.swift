@@ -27,7 +27,7 @@ struct HomeView: View {
     @Environment(\.modelContext) var context
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
-
+    
     @State private var selectedUrgeFilter: Urge?
     @State private var selectedTagFilter: Tag?
     @State private var selectedIntensityFilter: Int?
@@ -40,7 +40,7 @@ struct HomeView: View {
     private var isTrulyEmpty: Bool {
         allMoments.isEmpty
     }
-
+    
     var filteredMoments: [Moment] {
         allMoments.filter { moment in
             (selectedUrgeFilter == nil || moment.urge.id == selectedUrgeFilter?.id) &&
@@ -128,9 +128,16 @@ struct HomeView: View {
                 .presentationDetents([.medium, .large])
             }
             .toolbar {
-                ToolbarItem {
+                ToolbarItem (placement: .navigationBarLeading)  {
                     Button {
-                        
+                        showFilterSheet = true
+                    } label: {
+                        Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                    }
+                }
+                ToolbarItem (placement: .navigationBarTrailing)  {
+                    NavigationLink {
+                        SettingsView()
                     } label: {
                         Label("Settings", systemImage: "gearshape")
                     }
@@ -146,7 +153,7 @@ struct HomeView: View {
                             Text("No moments match your filters.")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
-
+                            
                             Button("Clear Filters") {
                                 selectedUrgeFilter = nil
                                 selectedTagFilter = nil

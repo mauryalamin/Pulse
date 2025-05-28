@@ -71,50 +71,26 @@ struct OnboardingStepFourView: View {
                             .foregroundStyle(.pulseBlue)
                     }
                     
-                    Divider()
-                    
-                    // MARK: -  Custom Icon
-                    
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 16) {
-                            StealthIconPickerView()
-                                .frame(width: 300)
-                        }
-                        Spacer()
-                    }
-                    
-                    Divider()
-                    
-                    // MARK: - Preview
-                    VStack (alignment: .center, spacing: 10) {
-                        Text("How It Will Look")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                        Image(.preview)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 292, height: 101)
-                    }
-                    
-                    // MARK: - Save Configuration
+                    // MARK: -  Custom Icon & Preview
                     VStack (alignment: .center, spacing: 8) {
-                        Button("Save Changes") {
-                            
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .padding(.bottom)
+                        Divider()
                         
-                        Button("Cancel") {
-                            
+                        HStack {
+                            Spacer()
+                            VStack(spacing: 16) {
+                                StealthIconPickerView()
+                                    .frame(width: 300)
+                            }
+                            Spacer()
                         }
-                        .padding(.bottom)
-                        
-                        Text("You can change these settings anytime in the app")
+                       Text("You can change these settings anytime in the app")
                             .font(.caption)
                             .fontWeight(.semibold)
                             .padding(.bottom)
+                        
+                        Divider()
                     }
+                    
                     
                     // MARK: - Next Button
                     Button {

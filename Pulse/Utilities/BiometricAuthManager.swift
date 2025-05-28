@@ -12,30 +12,60 @@ import LocalAuthentication
 final class BiometricAuthManager: ObservableObject {
     @Published var isUnlocked: Bool = false
     @Published var authError: String?
+    @Published var isAuthenticating = false
 
     func authenticate() async {
+        guard !isUnlocked && !isAuthenticating else {
+            print("🚫 Already unlocked or in progress")
+            return
+        }
+        print("🔐 Starting Face ID Auth")
+        isAuthenticating = true
+        defer { isAuthenticating = false }
+
         let context = LAContext()
         var error: NSError?
 
-        guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
-            authError = "Biometric authentication not available."
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Unlock Pulse"
+            do {
+                let success = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
+                if success {
+                    print("✅ Face ID Success")
+                    isUnlocked = true
+                }
+            } catch {
+                print("❌ Face ID failed: \(error.localizedDescription)")
+                isUnlocked = false
+            }
+        } else {
+            print("❌ Face ID not available")
+            isUnlocked = false
+        }
+    }
+
+    func handleDidEnterBackground() {
+        backgroundEnteredAt = Date()
+        isUnlocked = false // 🔐 Lock immediately when app backgrounds
+        print("🌙 Entered background at \(backgroundEnteredAt!) — UI locked")
+    }
+
+    func handleWillEnterForeground() {
+        guard let enteredAt = backgroundEnteredAt else { return }
+
+        let elapsed = Date().timeIntervalSince(enteredAt)
+        guard elapsed > 20 else {
+            print("⏱ Less than 20s in background, skipping auth")
             return
         }
 
-        let reason = "Unlock Pulse"
-
-        do {
-            let success = try await context.evaluatePolicy(
-                .deviceOwnerAuthenticationWithBiometrics,
-                localizedReason: reason
-            )
-            if success {
-                isUnlocked = true
-            } else {
-                authError = "Authentication failed."
-            }
-        } catch {
-            authError = error.localizedDescription
+        print("🔒 Background exceeded 20s, requiring Face ID")
+        print("🔐 isUnlocked: \(isUnlocked), isAuthenticating: \(isAuthenticating)")
+        if !isUnlocked && !isAuthenticating {
+            isUnlocked = false
+            Task { await authenticate() }
         }
     }
+    
+    private var backgroundEnteredAt: Date?
 }

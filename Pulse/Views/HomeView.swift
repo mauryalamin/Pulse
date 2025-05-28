@@ -25,6 +25,7 @@ struct HomeView: View {
     }
     
     @Environment(\.modelContext) var context
+    @EnvironmentObject var biometricManager: BiometricAuthManager
     @State private var isShowingLogMomentSheet = false
     @State private var momentToEdit: Moment?
     
@@ -166,6 +167,16 @@ struct HomeView: View {
                         }
                         .padding(.top, 64)
                     }
+                }
+            }
+            .overlay {
+                if !biometricManager.isUnlocked {
+                    VisualEffectBlur(blurStyle: .systemUltraThinMaterial) {
+                        EmptyView()
+                    }
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration: 0.2), value: biometricManager.isUnlocked)
                 }
             }
         }

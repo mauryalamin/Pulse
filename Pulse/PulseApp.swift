@@ -15,6 +15,7 @@ struct PulseApp: App {
     @AppStorage("isStealthModeEnabled") var isStealthModeEnabled: Bool = false
     @AppStorage("selectedStealthIcon") var selectedStealthIcon: String?
     
+    @Environment(\.scenePhase) var scenePhase
     @StateObject private var biometricManager = BiometricAuthManager()
     
     var body: some Scene {
@@ -25,6 +26,7 @@ struct PulseApp: App {
                 ZStack {
                     ContentStartupWrapper()
                         .modelContainer(for: [Moment.self, Urge.self])
+                        .environmentObject(biometricManager)
                         .blur(radius: biometricManager.isUnlocked ? 0 : 30)
                         .animation(.easeInOut(duration: 0.4), value: biometricManager.isUnlocked)
                     
@@ -49,7 +51,19 @@ struct PulseApp: App {
                     }
                 }
                 .task {
-                    await biometricManager.authenticate()
+                    if !biometricManager.isUnlocked {
+                        await biometricManager.authenticate()
+                    }
+                }
+                .onChange(of: scenePhase) {
+                    switch scenePhase {
+                    case .background:
+                        biometricManager.handleDidEnterBackground()
+                    case .active:
+                        biometricManager.handleWillEnterForeground()
+                    default:
+                        break
+                    }
                 }
             }
         }

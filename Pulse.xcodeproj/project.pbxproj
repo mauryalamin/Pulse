@@ -11,6 +11,7 @@
 		AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */; };
 		AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */; };
 		AE1635162DE0C6360077D14B /* BiometricAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */; };
+		AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */; };
 		AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */; };
 		AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */; };
 		AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */; };
@@ -78,6 +79,7 @@
 		AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButtonView.swift; sourceTree = "<group>"; };
 		AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGroupView.swift; sourceTree = "<group>"; };
 		AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthManager.swift; sourceTree = "<group>"; };
+		AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUrgeView.swift; sourceTree = "<group>"; };
 		AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStartupWrapper.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */,
+				AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */,
 			);
 			path = HelperViews;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,
 				AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */,
+				AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */,
 				AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
 				AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */,

@@ -197,6 +197,7 @@ private extension HomeView {
 #Preview("Empty State") {
     HomeView()
         .modelContainer(for: [Moment.self, Urge.self], inMemory: true)
+        .environmentObject(BiometricAuthManager())
 }
 
 #Preview("With Moments") {
@@ -218,5 +219,7 @@ private extension HomeView {
     container.mainContext.insert(moment)
     
     return HomeView()
+        .environmentObject(BiometricAuthManager())
         .modelContainer(container)
+    
 }

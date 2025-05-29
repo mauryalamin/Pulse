@@ -11,6 +11,7 @@ import SwiftData
 struct ContentStartupWrapper: View {
     
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var biometricManager: BiometricAuthManager
     @Query private var urges: [Urge]
     @Query private var tags: [Tag]
     
@@ -33,9 +34,14 @@ struct ContentStartupWrapper: View {
                     try? modelContext.save()
                 }
             }
+        // MARK: - FOR TESTING PURPOSES ONLY (Remove before release)
+            .task {
+                await NotificationManager.shared.requestAuthorizationIfNeeded()
+            }
     }
 }
 
 #Preview {
     ContentStartupWrapper()
+        .environmentObject(BiometricAuthManager())
 }

@@ -33,6 +33,7 @@
 		AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */; };
 		AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */; };
 		AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */; };
+		AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */; };
 		AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */; };
 		AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF6A742DD563D200589F11 /* RadioButtonView.swift */; };
 		AEE4DEE32DDE35AB00FE46D6 /* WeatherSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEE4DEE22DDE35AB00FE46D6 /* WeatherSnapshot.swift */; };
@@ -105,6 +106,7 @@
 		AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepTwoView.swift; sourceTree = "<group>"; };
 		AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepThreeView.swift; sourceTree = "<group>"; };
+		AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepFourView.swift; sourceTree = "<group>"; };
 		AEDF6A742DD563D200589F11 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		AEE4DEE22DDE35AB00FE46D6 /* WeatherSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSnapshot.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */,
 				AE31EDAD2DDD52A2009F838C /* LocationManager.swift */,
 				AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */,
+				AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* BiometricAuthManager.swift in Sources */,
+				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,

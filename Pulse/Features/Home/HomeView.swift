@@ -112,8 +112,9 @@ struct HomeView: View {
                 } label: {
                     LogMomentButton(size: 72, fontSize: 28)
                 }
+                //.glassEffect()
                 .buttonStyle(PlainButtonStyle())
-                .shadow(radius: 12)
+                //.shadow(radius: 12)
                 
             }
             .navigationTitle("Moments")

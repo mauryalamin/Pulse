@@ -13,6 +13,12 @@ final class BiometricAuthManager: ObservableObject {
     @Published var isUnlocked: Bool = false
     @Published var authError: String?
     @Published var isAuthenticating = false
+    
+    init() {
+        if ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1" {
+            isUnlocked = true // Unlock for Previews!
+        }
+    }
 
     func authenticate() async {
         guard !isUnlocked && !isAuthenticating else {

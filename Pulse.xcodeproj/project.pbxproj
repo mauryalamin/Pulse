@@ -101,7 +101,7 @@
 		AE88040E2DD28ACA0076B724 /* NoteInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInputView.swift; sourceTree = "<group>"; };
 		AE8804102DD2A97D0076B724 /* MomentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentDetailView.swift; sourceTree = "<group>"; };
 		AEBFBE3D2DE2C15000E45A43 /* StealthIconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StealthIconPickerView.swift; sourceTree = "<group>"; };
-		AEBFBE3F2DE2C76300E45A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AEBFBE3F2DE2C76300E45A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepOneView.swift; sourceTree = "<group>"; };
 		AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepTwoView.swift; sourceTree = "<group>"; };
@@ -169,15 +169,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AE2CA1DB2DD692ED000DF21E /* HelperViews */ = {
-			isa = PBXGroup;
-			children = (
-				AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */,
-				AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */,
-			);
-			path = HelperViews;
-			sourceTree = "<group>";
-		};
 		AE7BFDE12DCBEE4900A5836B = {
 			isa = PBXGroup;
 			children = (
@@ -198,7 +189,73 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		AEE2BD812DE292D6007A0497 /* OnboardingFlow */ = {
+		AE7DA04D2EA2E977007690C4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AEF1494B2DCBFFE800690F5E /* PulseApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AE7DA04E2EA2E999007690C4 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149452DCBFFE800690F5E /* Models */,
+				AE7DA04F2EA2E9B7007690C4 /* Seed */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		AE7DA04F2EA2E9B7007690C4 /* Seed */ = {
+			isa = PBXGroup;
+			children = (
+				AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */,
+				AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */,
+			);
+			path = Seed;
+			sourceTree = "<group>";
+		};
+		AE7DA0502EA2EA06007690C4 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				AE7DA0512EA2EA19007690C4 /* Home */,
+				AE7DA0522EA2EA27007690C4 /* LogMoment */,
+				AE7DA0532EA2EA3E007690C4 /* Moments */,
+				AE7DA0542EA2EA70007690C4 /* Onboarding */,
+				AE7DA0552EA2EA89007690C4 /* Settings */,
+				AEF149592DCCE7B200690F5E /* SubViews */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		AE7DA0512EA2EA19007690C4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149482DCBFFE800690F5E /* HomeView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		AE7DA0522EA2EA27007690C4 /* LogMoment */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149532DCC04D000690F5E /* LogMomentView.swift */,
+				AE7DA0562EA2EABF007690C4 /* Components */,
+			);
+			path = LogMoment;
+			sourceTree = "<group>";
+		};
+		AE7DA0532EA2EA3E007690C4 /* Moments */ = {
+			isa = PBXGroup;
+			children = (
+				AE8804102DD2A97D0076B724 /* MomentDetailView.swift */,
+				AEF149552DCC245800690F5E /* UpdateMomentView.swift */,
+				AE7DA0572EA2EB30007690C4 /* Components */,
+			);
+			path = Moments;
+			sourceTree = "<group>";
+		};
+		AE7DA0542EA2EA70007690C4 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
 				AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */,
@@ -206,8 +263,103 @@
 				AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */,
 				AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */,
 				AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */,
+				AE7DA0582EA2EB82007690C4 /* Components */,
 			);
-			path = OnboardingFlow;
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		AE7DA0552EA2EA89007690C4 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AE5CE7D72DE66A4600EC0EB0 /* SettingsView.swift */,
+				AE7DA0592EA2EBD9007690C4 /* Components */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		AE7DA0562EA2EABF007690C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149662DCD54D400690F5E /* LogMomentButton.swift */,
+				AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */,
+				AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */,
+				AEDF6A742DD563D200589F11 /* RadioButtonView.swift */,
+				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
+				AE88040E2DD28ACA0076B724 /* NoteInputView.swift */,
+				AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */,
+				AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AE7DA0572EA2EB30007690C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149572DCCE79E00690F5E /* FactoidView.swift */,
+				AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */,
+				AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */,
+				AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */,
+				AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AE7DA0582EA2EB82007690C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AEF149622DCD50FA00690F5E /* EmptyStateView.swift */,
+				AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AE7DA0592EA2EBD9007690C4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AEBFBE3D2DE2C15000E45A43 /* StealthIconPickerView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AE7DA05A2EA2EC2B007690C4 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AE7DA05D2EA2ECAB007690C4 /* Privacy */,
+				AE7DA05C2EA2ECA0007690C4 /* Services */,
+				AE7DA05B2EA2EC8F007690C4 /* DesignSystem */,
+				AEF149472DCBFFE800690F5E /* Utilities */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AE7DA05B2EA2EC8F007690C4 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */,
+				AEF149462DCBFFE800690F5E /* Color+Extension.swift */,
+				AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */,
+				AE2CA1D92DD692DA000DF21E /* FlowLayout.swift */,
+				AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		AE7DA05C2EA2ECA0007690C4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AE31EDAD2DDD52A2009F838C /* LocationManager.swift */,
+				AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */,
+				AEE4DEE42DDE35B200FE46D6 /* Weather */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AE7DA05D2EA2ECAB007690C4 /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */,
+			);
+			path = Privacy;
 			sourceTree = "<group>";
 		};
 		AEE4DEE42DDE35B200FE46D6 /* Weather */ = {
@@ -233,17 +385,8 @@
 		AEF149472DCBFFE800690F5E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				AEE4DEE42DDE35B200FE46D6 /* Weather */,
-				AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */,
-				AEF1495E2DCCFA3C00690F5E /* UrgeDefaults.swift */,
-				AEF149462DCBFFE800690F5E /* Color+Extension.swift */,
-				AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */,
 				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
 				AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */,
-				AE2CA1D32DD65ABD000DF21E /* TagDefaults.swift */,
-				AE31EDAD2DDD52A2009F838C /* LocationManager.swift */,
-				AE1635152DE0C6360077D14B /* BiometricAuthManager.swift */,
-				AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -252,12 +395,6 @@
 			isa = PBXGroup;
 			children = (
 				AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */,
-				AEF149482DCBFFE800690F5E /* HomeView.swift */,
-				AEF149532DCC04D000690F5E /* LogMomentView.swift */,
-				AE8804102DD2A97D0076B724 /* MomentDetailView.swift */,
-				AEF149552DCC245800690F5E /* UpdateMomentView.swift */,
-				AEE2BD812DE292D6007A0497 /* OnboardingFlow */,
-				AE5CE7D72DE66A4600EC0EB0 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -265,13 +402,12 @@
 		AEF1494C2DCBFFE800690F5E /* Pulse */ = {
 			isa = PBXGroup;
 			children = (
-				AEBFBE3F2DE2C76300E45A43 /* Info.plist */,
-				AEF1494B2DCBFFE800690F5E /* PulseApp.swift */,
+				AE7DA04D2EA2E977007690C4 /* App */,
+				AE7DA04E2EA2E999007690C4 /* Domain */,
+				AE7DA0502EA2EA06007690C4 /* Features */,
+				AE7DA05A2EA2EC2B007690C4 /* Core */,
 				AEF149492DCBFFE800690F5E /* Views */,
-				AEF149592DCCE7B200690F5E /* SubViews */,
-				AE2CA1DB2DD692ED000DF21E /* HelperViews */,
-				AEF149452DCBFFE800690F5E /* Models */,
-				AEF149472DCBFFE800690F5E /* Utilities */,
+				AEBFBE3F2DE2C76300E45A43 /* Info.plist */,
 				AEF1494A2DCBFFE800690F5E /* Assets.xcassets */,
 			);
 			path = Pulse;
@@ -280,24 +416,8 @@
 		AEF149592DCCE7B200690F5E /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				AEF149572DCCE79E00690F5E /* FactoidView.swift */,
-				AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */,
-				AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */,
-				AEF149622DCD50FA00690F5E /* EmptyStateView.swift */,
-				AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */,
-				AEF149662DCD54D400690F5E /* LogMomentButton.swift */,
-				AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */,
-				AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */,
-				AEDF6A742DD563D200589F11 /* RadioButtonView.swift */,
-				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
-				AE88040E2DD28ACA0076B724 /* NoteInputView.swift */,
-				AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */,
-				AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */,
 				AE2CA1D72DD664C0000DF21E /* TagView.swift */,
-				AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */,
-				AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */,
 				AE31EDA72DDD27DD009F838C /* CapsuleButton.swift */,
-				AEBFBE3D2DE2C15000E45A43 /* StealthIconPickerView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -378,7 +498,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					AE7BFDE92DCBEE4900A5836B = {
 						CreatedOnToolsVersion = 16.3;
@@ -584,6 +704,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -641,6 +762,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -654,7 +776,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pulse/Info.plist;
@@ -671,7 +793,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.Pulse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.Pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -687,7 +809,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pulse/Info.plist;
@@ -704,7 +826,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.Pulse;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.Pulse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -718,11 +840,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.PulseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.PulseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -737,11 +859,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.PulseTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.PulseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -755,11 +877,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.PulseUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.PulseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -773,11 +895,11 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7Y457JX2Z3;
+				DEVELOPMENT_TEAM = 72UH9J49WY;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.alamin.PulseUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchdigital.PulseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

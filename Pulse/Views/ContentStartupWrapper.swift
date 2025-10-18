@@ -7,34 +7,29 @@
 
 import SwiftUI
 import SwiftData
+import Observation
 
 struct ContentStartupWrapper: View {
-    
     @Environment(\.modelContext) private var modelContext
-    @EnvironmentObject var biometricManager: BiometricAuthManager
+    @Environment(AppLockManager.self) private var appLock   // ⬅️ Observation-style env injection
+
     @Query private var urges: [Urge]
     @Query private var tags: [Tag]
-    
+
     var body: some View {
         HomeView()
             .task {
                 if urges.isEmpty {
-                    for urge in UrgeDefaults.builtIn {
-                        modelContext.insert(urge)
-                    }
+                    UrgeDefaults.builtIn.forEach { modelContext.insert($0) }
                 }
-                
                 if tags.isEmpty {
-                    for tag in TagDefaults.builtIn {
-                        modelContext.insert(tag)
-                    }
+                    TagDefaults.builtIn.forEach { modelContext.insert($0) }
                 }
-                
                 if urges.isEmpty || tags.isEmpty {
                     try? modelContext.save()
                 }
             }
-        // MARK: - FOR TESTING PURPOSES ONLY (Remove before release)
+            // MARK: - FOR TESTING PURPOSES ONLY (Remove before release)
             .task {
                 await NotificationManager.shared.requestAuthorizationIfNeeded()
             }
@@ -43,5 +38,6 @@ struct ContentStartupWrapper: View {
 
 #Preview {
     ContentStartupWrapper()
-        .environmentObject(BiometricAuthManager())
+        .environment(AppLockManager.shared)              // ⬅️ Observation: inject the instance
+        .modelContainer(for: [Urge.self, Tag.self, Moment.self], inMemory: true)
 }

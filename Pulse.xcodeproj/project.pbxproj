@@ -34,6 +34,8 @@
 		AE622B3F2EA31D5000A0F0F6 /* WeatherProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B3E2EA31D5000A0F0F6 /* WeatherProviding.swift */; };
 		AE622B412EA31F7700A0F0F6 /* GeocodingAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B402EA31F7700A0F0F6 /* GeocodingAdapter.swift */; };
 		AE622B432EA320E100A0F0F6 /* MomentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B422EA320E100A0F0F6 /* MomentResponse.swift */; };
+		AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B442EA453B600A0F0F6 /* ResponseTypeTagView.swift */; };
+		AE622B492EA45C7100A0F0F6 /* IntensityBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -112,6 +114,8 @@
 		AE622B3E2EA31D5000A0F0F6 /* WeatherProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherProviding.swift; sourceTree = "<group>"; };
 		AE622B402EA31F7700A0F0F6 /* GeocodingAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingAdapter.swift; sourceTree = "<group>"; };
 		AE622B422EA320E100A0F0F6 /* MomentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentResponse.swift; sourceTree = "<group>"; };
+		AE622B442EA453B600A0F0F6 /* ResponseTypeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTypeTagView.swift; sourceTree = "<group>"; };
+		AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityBarView.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -346,6 +350,8 @@
 				AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */,
 				AE4311062DDBACCD00EF0DF1 /* MomentFilterSheetView.swift */,
 				AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */,
+				AE622B442EA453B600A0F0F6 /* ResponseTypeTagView.swift */,
+				AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -622,6 +628,7 @@
 				AE622B432EA320E100A0F0F6 /* MomentResponse.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
+				AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */,
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AE622B3D2EA31C8700A0F0F6 /* StealthIconManager.swift in Sources */,
@@ -646,6 +653,7 @@
 				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
 				AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */,
 				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,
+				AE622B492EA45C7100A0F0F6 /* IntensityBarView.swift in Sources */,
 				AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */,
 				AE622B312EA315C800A0F0F6 /* LogMomentViewModel.swift in Sources */,
 				AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */,

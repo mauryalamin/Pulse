@@ -13,38 +13,32 @@ struct MomentListRowView: View {
     
     var body: some View {
         HStack {
-            VStack (alignment: .leading) {
+            VStack (alignment: .leading, spacing: 6) {
                 // Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
                 Text(moment.timestamp.smartRelativeDescription())
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .fontWeight(.semibold)
                     .padding(.vertical, 4)
-                HStack {
-                    ZStack {
-                        Circle()
-                            .fill(Color(hex: moment.urge.colorHex) ?? .gray)
-                            .frame(width: 34, height: 34)
-                        Text("\(moment.intensity)")
-                            .foregroundStyle(.white)
-                            .font(.title2)
-                            .fontWeight(.bold)
-                    }
+                
                     Text(moment.urge.name)
-                        .font(.body)
-                }
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                    IntensityBarView(intensity: moment.intensity)
             }
             Spacer()
-            HStack {
-                Image(systemName: moment.gaveIn ? "exclamationmark.triangle.fill" : "checkmark.seal.fill")
-                    .font(.title2)
-                    .foregroundStyle(moment.gaveIn ? .gaveIn : .sageGreen)
+            VStack {
+                ResponseTypeTagView(iGaveIn: moment.gaveIn)
             }
         }
         
     }
 }
 
-#Preview {
+#Preview ("Stayed Present"){
     MomentListRowView(moment: Moment(timestamp: .now, urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: false))
+}
+
+#Preview ("Gave In"){
+    MomentListRowView(moment: Moment(timestamp: .now, urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 4, gaveIn: true))
 }

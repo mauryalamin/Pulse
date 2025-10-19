@@ -149,20 +149,9 @@ struct LogMomentView: View {
                             Spacer()
                             VStack(spacing: 24) {
                                 Button("Save Moment") {
-                                    Task {
-                                        if !vm.canSave {
-                                            showingAlert = true
-                                            return
-                                        }
-                                        await vm.save()
-                                        // bump tag usage (preserving your behavior)
-                                        vm.selectedTags.forEach { $0.usageCount += 1 }
-                                        showConfirmation = true
-                                        try? await Task.sleep(for: .milliseconds(1500))
-                                        showConfirmation = false
-                                        dismiss()
-                                    }
+                                    Task { await onSaveTapped() }
                                 }
+                                .disabled(saveDisabled())
                                 .alert(isPresented: $showingAlert) {
                                     Alert(
                                         title: Text("Missing Information"),
@@ -230,19 +219,9 @@ struct LogMomentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                        Task {
-                            if !vm.canSave {
-                                showingAlert = true
-                                return
-                            }
-                            await vm.save()
-                            vm.selectedTags.forEach { $0.usageCount += 1 }
-                            showConfirmation = true
-                            try? await Task.sleep(for: .milliseconds(1500))
-                            showConfirmation = false
-                            dismiss()
+                            Task { await onSaveTapped() }
                         }
-                    }
+                        .disabled(saveDisabled())
                 }
             }
             // VM error surfacing (if CreateMomentUseCase fails)
@@ -252,6 +231,40 @@ struct LogMomentView: View {
                 Text(vm.errorMessage ?? "")
             }
         }
+    }
+    
+    private func saveDisabled() -> Bool {
+        !vm.canSave || vm.isSaving
+    }
+
+    private func bumpTagUsage() {
+        // Keep your existing behavior, on main actor
+        vm.selectedTags.forEach { $0.usageCount += 1 }
+    }
+
+    private func showAndDismissConfirmation() async {
+        await MainActor.run { showConfirmation = true }
+        try? await Task.sleep(for: .milliseconds(1200))
+        await MainActor.run {
+            showConfirmation = false
+            dismiss()
+        }
+    }
+
+    private func onSaveTapped() async {
+        // Local guard for UX; VM.save() also guards via isSaving
+        guard vm.canSave else {
+            await MainActor.run { showingAlert = true }
+            return
+        }
+
+        await vm.save()
+
+        // If VM surfaced an error, bail (optional: show alert)
+        if let _ = vm.errorMessage { return }
+
+        await MainActor.run { bumpTagUsage() }
+        await showAndDismissConfirmation()
     }
 }
 

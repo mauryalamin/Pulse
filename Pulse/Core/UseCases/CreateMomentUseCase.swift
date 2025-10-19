@@ -71,10 +71,12 @@ struct CreateMomentUseCase {
         try await persist(newMoment, in: ctx)
     }
 
+    // CreateMomentUseCase.swift
     @MainActor
     private func persist(_ moment: Moment, in ctx: ModelContext) throws {
+        // Do not assert on persistentModelID – new instances carry a temporary ID by design.
         ctx.insert(moment)
         try ctx.save()
-        print("✅ Saved moment at \(moment.timestamp) (urge: \(moment.urge.name), intensity: \(moment.intensity))")
+        // print("✅ Saved moment at \(moment.timestamp) (urge: \(moment.urge.name), intensity: \(moment.intensity))")
     }
 }

@@ -85,15 +85,13 @@ struct TagPickerView: View {
         }
     }
 
+    @MainActor
     private func addNewTag() {
         let trimmed = newTagName.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
-
         if allTags.contains(where: { $0.name.lowercased() == trimmed.lowercased() }) {
-            newTagName = ""
-            return
+            newTagName = ""; return
         }
-
         let newTag = Tag(name: trimmed)
         modelContext.insert(newTag)
         try? modelContext.save()
@@ -102,6 +100,7 @@ struct TagPickerView: View {
         isInputFocused = false
     }
 
+    @MainActor
     private func deleteTag(_ tag: Tag) {
         modelContext.delete(tag)
         try? modelContext.save()

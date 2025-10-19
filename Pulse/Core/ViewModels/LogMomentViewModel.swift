@@ -20,6 +20,7 @@ final class LogMomentViewModel {
     var notes: String = ""
     var selectedTags: [Tag] = []
     var errorMessage: String?
+    var isSaving = false
 
     @ObservationIgnored private let modelContext: ModelContext
     @ObservationIgnored private let createMoment: CreateMomentUseCase
@@ -37,27 +38,22 @@ final class LogMomentViewModel {
     var canSave: Bool { selectedUrge != nil && intensity != nil }
 
     func save() async {
-        guard let urge = selectedUrge, let intensity = intensity else {
-            errorMessage = "A Moment needs both an Urge and an Intensity."
-            return
+            guard !isSaving else { return }
+            isSaving = true
+            defer { isSaving = false }
+
+            guard let urge = selectedUrge, let intensity = intensity else {
+                errorMessage = "A Moment needs both an Urge and an Intensity."
+                return
+            }
+
+            let dto = CreateMomentDTO(
+                urge: urge, intensity: intensity, response: response,
+                notes: notes.isEmpty ? nil : notes, tags: selectedTags,
+                location: await location.snapshot(), timestamp: .now
+            )
+
+            do { try await createMoment(dto, in: modelContext) }
+            catch { errorMessage = "Could not save moment: \(error.localizedDescription)" }
         }
-
-        let loc = await location.snapshot()
-
-        let dto = CreateMomentDTO(
-            urge: urge,
-            intensity: intensity,
-            response: response,
-            notes: notes.isEmpty ? nil : notes,
-            tags: selectedTags,
-            location: loc,
-            timestamp: .now
-        )
-
-        do {
-            try await createMoment(dto, in: modelContext)
-        } catch {
-            errorMessage = "Could not save moment: \(error.localizedDescription)"
-        }
-    }
 }

@@ -24,25 +24,25 @@ struct HomeView: View {
             .foregroundColor: UIColor(named: "PulseBlue") ?? UIColor.blue,
             .font: titleFont
         ]
-
+        
         let tempContainer = try! ModelContainer(
             for: Moment.self, Urge.self, Tag.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
         _vm = State(initialValue: MomentsListViewModel(context: ModelContext(tempContainer)))
     }
-
+    
     // MARK: - Env / State
     @Environment(\.modelContext) private var context
     @Environment(AppLockManager.self) private var lock
-
+    
     @State private var vm: MomentsListViewModel
     @State private var momentsRaw: [Moment] = []   // fetched via SwiftData
     @State private var moments: [Moment] = []      // after client-side filters
-
+    
     @State private var isShowingLogMomentSheet = false
     @State private var showFilterSheet = false
-
+    
     // Filter UI (existing)
     @State private var selectedUrgeFilter: Urge?
     @State private var selectedTagFilter: Tag?
@@ -57,13 +57,13 @@ struct HomeView: View {
         stayedPresentOnly ||
         followedOnly
     }
-
+    
     // MARK: - Body
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 Color(.grayBackground).ignoresSafeArea()
-
+                
                 VStack {
                     topRow()
                     headerLabel()
@@ -72,7 +72,7 @@ struct HomeView: View {
                 .navigationDestination(for: Moment.self) { moment in
                     MomentDetailView(moment: moment)
                 }
-
+                
                 floatingLogButton()
             }
             .navigationTitle("Moments")
@@ -95,9 +95,9 @@ struct HomeView: View {
             .onChange(of: followedOnly) { _, _ in onFollowedOnlyChanged() }
         }
     }
-
+    
     // MARK: - Sections
-
+    
     @ViewBuilder
     private func topRow() -> some View {
         HStack {
@@ -113,7 +113,7 @@ struct HomeView: View {
         .frame(height: 50)
         .padding(.horizontal)
     }
-
+    
     @ViewBuilder
     private func headerLabel() -> some View {
         VStack(alignment: .leading) {
@@ -126,7 +126,7 @@ struct HomeView: View {
         .padding(.horizontal)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-
+    
     @ViewBuilder
     private func timelineList() -> some View {
         List {
@@ -137,15 +137,17 @@ struct HomeView: View {
                 .frame(height: 68)
             }
             .onDelete { indexSet in
-                for index in indexSet { context.delete(moments[index]) }
-                try? context.save()
-                Task { await refreshQuery() }
+                Task { @MainActor in
+                    for index in indexSet { context.delete(moments[index]) }
+                    try? context.save()
+                    await refreshQuery()
+                }
             }
             .listRowBackground(Color.clear)
         }
         .listStyle(.plain)
     }
-
+    
     @ViewBuilder
     private func floatingLogButton() -> some View {
         Button(action: { isShowingLogMomentSheet = true }) {
@@ -153,7 +155,7 @@ struct HomeView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-
+    
     @ViewBuilder
     private func lockOverlay() -> some View {
         if !lock.isUnlocked {
@@ -163,7 +165,7 @@ struct HomeView: View {
                 .animation(.easeInOut(duration: 0.2), value: lock.isUnlocked)
         }
     }
-
+    
     @ViewBuilder
     private func emptyStateOverlay() -> some View {
         let trulyEmpty = momentsRaw.isEmpty
@@ -176,7 +178,7 @@ struct HomeView: View {
                     Text("No moments match your filters.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-
+                    
                     Button("Clear Filters") {
                         clearFilters()
                         Task { await refreshQuery() }
@@ -188,7 +190,7 @@ struct HomeView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     private func filterSheet() -> some View {
         MomentFilterSheetView(
@@ -200,7 +202,7 @@ struct HomeView: View {
         )
         .presentationDetents([.medium, .large])
     }
-
+    
     @ToolbarContentBuilder
     private func toolbarContent() -> some ToolbarContent {
         ToolbarItem(placement: .navigationBarLeading)  {
@@ -214,13 +216,13 @@ struct HomeView: View {
             }
         }
     }
-
+    
     // MARK: - Data
-
+    
     @MainActor
     private func fetchMoments() -> [Moment] {
-        let sort = [SortDescriptor(\Moment.timestamp, order: .reverse)]
-        let fd = FetchDescriptor<Moment>(predicate: vm.predicate, sortBy: sort)
+        let fd = FetchDescriptor<Moment>(predicate: vm.predicate,
+                                         sortBy: [SortDescriptor(\.timestamp, order: .reverse)])
         return (try? context.fetch(fd)) ?? []
     }
 
@@ -229,10 +231,10 @@ struct HomeView: View {
         momentsRaw = fetchMoments()
         applyClientFiltersOnly()
     }
-
+    
     private func applyClientFiltersOnly() {
         var out: [Moment] = momentsRaw
-
+        
         if let urge = selectedUrgeFilter {
             out = out.filter { $0.urge.id == urge.id }
         }
@@ -245,10 +247,10 @@ struct HomeView: View {
         if followedOnly {
             out = out.filter { $0.gaveIn == true }
         }
-
+        
         moments = out
     }
-
+    
     private func propagateFiltersToVM() {
         if let exact = selectedIntensityFilter {
             vm.minIntensity = exact
@@ -264,7 +266,7 @@ struct HomeView: View {
             vm.selectedUrges = []
         }
     }
-
+    
     private func clearFilters() {
         selectedUrgeFilter = nil
         selectedTagFilter = nil
@@ -273,24 +275,24 @@ struct HomeView: View {
         followedOnly = false
         propagateFiltersToVM()
     }
-
+    
     // MARK: - Lifecycle / Change handlers
-
+    
     private func onServerFilterChanged() {
         propagateFiltersToVM()
         Task { await refreshQuery() }
     }
-
+    
     private func onStayedPresentChanged() {
         if stayedPresentOnly { followedOnly = false }
         onServerFilterChanged()
     }
-
+    
     private func onFollowedOnlyChanged() {
         if followedOnly { stayedPresentOnly = false }
         applyClientFiltersOnly()
     }
-
+    
     private func initialLoad() async {
         vm = MomentsListViewModel(context: context)
         propagateFiltersToVM()
@@ -309,10 +311,10 @@ struct HomeView: View {
         for: Moment.self, Urge.self, Tag.self,
         configurations: ModelConfiguration(isStoredInMemoryOnly: true)
     )
-
+    
     let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
     container.mainContext.insert(urge)
-
+    
     let moment = Moment(
         timestamp: .now,
         urge: urge,
@@ -321,7 +323,7 @@ struct HomeView: View {
         note: "Felt the urge after work"
     )
     container.mainContext.insert(moment)
-
+    
     return HomeView()
         .environment(AppLockManager.shared)
         .modelContainer(container)

@@ -7,32 +7,38 @@
 
 import SwiftUI
 import SwiftData
-import Observation
 
 struct ContentStartupWrapper: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(AppLockManager.self) private var appLock   // ⬅️ Observation-style env injection
-
     @Query private var urges: [Urge]
     @Query private var tags: [Tag]
 
     var body: some View {
         HomeView()
             .task {
-                if urges.isEmpty {
-                    UrgeDefaults.builtIn.forEach { modelContext.insert($0) }
-                }
-                if tags.isEmpty {
-                    TagDefaults.builtIn.forEach { modelContext.insert($0) }
-                }
-                if urges.isEmpty || tags.isEmpty {
-                    try? modelContext.save()
+                seedDefaultsIfNeeded()  // no await
+                if !isRunningInPreview {
+                    await NotificationManager.shared.requestAuthorizationIfNeeded()
                 }
             }
-            // MARK: - FOR TESTING PURPOSES ONLY (Remove before release)
-            .task {
-                await NotificationManager.shared.requestAuthorizationIfNeeded()
-            }
+    }
+
+    @MainActor
+    private func seedDefaultsIfNeeded() {
+        var didInsert = false
+        if urges.isEmpty {
+            UrgeDefaults.builtIn.forEach { modelContext.insert($0) }
+            didInsert = true
+        }
+        if tags.isEmpty {
+            TagDefaults.builtIn.forEach { modelContext.insert($0) }
+            didInsert = true
+        }
+        if didInsert { try? modelContext.save() }
+    }
+
+    private var isRunningInPreview: Bool {
+        ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
     }
 }
 

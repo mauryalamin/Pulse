@@ -23,7 +23,7 @@ struct LogMomentButton: View {
                 .foregroundStyle(.white)
         }
         .glassEffect(
-            .regular.interactive()
+            .clear.interactive()
                 .tint(.pulseBlue.opacity(0.8))
         )
     }

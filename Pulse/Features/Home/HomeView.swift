@@ -134,6 +134,7 @@ struct HomeView: View {
                 NavigationLink(value: moment) {
                     MomentListRowView(moment: moment)
                 }
+                .frame(height: 68)
             }
             .onDelete { indexSet in
                 for index in indexSet { context.delete(moments[index]) }

@@ -24,13 +24,28 @@ struct MomentListRowView: View {
                     Text(moment.urge.name)
                         .font(.title3)
                         .fontWeight(.semibold)
-                    IntensityBarView(intensity: moment.intensity)
+                IntensityBarView(intensity: moment.intensity, hexColor: moment.urge.colorHex)
             }
             Spacer()
-            VStack {
+            VStack  (alignment: .trailing) {
+                HStack{
+                    if moment.tags?.isEmpty == false {
+                        Image(systemName: "tag.fill")
+                            .font(.body)
+                            .foregroundStyle(.blue.opacity(0.5))
+                    }
+                    
+                    if moment.note?.isEmpty == false {
+                        Image(systemName: "text.bubble.fill")
+                            .font(.body)
+                            .foregroundStyle(.green.opacity(0.5))
+                    }
+                }
+                Spacer()
                 ResponseTypeTagView(iGaveIn: moment.gaveIn)
             }
         }
+        .frame(height: 70)
         
     }
 }

@@ -1,15 +1,10 @@
-//
-//  PulseModelTests.swift
-//  PulseTests
-//
-//  Created by Maury Alamin on 5/16/25.
-//
-
+#if canImport(Pulse)
 import Foundation
 import XCTest
 import SwiftData
 @testable import Pulse
 
+@available(iOS 26, *)
 @MainActor
 final class PulseModelTests: XCTestCase {
 
@@ -17,6 +12,9 @@ final class PulseModelTests: XCTestCase {
     var context: ModelContext!
 
     override func setUpWithError() throws {
+        if #unavailable(iOS 26) {
+            throw XCTSkip("Pulse tests require iOS 26 or later to match the module's minimum deployment target.")
+        }
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         container = try ModelContainer(for: Moment.self, Urge.self, Tag.self, configurations: config)
         context = container.mainContext
@@ -77,3 +75,12 @@ final class PulseModelTests: XCTestCase {
         XCTAssertEqual(results.first?.tags?.first?.name, "After Work")
     }
 }
+#else
+import XCTest
+
+final class PulseModelTests: XCTestCase {
+    func testPulseUnavailableSkips() throws {
+        throw XCTSkip("Pulse module is unavailable for this platform/deployment target.")
+    }
+}
+#endif

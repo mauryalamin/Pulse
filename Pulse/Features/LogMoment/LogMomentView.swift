@@ -13,23 +13,23 @@ import Observation
 struct LogMomentView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-
+    
     // iOS 26 Observation-based managers
     @State private var keyboard = KeyboardResponder()
     @State private var locationManager = LocationManager.shared
-
+    
     // ViewModel (Observation)
     @State private var vm: LogMomentViewModel
-
+    
     // Queries to populate pickers
     @Query(sort: \Urge.name) private var urges: [Urge]
     @Query(sort: \Tag.name)  private var tags:  [Tag]
-
+    
     // Local UI-only state
     @State private var showConfirmation = false
     @State private var showingAlert = false
     @State private var showTagPicker = false
-
+    
     // Init with a placeholder VM; we’ll inject real deps in .task once we have ModelContext
     init() {
         // Build a temporary, in-memory SwiftData context just for initialization.
@@ -42,15 +42,15 @@ struct LogMomentView: View {
             )
             return ModelContext(container)
         }()
-
+        
         _vm = State(initialValue: LogMomentViewModel(
             modelContext: tempContext,
             createMoment: CreateMomentUseCase(weather: OpenMeteoWeatherService()),
             location: LocationManager.shared
         ))
     }
-
-
+    
+    
     // Bridge Toggle (gaveIn Bool) <-> VM (MomentResponse)
     private var gaveInBinding: Binding<Bool> {
         Binding<Bool>(
@@ -58,22 +58,22 @@ struct LogMomentView: View {
             set: { vm.response = $0 ? .followed : .stayedPresent }
         )
     }
-
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 Color(.grayBackground).ignoresSafeArea()
-
+                
                 ScrollView {
                     VStack(alignment: .leading, spacing: 32) {
-
+                        
                         // MARK: - Urge Picker
                         VStack(alignment: .leading, spacing: 12) {
                             Text("What do you feel the urge for?")
                                 .font(.subheadline).fontWeight(.semibold)
                             UrgeMenuView(selectedUrge: $vm.selectedUrge)   // uses your existing component
                         }
-
+                        
                         // MARK: - Intensity + Followed toggle
                         HStack(spacing: 24) {
                             VStack(alignment: .leading, spacing: 12) {
@@ -89,12 +89,12 @@ struct LogMomentView: View {
                                     .labelsHidden()
                             }
                         }
-
+                        
                         // MARK: - Tags
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Tags")
                                 .font(.subheadline).fontWeight(.semibold)
-
+                            
                             LazyVGrid(
                                 columns: [GridItem(.adaptive(minimum: 90), spacing: 6)],
                                 alignment: .leading,
@@ -103,7 +103,7 @@ struct LogMomentView: View {
                                 ForEach(vm.selectedTags, id: \.id) { tag in
                                     TagView(tag: tag.name)
                                 }
-
+                                
                                 Button(action: { showTagPicker = true }) {
                                     Label("Add", systemImage: "plus")
                                         .padding(.horizontal, 16)
@@ -116,34 +116,50 @@ struct LogMomentView: View {
                                 .buttonStyle(.plain)
                             }
                         }
-
+                        
                         // MARK: - Notes
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Optional Notes")
                                 .font(.subheadline).fontWeight(.semibold)
                             NoteInputView(text: $vm.notes)
                         }
+                        
+                        Divider().padding(.top, 4)
+                        
+                        // MARK: - Contextual Section
+                        // --- Around This Moment ---
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("Around This Moment")
+                                .font(.title3)
+                                .fontWeight(.semibold)
 
-                        Divider()
+                            CurrentDateTimeView()
 
-                        // MARK: - Location
-                        Group {
-                            if let place = locationManager.placename {
-                                Text("📍 Location: \(place)")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                            } else if locationManager.authorizationStatus == .authorizedWhenInUse ||
-                                      locationManager.authorizationStatus == .authorizedAlways {
-                                Text("📍 Retrieving location…")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
+                            Group {
+                                if let place = locationManager.placename {
+                                    Text("📍 Location: \(place)")
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                        .accessibilityLabel("Location")
+                                        .accessibilityValue(place)
+                                } else if locationManager.authorizationStatus == .authorizedWhenInUse ||
+                                            locationManager.authorizationStatus == .authorizedAlways {
+                                    Text("📍 Retrieving location…")
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                        .accessibilityLabel("Location")
+                                        .accessibilityValue("Retrieving")
+                                }
                             }
+                            .padding(.top, 4)
                         }
                         .padding(.top, 8)
                         .frame(maxWidth: .infinity, alignment: .leading)
-
+                        .accessibilityElement(children: .contain)  // keep children readable but grouped
+                        .accessibilityHint("Contextual information for this moment.")
+                        
                         Divider()
-
+                        
                         // MARK: - Button Group
                         HStack {
                             Spacer()
@@ -161,7 +177,7 @@ struct LogMomentView: View {
                                 }
                                 .buttonStyle(.borderedProminent)
                                 .controlSize(.large)
-
+                                
                                 Button("Cancel") { dismiss() }
                             }
                             Spacer()
@@ -185,7 +201,7 @@ struct LogMomentView: View {
                 }
                 .scrollDismissesKeyboard(.interactively)
                 .animation(.easeInOut(duration: 0.3), value: keyboard.keyboardHeight)
-
+                
                 // Confirmation Toast
                 if showConfirmation {
                     ZStack {
@@ -219,9 +235,9 @@ struct LogMomentView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
-                            Task { await onSaveTapped() }
-                        }
-                        .disabled(saveDisabled())
+                        Task { await onSaveTapped() }
+                    }
+                    .disabled(saveDisabled())
                 }
             }
             // VM error surfacing (if CreateMomentUseCase fails)
@@ -236,12 +252,12 @@ struct LogMomentView: View {
     private func saveDisabled() -> Bool {
         !vm.canSave || vm.isSaving
     }
-
+    
     private func bumpTagUsage() {
         // Keep your existing behavior, on main actor
         vm.selectedTags.forEach { $0.usageCount += 1 }
     }
-
+    
     private func showAndDismissConfirmation() async {
         await MainActor.run { showConfirmation = true }
         try? await Task.sleep(for: .milliseconds(1200))
@@ -250,19 +266,19 @@ struct LogMomentView: View {
             dismiss()
         }
     }
-
+    
     private func onSaveTapped() async {
         // Local guard for UX; VM.save() also guards via isSaving
         guard vm.canSave else {
             await MainActor.run { showingAlert = true }
             return
         }
-
+        
         await vm.save()
-
+        
         // If VM surfaced an error, bail (optional: show alert)
         if let _ = vm.errorMessage { return }
-
+        
         await MainActor.run { bumpTagUsage() }
         await showAndDismissConfirmation()
     }
@@ -271,4 +287,18 @@ struct LogMomentView: View {
 #Preview {
     LogMomentView()
         .modelContainer(for: [Moment.self, Urge.self, Tag.self], inMemory: true)
+}
+
+#Preview("Around This Moment block") {
+    VStack(alignment: .leading, spacing: 16) {
+        Text("Around This Moment")
+            .font(.title3).fontWeight(.semibold)
+        CurrentDateTimeView()
+        Text("📍 Location: Austin")    // stub
+            .font(.footnote)
+            .foregroundStyle(.secondary)
+        Divider()
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
 }

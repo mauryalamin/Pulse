@@ -36,6 +36,9 @@
 		AE622B432EA320E100A0F0F6 /* MomentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B422EA320E100A0F0F6 /* MomentResponse.swift */; };
 		AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B442EA453B600A0F0F6 /* ResponseTypeTagView.swift */; };
 		AE622B492EA45C7100A0F0F6 /* IntensityBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */; };
+		AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C332EA68CD500FBD70C /* UrgeRow.swift */; };
+		AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */; };
+		AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -116,6 +119,9 @@
 		AE622B422EA320E100A0F0F6 /* MomentResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentResponse.swift; sourceTree = "<group>"; };
 		AE622B442EA453B600A0F0F6 /* ResponseTypeTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseTypeTagView.swift; sourceTree = "<group>"; };
 		AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityBarView.swift; sourceTree = "<group>"; };
+		AE627C332EA68CD500FBD70C /* UrgeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeRow.swift; sourceTree = "<group>"; };
+		AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseDateFormatting.swift; sourceTree = "<group>"; };
+		AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateTimeView.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -217,6 +223,14 @@
 				AE622B402EA31F7700A0F0F6 /* GeocodingAdapter.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		AE627C372EA6D28100FBD70C /* Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */,
+			);
+			path = Formatting;
 			sourceTree = "<group>";
 		};
 		AE7BFDE12DCBEE4900A5836B = {
@@ -332,12 +346,14 @@
 			children = (
 				AEF149662DCD54D400690F5E /* LogMomentButton.swift */,
 				AE0F9A7F2DCE453900C1CC62 /* UrgeMenuView.swift */,
+				AE627C332EA68CD500FBD70C /* UrgeRow.swift */,
 				AE0F9A812DCE48BE00C1CC62 /* IntensityButtonView.swift */,
 				AEDF6A742DD563D200589F11 /* RadioButtonView.swift */,
 				AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */,
 				AE88040E2DD28ACA0076B724 /* NoteInputView.swift */,
 				AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */,
 				AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */,
+				AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -442,6 +458,7 @@
 		AEF149472DCBFFE800690F5E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				AE627C372EA6D28100FBD70C /* Formatting */,
 				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
 				AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */,
 			);
@@ -626,11 +643,13 @@
 				AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */,
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AE622B432EA320E100A0F0F6 /* MomentResponse.swift in Sources */,
+				AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
 				AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */,
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
+				AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */,
 				AE622B3D2EA31C8700A0F0F6 /* StealthIconManager.swift in Sources */,
 				AE622B412EA31F7700A0F0F6 /* GeocodingAdapter.swift in Sources */,
 				AE622B382EA3183B00A0F0F6 /* MomentsListViewModel.swift in Sources */,
@@ -664,6 +683,7 @@
 				AEE4DEE32DDE35AB00FE46D6 /* WeatherSnapshot.swift in Sources */,
 				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,
+				AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */,
 				AEBFBE3E2DE2C15000E45A43 /* StealthIconPickerView.swift in Sources */,
 				AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */,
 				AE622B3F2EA31D5000A0F0F6 /* WeatherProviding.swift in Sources */,

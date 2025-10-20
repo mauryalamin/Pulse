@@ -14,13 +14,11 @@ struct EmptyStateLogButtonView: View {
                 //.padding()
             Text("Log a Moment")
                 .font(.callout)
+                .foregroundStyle(.primary)
                 .fontDesign(.rounded)
         }
         .padding(10)
-        .background(
-            Color(.white),
-            in: Capsule()
-        )
+        .glassEffect(.clear.interactive())
     }
 }
 

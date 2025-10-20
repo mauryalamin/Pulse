@@ -134,6 +134,7 @@ struct HomeView: View {
                 NavigationLink(value: moment) {
                     MomentListRowView(moment: moment)
                 }
+                .navigationLinkIndicatorVisibility(.hidden)
                 .frame(height: 68)
             }
             .onDelete { indexSet in

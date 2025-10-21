@@ -10,6 +10,41 @@ import CoreLocation
 import MapKit
 import Observation
 
+
+enum LocationFormatter {
+    /// Primary formatter using the fields you actually have in LogMomentView.
+    /// - If `placename` exists -> return it
+    /// - Else if coords exist -> "lat, lon"
+    /// - Else if authorized -> "Retrieving location…"
+    /// - Else -> "Location unavailable"
+    static func displayName(
+        placename: String?,
+        lat: Double?,
+        lon: Double?,
+        isAuthorized: Bool
+    ) -> String {
+        if let name = placename, !name.isEmpty {
+            return name
+        }
+        if let lat = lat, let lon = lon {
+            return String(format: "%.3f, %.3f", lat, lon)
+        }
+        return isAuthorized
+            ? "Retrieving your location…"
+            : "Location unavailable"
+    }
+
+    // Optional: keep the old CLPlacemark-based helper if you use it elsewhere
+    static func displayName(from placemark: CLPlacemark?) -> String? {
+        guard let pm = placemark else { return nil }
+        if let city = pm.locality, let region = pm.administrativeArea { return "\(city), \(region)" }
+        if let city = pm.locality { return city }
+        if let region = pm.administrativeArea { return region }
+        if let country = pm.country { return country }
+        return nil
+    }
+}
+
 /// iOS 26-ready LocationManager:
 /// - No @MainActor on the class (avoids Swift 6 protocol-isolation warning)
 /// - Uses MKReverseGeocodingRequest(location:) + await request.mapItems
@@ -115,5 +150,13 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, LocationManagi
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Location error: \(error.localizedDescription)")
+    }
+    
+    // LocationManager.swift
+    @MainActor
+    func refresh() {
+        // Optional: clear current label so UI shows “Retrieving…” immediately
+        placename = nil
+        manager.requestLocation()   // will trigger didUpdateLocations -> reverse geocode
     }
 }

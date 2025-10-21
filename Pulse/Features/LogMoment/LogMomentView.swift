@@ -132,28 +132,33 @@ struct LogMomentView: View {
                             Text("Around This Moment")
                                 .font(.title3)
                                 .fontWeight(.semibold)
-
+                            
                             CurrentDateTimeView()
+                            
+                            // MARK: - Location
+                            let isAuth = locationManager.authorizationStatus == .authorizedWhenInUse
+                                      || locationManager.authorizationStatus == .authorizedAlways
 
-                            Group {
-                                if let place = locationManager.placename {
-                                    Text("📍 Location: \(place)")
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                        .accessibilityLabel("Location")
-                                        .accessibilityValue(place)
-                                } else if locationManager.authorizationStatus == .authorizedWhenInUse ||
-                                            locationManager.authorizationStatus == .authorizedAlways {
-                                    Text("📍 Retrieving location…")
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                        .accessibilityLabel("Location")
-                                        .accessibilityValue("Retrieving")
-                                }
+                            let locationLabel = LocationFormatter.displayName(
+                                placename: locationManager.placename,                                  // <-- String?
+                                lat: locationManager.location?.coordinate.latitude,                    // <-- Double?
+                                lon: locationManager.location?.coordinate.longitude,                   // <-- Double?
+                                isAuthorized: isAuth
+                            )
+
+                            HStack (spacing: 6) {
+                                Image(systemName: "mappin.circle.fill")
+                                    .accessibilityHidden(true)     // hide decorative icon
+
+                                Text(locationLabel)
+                                    .accessibilityLabel("Location")
+                                    .accessibilityValue(locationLabel)
                             }
-                            .padding(.top, 4)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .accessibilityElement(children: .combine)
                         }
-                        .padding(.top, 8)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .accessibilityElement(children: .contain)  // keep children readable but grouped
                         .accessibilityHint("Contextual information for this moment.")

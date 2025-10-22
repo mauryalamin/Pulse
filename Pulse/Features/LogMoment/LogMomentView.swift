@@ -92,8 +92,13 @@ struct LogMomentView: View {
                         
                         // MARK: - Tags
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("Tags")
-                                .font(.subheadline).fontWeight(.semibold)
+                            HStack {
+                                Image(systemName: "tag.fill")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.blue)
+                                Text("Tags")
+                                    .font(.subheadline).fontWeight(.semibold)
+                            }
                             
                             LazyVGrid(
                                 columns: [GridItem(.adaptive(minimum: 90), spacing: 6)],
@@ -119,8 +124,13 @@ struct LogMomentView: View {
                         
                         // MARK: - Notes
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("Optional Notes")
-                                .font(.subheadline).fontWeight(.semibold)
+                            HStack {
+                                Image(systemName: "text.bubble.fill")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.green)
+                                Text("Optional Notes")
+                                    .font(.subheadline).fontWeight(.semibold)
+                            }
                             NoteInputView(text: $vm.notes)
                         }
                         

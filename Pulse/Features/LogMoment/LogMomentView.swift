@@ -21,6 +21,11 @@ struct LogMomentView: View {
     // ViewModel (Observation)
     @State private var vm: LogMomentViewModel
     
+    @State private var weatherVM = WeatherNowViewModel(
+        weather: OpenMeteoWeatherService(),
+        location: LocationManager.shared
+    )
+    
     // Queries to populate pickers
     @Query(sort: \Urge.name) private var urges: [Urge]
     @Query(sort: \Tag.name)  private var tags:  [Tag]
@@ -136,14 +141,17 @@ struct LogMomentView: View {
                         
                         Divider().padding(.top, 4)
                         
-                        // MARK: - Contextual Section
-                        // --- Around This Moment ---
+                        // MARK: -  "Around This Moment" Contextual Section
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Around This Moment")
                                 .font(.title3)
                                 .fontWeight(.semibold)
                             
+                            // MARK: - Date and Time
                             CurrentDateTimeView()
+                            
+                            // MARK: - Weather
+                            WeatherNowRow(state: weatherVM.state)
                             
                             // MARK: - Location
                             let isAuth = locationManager.authorizationStatus == .authorizedWhenInUse
@@ -210,6 +218,13 @@ struct LogMomentView: View {
                         createMoment: CreateMomentUseCase(weather: OpenMeteoWeatherService()),
                         location: LocationManager.shared
                     )
+                }
+                .task { weatherVM.start() }
+                .onChange(of: locationManager.location) { _, _ in
+                    weatherVM.locationDidChange()
+                }
+                .onChange(of: locationManager.authorizationStatus) { _, _ in
+                    weatherVM.locationDidChange()
                 }
                 .safeAreaInset(edge: .bottom) {
                     Spacer().frame(height: keyboard.keyboardHeight + 40)

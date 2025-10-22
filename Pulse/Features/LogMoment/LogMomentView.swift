@@ -26,6 +26,8 @@ struct LogMomentView: View {
         location: LocationManager.shared
     )
     
+    private var canSave: Bool { !saveDisabled() }
+    
     // Queries to populate pickers
     @Query(sort: \Urge.name) private var urges: [Urge]
     @Query(sort: \Tag.name)  private var tags:  [Tag]
@@ -260,14 +262,19 @@ struct LogMomentView: View {
             .navigationTitle("Log Moment")
             // Top Toolbar
             .toolbar {
+                // Cancel
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Save") {
-                        Task { await onSaveTapped() }
+                    Button { dismiss() } label: {
+                        Image(systemName: "xmark")
+                            .symbolRenderingMode(.monochrome)
+                            .font(.headline)
                     }
-                    .disabled(saveDisabled())
+                    .accessibilityLabel("Cancel")
+                }
+
+                // Save
+                ToolbarItem(placement: .topBarTrailing) {
+                    saveToolbarButton()
                 }
             }
             // VM error surfacing (if CreateMomentUseCase fails)
@@ -278,6 +285,31 @@ struct LogMomentView: View {
             }
         }
     }
+    
+    @ViewBuilder
+    private func saveToolbarButton() -> some View {
+        let label = Image(systemName: "checkmark")
+            .symbolRenderingMode(.monochrome)
+            .font(.headline)
+            .frame(minWidth: 28, minHeight: 28)
+
+        if canSave {
+            Button {
+                Task { await onSaveTapped() }
+            } label: { label }
+            .buttonStyle(.glassProminent)      // glass blue when enabled
+            .tint(.accentColor)
+            .accessibilityLabel("Save")
+        } else {
+            Button {} label: { label }          // inert when disabled
+            .buttonStyle(.plain)                // gray look (Mail-style)
+            .tint(.secondary)
+            .opacity(0.45)
+            .disabled(true)
+            .accessibilityLabel("Save (disabled)")
+        }
+    }
+
     
     private func saveDisabled() -> Bool {
         !vm.canSave || vm.isSaving

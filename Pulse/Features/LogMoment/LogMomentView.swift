@@ -157,19 +157,19 @@ struct LogMomentView: View {
                             
                             // MARK: - Location
                             let isAuth = locationManager.authorizationStatus == .authorizedWhenInUse
-                                      || locationManager.authorizationStatus == .authorizedAlways
-
+                            || locationManager.authorizationStatus == .authorizedAlways
+                            
                             let locationLabel = LocationFormatter.displayName(
                                 placename: locationManager.placename,                                  // <-- String?
                                 lat: locationManager.location?.coordinate.latitude,                    // <-- Double?
                                 lon: locationManager.location?.coordinate.longitude,                   // <-- Double?
                                 isAuthorized: isAuth
                             )
-
+                            
                             HStack (spacing: 6) {
                                 Image(systemName: "mappin.circle.fill")
                                     .accessibilityHidden(true)     // hide decorative icon
-
+                                
                                 Text(locationLabel)
                                     .accessibilityLabel("Location")
                                     .accessibilityValue(locationLabel)
@@ -185,28 +185,6 @@ struct LogMomentView: View {
                         
                         Divider()
                         
-                        // MARK: - Button Group
-                        HStack {
-                            Spacer()
-                            VStack(spacing: 24) {
-                                Button("Save Moment") {
-                                    Task { await onSaveTapped() }
-                                }
-                                .disabled(saveDisabled())
-                                .alert(isPresented: $showingAlert) {
-                                    Alert(
-                                        title: Text("Missing Information"),
-                                        message: Text("A Moment needs both an Urge Type and an Urge Intensity"),
-                                        dismissButton: .default(Text("OK"))
-                                    )
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .controlSize(.large)
-                                
-                                Button("Cancel") { dismiss() }
-                            }
-                            Spacer()
-                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -215,11 +193,13 @@ struct LogMomentView: View {
                     // Kick off permission + first fix
                     locationManager.requestPermissionAndLocation()
                     // Recreate VM with the real ModelContext (replaces placeholder)
+                    print("📦 LogMomentView .task: context=\(ObjectIdentifier(context))")
                     vm = LogMomentViewModel(
                         modelContext: context,
                         createMoment: CreateMomentUseCase(weather: OpenMeteoWeatherService()),
                         location: LocationManager.shared
                     )
+                    
                 }
                 .task { weatherVM.start() }
                 .onChange(of: locationManager.location) { _, _ in
@@ -260,6 +240,13 @@ struct LogMomentView: View {
             .ignoresSafeArea(.keyboard)
             .animation(.easeInOut, value: showConfirmation)
             .navigationTitle("Log Moment")
+            .safeAreaInset(edge: .bottom) {
+                SaveMomentBar(
+                    canSave: !saveDisabled(),
+                    isSaving: vm.isSaving,
+                    onTap: { await onSaveTapped() }
+                )
+            }
             // Top Toolbar
             .toolbar {
                 // Cancel
@@ -271,7 +258,7 @@ struct LogMomentView: View {
                     }
                     .accessibilityLabel("Cancel")
                 }
-
+                
                 // Save
                 ToolbarItem(placement: .topBarTrailing) {
                     saveToolbarButton()
@@ -292,24 +279,24 @@ struct LogMomentView: View {
             .symbolRenderingMode(.monochrome)
             .font(.headline)
             .frame(minWidth: 28, minHeight: 28)
-
+        
         if canSave {
             Button {
                 Task { await onSaveTapped() }
             } label: { label }
-            .buttonStyle(.glassProminent)      // glass blue when enabled
-            .tint(.accentColor)
-            .accessibilityLabel("Save")
+                .buttonStyle(.glassProminent)      // glass blue when enabled
+                .tint(.accentColor)
+                .accessibilityLabel("Save")
         } else {
             Button {} label: { label }          // inert when disabled
-            .buttonStyle(.plain)                // gray look (Mail-style)
-            .tint(.secondary)
-            .opacity(0.45)
-            .disabled(true)
-            .accessibilityLabel("Save (disabled)")
+                .buttonStyle(.plain)                // gray look (Mail-style)
+                .tint(.secondary)
+                .opacity(0.45)
+                .disabled(true)
+                .accessibilityLabel("Save (disabled)")
         }
     }
-
+    
     
     private func saveDisabled() -> Bool {
         !vm.canSave || vm.isSaving
@@ -329,20 +316,38 @@ struct LogMomentView: View {
         }
     }
     
+    @MainActor
     private func onSaveTapped() async {
-        // Local guard for UX; VM.save() also guards via isSaving
+        print("🟡 onSaveTapped: start | canSave=\(vm.canSave) isSaving=\(vm.isSaving)")
+        
+        guard !vm.isSaving else { print("🟠 onSaveTapped: blocked (isSaving)"); return }
         guard vm.canSave else {
-            await MainActor.run { showingAlert = true }
+            print("🔺 onSaveTapped: blocked (canSave=false)");
+            showingAlert = true
+            // Optional subtle warning haptic
+            let warn = UINotificationFeedbackGenerator()
+            warn.notificationOccurred(.warning)
             return
         }
         
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
+        vm.isSaving = true
+        defer { vm.isSaving = false }
+        
+        print("🟡 onSaveTapped: calling vm.save()")
         await vm.save()
+        print("🟢 onSaveTapped: returned from vm.save(), error=\(vm.errorMessage ?? "nil")")
         
-        // If VM surfaced an error, bail (optional: show alert)
-        if let _ = vm.errorMessage { return }
+        if vm.errorMessage != nil { return }
         
-        await MainActor.run { bumpTagUsage() }
+        // Success haptic
+        let ok = UINotificationFeedbackGenerator()
+        ok.notificationOccurred(.success)
+        
+        bumpTagUsage()
         await showAndDismissConfirmation()
+        print("✅ onSaveTapped: finished UI updates")
     }
 }
 

@@ -21,11 +21,11 @@ final class LogMomentViewModel {
     var selectedTags: [Tag] = []
     var errorMessage: String?
     var isSaving = false
-
+    
     @ObservationIgnored private let modelContext: ModelContext
     @ObservationIgnored private let createMoment: CreateMomentUseCase
     @ObservationIgnored private let location: LocationManaging
-
+    
     init(modelContext: ModelContext,
          createMoment: CreateMomentUseCase,
          location: LocationManaging)
@@ -34,26 +34,39 @@ final class LogMomentViewModel {
         self.createMoment = createMoment
         self.location = location
     }
-
+    
     var canSave: Bool { selectedUrge != nil && intensity != nil }
-
+    
+    @MainActor
     func save() async {
-            guard !isSaving else { return }
-            isSaving = true
-            defer { isSaving = false }
-
+        print("🟡 VM.save: begin")
+        do {
             guard let urge = selectedUrge, let intensity = intensity else {
-                errorMessage = "A Moment needs both an Urge and an Intensity."
+                print("🔺 VM.save: missing fields");
+                self.errorMessage = "Missing fields"
                 return
             }
 
             let dto = CreateMomentDTO(
-                urge: urge, intensity: intensity, response: response,
-                notes: notes.isEmpty ? nil : notes, tags: selectedTags,
-                location: await location.snapshot(), timestamp: .now
+                urge: urge,
+                intensity: intensity,
+                response: response,
+                notes: notes.isEmpty ? nil : notes,
+                tags: selectedTags,
+                location: await location.snapshot(),
+                timestamp: .now
             )
 
-            do { try await createMoment(dto, in: modelContext) }
-            catch { errorMessage = "Could not save moment: \(error.localizedDescription)" }
+            print("🟡 VM.save: calling useCase")
+            try await createMoment(dto, in: modelContext)
+            print("🟢 VM.save: useCase returned OK")
+
+            self.errorMessage = nil
+        } catch {
+            print("🔴 VM.save: error \(error)")
+            self.errorMessage = error.localizedDescription
         }
+    }
 }
+
+

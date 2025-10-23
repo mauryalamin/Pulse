@@ -39,6 +39,7 @@
 		AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C332EA68CD500FBD70C /* UrgeRow.swift */; };
 		AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */; };
 		AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */; };
+		AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -125,6 +126,7 @@
 		AE627C332EA68CD500FBD70C /* UrgeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeRow.swift; sourceTree = "<group>"; };
 		AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseDateFormatting.swift; sourceTree = "<group>"; };
 		AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateTimeView.swift; sourceTree = "<group>"; };
+		AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMomentBar.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,6 +365,7 @@
 				AE2CA1D52DD662C8000DF21E /* TagPickerView.swift */,
 				AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */,
 				AEE44AFE2EA95FF2006954CD /* WeatherNowRow.swift */,
+				AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
 				AE622B342EA316B900A0F0F6 /* CreateMomentUseCase.swift in Sources */,
 				AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */,
+				AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
 				AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */,
 				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,

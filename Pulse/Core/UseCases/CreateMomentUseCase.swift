@@ -45,7 +45,7 @@ struct CreateMomentUseCase {
     init(weather: WeatherService) { self.weather = weather }
 
     func callAsFunction(_ dto: CreateMomentDTO, in ctx: ModelContext) async throws {
-        // Build the model off the main actor (pure Swift types)
+        print("🟡 UseCase: begin (urge=\(dto.urge.name), intensity=\(dto.intensity))")
         let newMoment = Moment(
             timestamp: dto.timestamp,
             urge: dto.urge,
@@ -54,29 +54,19 @@ struct CreateMomentUseCase {
             note: dto.notes,
             tags: dto.tags
         )
-
         if let loc = dto.location {
             newMoment.latitude = loc.lat
             newMoment.longitude = loc.lon
-            // newMoment.locationDescription = loc.place // if you store a label
         }
-
-        // Optional: keep the call (no-op result for now)
-        if let loc = dto.location {
-            let coord = CLLocationCoordinate2D(latitude: loc.lat, longitude: loc.lon)
-            _ = try? await weather.fetchWeather(for: coord, at: dto.timestamp)
-        }
-
-        // ✅ Persist on the main actor without a @Sendable closure
         try await persist(newMoment, in: ctx)
+        print("🟢 UseCase: end")
     }
 
-    // CreateMomentUseCase.swift
     @MainActor
     private func persist(_ moment: Moment, in ctx: ModelContext) throws {
-        // Do not assert on persistentModelID – new instances carry a temporary ID by design.
+        print("🟡 persist: inserting…")
         ctx.insert(moment)
         try ctx.save()
-        // print("✅ Saved moment at \(moment.timestamp) (urge: \(moment.urge.name), intensity: \(moment.intensity))")
+        print("✅ Saved moment at \(moment.timestamp) — urge: \(moment.urge.name), intensity: \(moment.intensity)")
     }
 }

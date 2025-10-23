@@ -15,10 +15,8 @@ struct LogMomentButton: View {
     var body: some View {
         ZStack {
             Circle()
-                //.fill(Color.pulseBlue)
                 .frame(width: size, height: size)
             Image(systemName: "plus")
-                //.font(.title)
                 .font(.system(size: fontSize))
                 .foregroundStyle(.white)
         }

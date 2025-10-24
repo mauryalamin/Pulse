@@ -14,8 +14,8 @@ import CoreLocation
 @Observable
 @MainActor
 final class LogMomentViewModel {
-    var selectedUrge: Urge?
-    var intensity: Int?          // <- optional so nothing is preselected
+    var selectedUrge: Urge? = nil
+    var intensity: Int? = nil
     var response: MomentResponse = .stayedPresent
     var notes: String = ""
     var selectedTags: [Tag] = []
@@ -35,36 +35,41 @@ final class LogMomentViewModel {
         self.location = location
     }
     
-    var canSave: Bool { selectedUrge != nil && intensity != nil }
+    var canSave: Bool { selectedUrge != nil && intensity != nil && !isSaving}
     
     @MainActor
     func save() async {
-        print("🟡 VM.save: begin")
+        // 1) Reentrancy gate — block double taps immediately
+        guard !isSaving else { return }
+
+        // 2) Validate required fields (don’t raise the gate if form is incomplete)
+        guard let urge = selectedUrge, let intensity = intensity else {
+            errorMessage = "Missing required fields."
+            return
+        }
+
+        // 3) Raise the gate now (before any await)
+        isSaving = true
+        defer { isSaving = false }
+
+        // 4) Build DTO (allow awaiting location AFTER the gate is up)
+        let loc = await location.snapshot()   // ✅ use your existing API
+        let dto = CreateMomentDTO(
+            urge: urge,
+            intensity: intensity,
+            response: response,
+            notes: notes.isEmpty ? nil : notes,
+            tags: selectedTags,
+            location: loc,
+            timestamp: Date()
+        )
+
+        // 5) Persist via single insert path
         do {
-            guard let urge = selectedUrge, let intensity = intensity else {
-                print("🔺 VM.save: missing fields");
-                self.errorMessage = "Missing fields"
-                return
-            }
-
-            let dto = CreateMomentDTO(
-                urge: urge,
-                intensity: intensity,
-                response: response,
-                notes: notes.isEmpty ? nil : notes,
-                tags: selectedTags,
-                location: await location.snapshot(),
-                timestamp: .now
-            )
-
-            print("🟡 VM.save: calling useCase")
             try await createMoment(dto, in: modelContext)
-            print("🟢 VM.save: useCase returned OK")
-
-            self.errorMessage = nil
+            errorMessage = nil
         } catch {
-            print("🔴 VM.save: error \(error)")
-            self.errorMessage = error.localizedDescription
+            errorMessage = error.localizedDescription
         }
     }
 }

@@ -10,9 +10,19 @@ import SwiftData
 import CoreLocation
 @testable import Pulse
 
-private struct WeatherServiceMock: WeatherService {
+/// Instant, successful weather mock (used in the simple canSave test)
+struct WeatherServiceMock: WeatherService {
     func fetchWeather(for coordinate: CLLocationCoordinate2D, at date: Date) async throws -> WeatherSnapshot {
-        WeatherSnapshot(temperature: 20, conditionCode: 2)
+        WeatherSnapshot(temperature: 21.0, conditionCode: 2)
+    }
+}
+
+/// Delayed weather mock to keep the use case in-flight long enough to simulate a double-tap.
+struct WeatherServiceMockDelayed: WeatherService {
+    let delay: Duration
+    func fetchWeather(for coordinate: CLLocationCoordinate2D, at date: Date) async throws -> WeatherSnapshot {
+        try? await Task.sleep(for: delay)
+        return WeatherSnapshot(temperature: 21.0, conditionCode: 2)
     }
 }
 
@@ -61,58 +71,87 @@ struct CreateMomentUseCaseTests {
     }
 }
 
+// MARK: - Tests
+
+@MainActor
 struct LogMomentViewModelTests {
 
-    // Minimal, no-op use case so we can construct the VM
-    private struct NoopCreateMomentUseCase {
-        func callAsFunction(_ dto: CreateMomentDTO, in ctx: ModelContext) async throws {}
-    }
-
-    // If your VM expects WeatherService, keep using your real protocol/use case.
-    // Here we just satisfy the VM’s dependency with a no-op.
-
-    @Test @MainActor
-    func canSave_transitions_correctly() async throws {
-        // In-memory SwiftData container (fast; no files)
-        let container = try ModelContainer(
+    private func makeContainer() throws -> ModelContainer {
+        try ModelContainer(
             for: Moment.self, Urge.self, Tag.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
+    }
+
+    // 1) canSave transitions (no reentrancy involved)
+    @Test
+    func canSave_transitions_correctly() async throws {
+        let container = try makeContainer()
         let ctx = ModelContext(container)
 
-        // Given a VM with no selections yet
         let vm = LogMomentViewModel(
             modelContext: ctx,
-            createMoment: CreateMomentUseCase(weather: WeatherServiceMock()),   // <-- adjust if your type name differs
-            location: LocationManager.shared           // <-- or a simple fake if you prefer
+            createMoment: CreateMomentUseCase(weather: WeatherServiceMock()),
+            location: LocationManager.shared
         )
 
-        // And an urge we can select
         let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
 
-        // 1) Initial state: cannot save
-        #expect(vm.canSave == false)
-
-        // 2) Urge only: still cannot save
+        #expect(vm.canSave == false)  // nothing selected
         vm.selectedUrge = urge
-        #expect(vm.canSave == false)
-
-        // 3) Intensity only: still cannot save
+        #expect(vm.canSave == false)  // urge only
         vm.selectedUrge = nil
         vm.intensity = 3
-        #expect(vm.canSave == false)
+        #expect(vm.canSave == false)  // intensity only
+        vm.selectedUrge = urge
+        vm.intensity = 3
+        #expect(vm.canSave == true)   // urge + intensity
+    }
 
-        // 4) Urge + intensity: can save
+    // 2) Double-tap guard: second save ignored; only one Moment persisted
+    @Test
+    func doubleTapGuard_preventsSecondSave_andPersistsOnce() async throws {
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+
+        // Use the real UC with a delayed weather fetch to keep save() busy briefly.
+        let vm = LogMomentViewModel(
+            modelContext: ctx,
+            createMoment: CreateMomentUseCase(weather: WeatherServiceMockDelayed(delay: .milliseconds(250))),
+            location: LocationManager.shared
+        )
+
+        // Seed a required urge
+        let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
+        ctx.insert(urge)
+        try ctx.save()
+
+        // Set required fields
         vm.selectedUrge = urge
         vm.intensity = 3
         #expect(vm.canSave == true)
 
-        // 5) While saving: cannot save (double-tap guard)
-        vm.isSaving = true
+        // Start save #1
+        let t1 = Task { @MainActor in await vm.save() }
+
+        // Give save() a chance to flip isSaving = true
+        await Task.yield()
+
+        // While first save is in-flight, guard should make canSave false
         #expect(vm.canSave == false)
 
-        // Reset saving: can save again
-        vm.isSaving = false
+        // Try save #2 (should be ignored)
+        await vm.save()
+
+        // Wait for first to finish
+        _ = await t1.value
+
+        // Verify exactly one Moment exists
+        let fetch = FetchDescriptor<Moment>(sortBy: [SortDescriptor(\.timestamp, order: .reverse)])
+        let moments = try ctx.fetch(fetch)
+        #expect(moments.count == 1)
+
+        // After completion, with fields intact, canSave becomes true again
         #expect(vm.canSave == true)
     }
 }

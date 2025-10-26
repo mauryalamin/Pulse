@@ -74,11 +74,21 @@ struct CreateMomentUseCase {
 
     @MainActor
     private func persist(_ moment: Moment, in ctx: ModelContext) throws {
-        print("🟡 persist: inserting… (ctx=\(ObjectIdentifier(ctx)))")
+        // ✅ Defensive: if this instance is already managed by any context, don't insert again
+        if moment.modelContext != nil {
+            // Already inserted/managed — nothing to do
+            // (Optional) print for visibility during tests:
+            // print("ℹ️ persist: moment already managed, skipping insert")
+            return
+        }
+
+        // (Optional) Debug breadcrumb
+        // print("🟡 persist: inserting… (ctx=\(ObjectIdentifier(ctx)))")
+
         ctx.insert(moment)
         try ctx.save()
-        print("✅ Saved moment at \(moment.timestamp) — urge: \(moment.urge.name), intensity: \(moment.intensity)")
 
+        // print("✅ Saved moment at \(moment.timestamp) — urge: \(moment.urge.name), intensity: \(moment.intensity)")
         NotificationCenter.default.post(name: .momentDidSave, object: nil)
     }
 }

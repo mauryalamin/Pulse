@@ -46,14 +46,18 @@ struct CreateMomentUseCase {
     init(weather: WeatherService) { self.weather = weather }
 
     func callAsFunction(_ dto: CreateMomentDTO, in ctx: ModelContext) async throws {
-        print("🟩 UC.call — entered (ctx=\(ObjectIdentifier(ctx))) urge=\(dto.urge.name) intensity=\(dto.intensity) gaveIn=\(dto.response.gaveIn)")
+        // Normalize notes: trim → nil if empty
+        let normalizedNotes: String? = {
+            guard let raw = dto.notes?.trimmingCharacters(in: .whitespacesAndNewlines) else { return nil }
+            return raw.isEmpty ? nil : raw
+        }()
 
         let newMoment = Moment(
             timestamp: dto.timestamp,
             urge: dto.urge,
             intensity: dto.intensity,
-            gaveIn: dto.response.gaveIn,
-            note: dto.notes,
+            gaveIn: dto.response.gaveIn,  // or dto.response.isGaveIn if you renamed
+            note: normalizedNotes,
             tags: dto.tags
         )
 
@@ -63,7 +67,7 @@ struct CreateMomentUseCase {
             // newMoment.locationDescription = loc.place
         }
 
-        // Optional weather (ignored result)
+        // Optional: weather (ignored for mapping test)
         if let loc = dto.location {
             let coord = CLLocationCoordinate2D(latitude: loc.lat, longitude: loc.lon)
             _ = try? await weather.fetchWeather(for: coord, at: dto.timestamp)
@@ -74,21 +78,9 @@ struct CreateMomentUseCase {
 
     @MainActor
     private func persist(_ moment: Moment, in ctx: ModelContext) throws {
-        // ✅ Defensive: if this instance is already managed by any context, don't insert again
-        if moment.modelContext != nil {
-            // Already inserted/managed — nothing to do
-            // (Optional) print for visibility during tests:
-            // print("ℹ️ persist: moment already managed, skipping insert")
-            return
-        }
-
-        // (Optional) Debug breadcrumb
-        // print("🟡 persist: inserting… (ctx=\(ObjectIdentifier(ctx)))")
-
+        if moment.modelContext != nil { return } // defensive: skip double-insert
         ctx.insert(moment)
         try ctx.save()
-
-        // print("✅ Saved moment at \(moment.timestamp) — urge: \(moment.urge.name), intensity: \(moment.intensity)")
         NotificationCenter.default.post(name: .momentDidSave, object: nil)
     }
 }

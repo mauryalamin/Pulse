@@ -10,6 +10,13 @@ import SwiftData
 import CoreLocation
 @testable import Pulse
 
+// MARK: - Weather Mock (no-op result; mapping under test doesn’t use weather yet)
+struct WeatherServiceMockNoop: WeatherService {
+    func fetchWeather(for coordinate: CLLocationCoordinate2D, at date: Date) async throws -> WeatherSnapshot {
+        WeatherSnapshot(temperature: 18.5, conditionCode: 2) // arbitrary
+    }
+}
+
 /// Instant, successful weather mock (used in the simple canSave test)
 struct WeatherServiceMock: WeatherService {
     func fetchWeather(for coordinate: CLLocationCoordinate2D, at date: Date) async throws -> WeatherSnapshot {
@@ -35,6 +42,8 @@ final class LocationManagerFake {
     }
 }
 
+
+// MARK: - Tests
 struct CreateMomentUseCaseTests {
 
     @Test @MainActor
@@ -71,7 +80,6 @@ struct CreateMomentUseCaseTests {
     }
 }
 
-// MARK: - Tests
 
 @MainActor
 struct LogMomentViewModelTests {
@@ -190,65 +198,113 @@ struct LogMomentNoDoubleSaveTests_TaskVariant {
     }
 }
 
-struct CreateMomentDTO_MappingTests {
+@MainActor
+struct CreateMomentUseCase_DTO_Mapping_Tests {
 
-    @Test @MainActor
-    func dto_fields_map_into_Moment_correctly() async throws {
-        // In-memory store
-        let container = try ModelContainer(
+    private func makeContainer() throws -> ModelContainer {
+        try ModelContainer(
             for: Moment.self, Urge.self, Tag.self,
             configurations: ModelConfiguration(isStoredInMemoryOnly: true)
         )
+    }
+
+    @Test
+    func maps_all_fields_correctly_including_location_and_timestamp() async throws {
+        // Arrange
+        let container = try makeContainer()
         let ctx = ModelContext(container)
-        let useCase = CreateMomentUseCase(weather: WeatherServiceMock())
 
-        // Given app data to attach
         let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
-        let tag  = Tag(name: "After Work")
+        let tagA = Tag(name: "After Work")
+        let tagB = Tag(name: "Stress")
         ctx.insert(urge)
-        ctx.insert(tag)
+        ctx.insert(tagA)
+        ctx.insert(tagB)
+        try ctx.save()
 
-        // Stable timestamp to assert exact equality
-        let fixedDate = Date(timeIntervalSince1970: 1_726_000_000)
+        let fixedTimestamp = Date(timeIntervalSince1970: 1_700_000_000) // deterministic date
 
-        // If your LocationSnapshot type is available to tests, use it directly:
-        // Otherwise, set `location: nil` and drop the lat/lon expectations below.
-        let loc = LocationSnapshot(lat: 37.3317, lon: -122.0301, place: "Cupertino")
-
-        // When: build DTO and run the use case
         let dto = CreateMomentDTO(
             urge: urge,
             intensity: 4,
-            response: .stayedPresent,     // -> should map to gaveIn == false
-            notes: "Felt strong urge after work",
-            tags: [tag],
-            location: loc,
-            timestamp: fixedDate
+            response: .stayedPresent,              // should map to gaveIn == false
+            notes: "Felt the urge but stayed present",
+            tags: [tagA, tagB],
+            location: LocationSnapshot(lat: 37.3349, lon: -122.0090, place: "Apple Park"),
+            timestamp: fixedTimestamp
         )
 
-        try await useCase(dto, in: ctx)
+        let uc = CreateMomentUseCase(weather: WeatherServiceMockNoop())
 
-        // Then: fetch and assert field-by-field mapping
+        // Act
+        try await uc(dto, in: ctx)
+
+        // Assert — one Moment saved
         let fetch = FetchDescriptor<Moment>(sortBy: [SortDescriptor(\.timestamp, order: .reverse)])
         let moments = try ctx.fetch(fetch)
-
         #expect(moments.count == 1)
-        let m = try #require(moments.first)
 
-        // Core fields
-        #expect(m.urge.id == urge.id)
+        guard let m = moments.first else {
+            Issue.record("No moment found after save")
+            return
+        }
+
+        // Field-by-field checks
+        #expect(m.timestamp == fixedTimestamp)
+        #expect(m.urge.id == urge.id)                       // same associated Urge
         #expect(m.intensity == 4)
-        #expect(m.gaveIn == false)                        // stayedPresent -> false
-        #expect(m.note == "Felt strong urge after work")
-        #expect(m.timestamp == fixedDate)
+        #expect(m.gaveIn == false)                          // from .stayedPresent
+        #expect(m.note == "Felt the urge but stayed present")
+        #expect((m.tags ?? []).count == 2)
+        #expect(m.tags?.contains(where: { $0.id == tagA.id }) == true)
+        #expect(m.tags?.contains(where: { $0.id == tagB.id }) == true)
 
-        // Tags
-        let names = (m.tags ?? []).map(\.name)
-        #expect(names == ["After Work"])
+        // Location mapping
+        #expect(m.latitude == 37.3349)
+        #expect(m.longitude == -122.0090)
+        // If you map place/description later, assert it here.
+    }
 
-        // Location mapping (only if your model stores these)
-        #expect(m.latitude == 37.3317)
-        #expect(m.longitude == -122.0301)
+    @Test
+    func empty_notes_become_nil_and_location_nil_leaves_coords_nil() async throws {
+        // Arrange
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+
+        let urge = Urge(name: "Scrolling", colorHex: "#445566")
+        ctx.insert(urge)
+        try ctx.save()
+
+        let dto = CreateMomentDTO(
+            urge: urge,
+            intensity: 2,
+            response: .followed,                     // should map to gaveIn == true
+            notes: "",                             // empty → nil
+            tags: [],
+            location: nil,                         // no location
+            timestamp: Date(timeIntervalSince1970: 1_800_000_000)
+        )
+
+        let uc = CreateMomentUseCase(weather: WeatherServiceMockNoop())
+
+        // Act
+        try await uc(dto, in: ctx)
+
+        // Assert
+        let fetched = try ctx.fetch(FetchDescriptor<Moment>())
+        #expect(fetched.count == 1)
+
+        guard let m = fetched.first else {
+            Issue.record("No moment found after save")
+            return
+        }
+
+        #expect(m.urge.id == urge.id)
+        #expect(m.intensity == 2)
+        #expect(m.gaveIn == true)                 // from .gaveIn
+        #expect(m.note == nil)                    // normalized
+        #expect((m.tags ?? []).isEmpty)
+        #expect(m.latitude == nil)
+        #expect(m.longitude == nil)
     }
 }
-

@@ -10,6 +10,10 @@ import SwiftData
 import CoreLocation
 @testable import Pulse
 
+
+// Disambiguate the app's Tag model from SwiftUI.Tag (and others)
+typealias AppTag = Pulse.Tag
+
 // MARK: - Weather Mock (no-op result; mapping under test doesn’t use weather yet)
 struct WeatherServiceMockNoop: WeatherService {
     func fetchWeather(for coordinate: CLLocationCoordinate2D, at date: Date) async throws -> WeatherSnapshot {
@@ -306,5 +310,108 @@ struct CreateMomentUseCase_DTO_Mapping_Tests {
         #expect((m.tags ?? []).isEmpty)
         #expect(m.latitude == nil)
         #expect(m.longitude == nil)
+    }
+}
+
+@MainActor
+struct TagUsageBumpTests {
+
+    private func makeContainer() throws -> ModelContainer {
+        try ModelContainer(
+            for: Moment.self, Urge.self, AppTag.self,
+            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+        )
+    }
+
+    @Test
+    func tag_usage_bump_after_save_persists() async throws {
+        // Arrange
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+
+        // Seed Urge + Tags
+        let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
+        let tagA = AppTag(name: "After Work")   // will be used
+        let tagB = AppTag(name: "Stress")       // will be used
+        let tagC = AppTag(name: "Gym")          // unused control
+        ctx.insert(urge); ctx.insert(tagA); ctx.insert(tagB); ctx.insert(tagC)
+        try ctx.save()
+
+        // Precondition
+        #expect(tagA.usageCount == 0)
+        #expect(tagB.usageCount == 0)
+        #expect(tagC.usageCount == 0)
+
+        // Build DTO with tagA + tagB
+        let dto = CreateMomentDTO(
+            urge: urge,
+            intensity: 3,
+            response: .stayedPresent,
+            notes: "Testing tag usage bump",
+            tags: [tagA, tagB],
+            location: LocationSnapshot(lat: 37.3349, lon: -122.0090, place: "Apple Park"),
+            timestamp: Date(timeIntervalSince1970: 1_777_000_000)
+        )
+
+        let uc = CreateMomentUseCase(weather: WeatherServiceMockNoop())
+
+        // Act: save the Moment
+        try await uc(dto, in: ctx)
+
+        // Simulate UI-layer bump (matches app behavior after a successful save)
+        [tagA, tagB].forEach { $0.usageCount += 1 }
+        try ctx.save()
+
+        // Assert: only used tags bumped
+        let tagFetch = FetchDescriptor<AppTag>(
+            sortBy: [SortDescriptor(\AppTag.name)]   // explicitly root the key path
+        )
+        let tags = try ctx.fetch(tagFetch)
+
+        let a = tags.first(where: { $0.id == tagA.id })!
+        let b = tags.first(where: { $0.id == tagB.id })!
+        let c = tags.first(where: { $0.id == tagC.id })!
+
+        #expect(a.usageCount == 1)
+        #expect(b.usageCount == 1)
+        #expect(c.usageCount == 0)
+
+        // Optional sanity: exactly one moment saved
+        let moments = try ctx.fetch(FetchDescriptor<Moment>())
+        #expect(moments.count == 1)
+    }
+
+    @Test
+    func tag_usage_is_not_double_bumped_on_single_save() async throws {
+        // Arrange
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+
+        let urge = Urge(name: "Scrolling", colorHex: "#445566")
+        let tag = AppTag(name: "Evening")
+        ctx.insert(urge); ctx.insert(tag)
+        try ctx.save()
+
+        let dto = CreateMomentDTO(
+            urge: urge,
+            intensity: 2,
+            response: .followed,            // maps to gaveIn == true
+            notes: "Single save",
+            tags: [tag],
+            location: nil,
+            timestamp: Date(timeIntervalSince1970: 1_800_000_000)
+        )
+
+        let uc = CreateMomentUseCase(weather: WeatherServiceMockNoop())
+
+        // Act: save once, bump once
+        try await uc(dto, in: ctx)
+        tag.usageCount += 1
+        try ctx.save()
+
+        // Assert: still 1 after avoiding accidental re-bump
+        let fetched = try ctx.fetch(FetchDescriptor<AppTag>())
+        let t = fetched.first(where: { $0.id == tag.id })!
+        #expect(t.usageCount == 1)
     }
 }

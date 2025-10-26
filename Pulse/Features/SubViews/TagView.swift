@@ -13,13 +13,12 @@ struct TagView: View {
     
     var body: some View {
         Text(tag)
-            .font(.footnote)
+            .font(.subheadline)
             .foregroundColor(.primary)
             .padding(.horizontal, 16)
-            .padding(.vertical, 4)
+            .padding(.vertical, 6)
             .background(Color.pulseBlue.opacity(0.2))
-            .cornerRadius(6)
-            .frame(maxWidth: 180, alignment: .leading)
+            .clipShape(Capsule())
             .lineLimit(1)
             .truncationMode(.tail)
         
@@ -29,3 +28,4 @@ struct TagView: View {
 #Preview {
     TagView(tag: "Nervous")
 }
+    

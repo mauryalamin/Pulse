@@ -20,7 +20,7 @@ final class LogMomentViewModel {
     var notes: String = ""
     var selectedTags: [Tag] = []
     var errorMessage: String?
-    var isSaving = false
+    private(set) var isSaving: Bool = false
     
     @ObservationIgnored private let modelContext: ModelContext
     @ObservationIgnored private let createMoment: CreateMomentUseCase
@@ -39,21 +39,26 @@ final class LogMomentViewModel {
     
     @MainActor
     func save() async {
-        // 1) Reentrancy gate — block double taps immediately
-        guard !isSaving else { return }
+        print("🟢 VM.save — entered (canSave=\(canSave), isSaving=\(isSaving))")
 
-        // 2) Validate required fields (don’t raise the gate if form is incomplete)
+        guard !isSaving else {
+            print("🟡 VM.save — early exit: already saving")
+            return
+        }
+
         guard let urge = selectedUrge, let intensity = intensity else {
+            print("🟡 VM.save — early exit: missing fields")
             errorMessage = "Missing required fields."
             return
         }
 
-        // 3) Raise the gate now (before any await)
         isSaving = true
-        defer { isSaving = false }
+        defer {
+            isSaving = false
+            print("🔚 VM.save — exit")
+        }
 
-        // 4) Build DTO (allow awaiting location AFTER the gate is up)
-        let loc = await location.snapshot()   // ✅ use your existing API
+        let loc = await location.snapshot()
         let dto = CreateMomentDTO(
             urge: urge,
             intensity: intensity,
@@ -64,11 +69,13 @@ final class LogMomentViewModel {
             timestamp: Date()
         )
 
-        // 5) Persist via single insert path
         do {
+            print("➡️ VM.save — calling use case…")
             try await createMoment(dto, in: modelContext)
+            print("✅ VM.save — use case returned OK")
             errorMessage = nil
         } catch {
+            print("❌ VM.save — use case threw: \(error)")
             errorMessage = error.localizedDescription
         }
     }

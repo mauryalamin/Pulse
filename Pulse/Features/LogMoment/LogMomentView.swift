@@ -99,34 +99,7 @@ struct LogMomentView: View {
                         
                         // MARK: - Tags
                         VStack(alignment: .leading, spacing: 12) {
-                            HStack {
-                                Image(systemName: "tag.fill")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.blue)
-                                Text("Tags")
-                                    .font(.subheadline).fontWeight(.semibold)
-                            }
-                            
-                            LazyVGrid(
-                                columns: [GridItem(.adaptive(minimum: 90), spacing: 6)],
-                                alignment: .leading,
-                                spacing: 6
-                            ) {
-                                ForEach(vm.selectedTags, id: \.id) { tag in
-                                    TagView(tag: tag.name)
-                                }
-                                
-                                Button(action: { showTagPicker = true }) {
-                                    Label("Add", systemImage: "plus")
-                                        .padding(.horizontal, 16)
-                                        .padding(.vertical, 4)
-                                        .background(Color.pulseBlue.opacity(0.2))
-                                        .foregroundColor(.blue)
-                                        .font(.subheadline)
-                                        .cornerRadius(6)
-                                }
-                                .buttonStyle(.plain)
-                            }
+                            TagsFlowSection(selectedTags: $vm.selectedTags, showTagPicker: $showTagPicker)
                         }
                         
                         // MARK: - Notes
@@ -190,16 +163,12 @@ struct LogMomentView: View {
                     .padding()
                 }
                 .task {
-                    // Kick off permission + first fix
-                    locationManager.requestPermissionAndLocation()
-                    // Recreate VM with the real ModelContext (replaces placeholder)
-                    print("📦 LogMomentView .task: context=\(ObjectIdentifier(context))")
                     vm = LogMomentViewModel(
-                        modelContext: context,
+                        modelContext: context,   // ✅ same env context
                         createMoment: CreateMomentUseCase(weather: OpenMeteoWeatherService()),
                         location: LocationManager.shared
                     )
-                    
+                    print("📦 LogMomentView VM installed with context=\(ObjectIdentifier(context))")
                 }
                 .task { weatherVM.start() }
                 .onChange(of: locationManager.location) { _, _ in
@@ -242,7 +211,7 @@ struct LogMomentView: View {
             .navigationTitle("Log Moment")
             .safeAreaInset(edge: .bottom) {
                 SaveMomentBar(
-                    canSave: !saveDisabled(),
+                    canSave: vm.canSave,
                     isSaving: vm.isSaving,
                     onTap: { await onSaveTapped() }
                 )
@@ -298,6 +267,7 @@ struct LogMomentView: View {
     }
     
     
+    
     private func saveDisabled() -> Bool {
         !vm.canSave || vm.isSaving
     }
@@ -318,36 +288,20 @@ struct LogMomentView: View {
     
     @MainActor
     private func onSaveTapped() async {
-        print("🟡 onSaveTapped: start | canSave=\(vm.canSave) isSaving=\(vm.isSaving)")
-        
-        guard !vm.isSaving else { print("🟠 onSaveTapped: blocked (isSaving)"); return }
         guard vm.canSave else {
-            print("🔺 onSaveTapped: blocked (canSave=false)");
-            showingAlert = true
-            // Optional subtle warning haptic
-            let warn = UINotificationFeedbackGenerator()
-            warn.notificationOccurred(.warning)
+            await MainActor.run { showingAlert = true }
             return
         }
-        
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        
-        vm.isSaving = true
-        defer { vm.isSaving = false }
-        
+        print("🟡 onSaveTapped: start | canSave=\(vm.canSave) isSaving=\(vm.isSaving)")
         print("🟡 onSaveTapped: calling vm.save()")
         await vm.save()
-        print("🟢 onSaveTapped: returned from vm.save(), error=\(vm.errorMessage ?? "nil")")
-        
-        if vm.errorMessage != nil { return }
-        
-        // Success haptic
-        let ok = UINotificationFeedbackGenerator()
-        ok.notificationOccurred(.success)
-        
-        bumpTagUsage()
-        await showAndDismissConfirmation()
-        print("✅ onSaveTapped: finished UI updates")
+        print("🟢 onSaveTapped: returned from vm.save(), error=\(String(describing: vm.errorMessage))")
+
+        if vm.errorMessage == nil {
+            await MainActor.run { bumpTagUsage() }
+            await showAndDismissConfirmation()
+            print("✅ onSaveTapped: finished UI updates")
+        }
     }
 }
 

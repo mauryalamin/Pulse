@@ -86,7 +86,10 @@ struct LogMomentView: View {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("How strong is the urge?")
                                     .font(.subheadline).fontWeight(.semibold)
-                                IntensityGroupView(selectedIntensity: $vm.intensity)
+                                IntensityGroupView(
+                                    selectedIntensity: $vm.intensity,          // or $vm.intensity
+                                    baseHex: vm.selectedUrge?.colorHex                // or 
+                                )
                             }
                             Divider()
                             VStack(alignment: .leading, spacing: 12) {
@@ -323,3 +326,4 @@ struct LogMomentView: View {
     .padding()
     .background(Color(.systemGroupedBackground))
 }
+

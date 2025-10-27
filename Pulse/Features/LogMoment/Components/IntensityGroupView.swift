@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IntensityGroupView: View {
     @Binding var selectedIntensity: Int?
-    var baseHex: String? = nil   // NEW: pass urge.colorHex (or nil → Pulse Blue)
+    var baseHex: String? = nil
 
     var body: some View {
         HStack(spacing: 14) {
@@ -17,7 +17,7 @@ struct IntensityGroupView: View {
                 IntensityButtonView(
                     number: number,
                     isSelected: selectedIntensity == number,
-                    isFilled: (selectedIntensity ?? 0) >= number,
+                    isFilled: IntensityGradientSpec.isFilled(level: number, selected: selectedIntensity),
                     baseHex: baseHex,
                     action: { selectedIntensity = number }
                 )

@@ -10,13 +10,24 @@ import SwiftData
 
 @main
 struct PulseApp: App {
-
     @AppStorage("isOnboarding") var isOnboarding: Bool = true
     @AppStorage("isStealthModeEnabled") var isStealthModeEnabled: Bool = false
     @AppStorage("selectedStealthIcon") var selectedStealthIcon: String?
 
     @Environment(\.scenePhase) private var scenePhase
     @State private var lock = AppLockManager.shared
+
+    // 🔒 Explicit persistent container (no in-memory)
+    private let container: ModelContainer = {
+        // Build an App Support path: .../Application Support/Pulse/Pulse.store
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let dir = appSupport.appendingPathComponent("Pulse", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let url = dir.appendingPathComponent("Pulse.store")
+
+        let config = ModelConfiguration(url: url)
+        return try! ModelContainer(for: Moment.self, Urge.self, Tag.self, configurations: config)
+    }()
 
     var body: some Scene {
         WindowGroup {
@@ -31,45 +42,33 @@ struct PulseApp: App {
                             .animation(.easeInOut(duration: 0.4), value: lock.isUnlocked)
 
                         if !lock.isUnlocked {
-                            Color.clear
-                                .background(.ultraThinMaterial)
-                                .ignoresSafeArea()
-                                .transition(.opacity)
-                                .animation(.easeInOut(duration: 0.4), value: lock.isUnlocked)
-
+                            Color.clear.background(.ultraThinMaterial).ignoresSafeArea()
                             VStack(spacing: 16) {
-                                Image(systemName: "lock.fill")
-                                    .font(.system(size: 32))
-                                    .foregroundStyle(.secondary)
-
-                                Text("Unlocking with Face ID...")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
+                                Image(systemName: "lock.fill").font(.system(size: 32)).foregroundStyle(.secondary)
+                                Text("Unlocking with Face ID...").font(.subheadline).foregroundStyle(.secondary)
                             }
                             .transition(.opacity)
                             .animation(.easeInOut(duration: 0.4), value: lock.isUnlocked)
                         }
                     }
                     .task {
-                        if !lock.isUnlocked {
-                            await lock.authenticate()
-                        }
+                        if !lock.isUnlocked { await lock.authenticate() }
                     }
                     .onChange(of: scenePhase) {
                         switch scenePhase {
-                        case .background:
-                            lock.handleDidEnterBackground()
-                        case .active:
-                            lock.handleWillEnterForeground()
-                        default:
-                            break
+                        case .background: lock.handleDidEnterBackground()
+                        case .active:     lock.handleWillEnterForeground()
+                        default:          break
                         }
                     }
                 }
             }
-            // Provide Observation-style environment + SwiftData models
-            
+            .modelContainer(container)
+            .task {
+                // URL is non-optional on iOS 26
+                let path = container.configurations.first?.url.path ?? "<unknown>"
+                print("📦 SwiftData persistent store:", path)
+            }
         }
-        .modelContainer(for: [Moment.self, Urge.self, Tag.self])
     }
 }

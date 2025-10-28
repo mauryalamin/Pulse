@@ -37,7 +37,6 @@ struct LogMomentView: View {
     @State private var showingAlert = false
     @State private var showTagPicker = false
     
-    @State private var noteText: String = ""
     @State private var notesFocused: Bool = false
     
     private enum FieldAnchor: Hashable { case notes }
@@ -301,7 +300,7 @@ struct LogMomentView: View {
             }
             
             // Your focus-aware editor
-            NoteInputView(text: $noteText, isFocused: $notesFocused)
+            NoteInputView(text: $vm.notes, isFocused: $notesFocused)
                 .id(FieldAnchor.notes)
                 .transaction { tx in tx.disablesAnimations = true }
         }

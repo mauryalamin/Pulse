@@ -16,7 +16,7 @@ struct ContentStartupWrapper: View {
     var body: some View {
         HomeView()
             .task {
-                seedDefaultsIfNeeded()  // no await
+                seedDefaultsIfNeeded() // no await needed
                 if !isRunningInPreview {
                     await NotificationManager.shared.requestAuthorizationIfNeeded()
                 }
@@ -34,7 +34,12 @@ struct ContentStartupWrapper: View {
             TagDefaults.builtIn.forEach { modelContext.insert($0) }
             didInsert = true
         }
-        if didInsert { try? modelContext.save() }
+        if didInsert {
+            do { try modelContext.save() }
+            catch {
+                assertionFailure("SwiftData save failed: \(error)")
+            }
+        }
     }
 
     private var isRunningInPreview: Bool {
@@ -44,6 +49,6 @@ struct ContentStartupWrapper: View {
 
 #Preview {
     ContentStartupWrapper()
-        .environment(AppLockManager.shared)              // ⬅️ Observation: inject the instance
+        .environment(AppLockManager.shared)
         .modelContainer(for: [Urge.self, Tag.self, Moment.self], inMemory: true)
 }

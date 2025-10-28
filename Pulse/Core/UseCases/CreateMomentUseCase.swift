@@ -81,6 +81,7 @@ struct CreateMomentUseCase {
         if moment.modelContext != nil { return } // defensive: skip double-insert
         ctx.insert(moment)
         try ctx.save()
+        print("📝 saving note:", moment.note ?? "<nil>")
         NotificationCenter.default.post(name: .momentDidSave, object: nil)
     }
 }

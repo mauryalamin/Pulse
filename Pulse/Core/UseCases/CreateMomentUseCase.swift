@@ -46,6 +46,7 @@ struct CreateMomentUseCase {
     init(weather: WeatherService) { self.weather = weather }
 
     func callAsFunction(_ dto: CreateMomentDTO, in ctx: ModelContext) async throws {
+        print("🟡 CreateMomentUseCase: start (ctx=\(ObjectIdentifier(ctx)))")
         // Normalize notes: trim → nil if empty
         let normalizedNotes: String? = {
             guard let raw = dto.notes?.trimmingCharacters(in: .whitespacesAndNewlines) else { return nil }
@@ -78,10 +79,11 @@ struct CreateMomentUseCase {
 
     @MainActor
     private func persist(_ moment: Moment, in ctx: ModelContext) throws {
-        if moment.modelContext != nil { return } // defensive: skip double-insert
+        print("🟡 persist: inserting… (ctx=\(ObjectIdentifier(ctx)))")
         ctx.insert(moment)
         try ctx.save()
-        print("📝 saving note:", moment.note ?? "<nil>")
+        print("✅ save() committed — moment id:", moment.persistentModelID)
+
         NotificationCenter.default.post(name: .momentDidSave, object: nil)
     }
 }

@@ -84,6 +84,7 @@ struct HomeView: View {
                         Label("Settings", systemImage: "gearshape")
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing) { debugToolbar() }
             }
             // Lock overlay (Observation-based)
             .overlay {
@@ -96,6 +97,9 @@ struct HomeView: View {
             }
             // Initial load
             .task { await installVMIfNeeded(); await vm?.reload() }
+            .onAppear {
+                dumpAllMoments("onAppear")
+            }
         }
     }
 
@@ -183,6 +187,27 @@ struct HomeView: View {
     private func installVMIfNeeded() async {
         guard vm == nil else { return }
         vm = MomentsListViewModel(context: context)
+    }
+    
+    private func dumpAllMoments(_ tag: String) {
+        do {
+            let all = try context.fetch(FetchDescriptor<Moment>(sortBy: [SortDescriptor(\.timestamp, order: .reverse)]))
+            print("📊 [\(tag)] total moments in store:", all.count)
+            if let first = all.first {
+                print("   ↳ newest:", first.timestamp, "urge:", first.urge.name, "int:", first.intensity, "gaveIn:", first.gaveIn)
+            }
+        } catch {
+            print("❌ dumpAllMoments error:", error)
+        }
+    }
+
+    @ViewBuilder
+    private func debugToolbar() -> some View {
+        Button {
+            dumpAllMoments("onTap")
+        } label: {
+            Image(systemName: "tray.full")
+        }
     }
 }
 

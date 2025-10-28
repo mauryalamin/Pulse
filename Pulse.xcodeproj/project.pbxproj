@@ -41,6 +41,7 @@
 		AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C332EA68CD500FBD70C /* UrgeRow.swift */; };
 		AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */; };
 		AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */; };
+		AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C1BB62EB157D300F1FB88 /* Persistence.swift */; };
 		AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
@@ -132,6 +133,7 @@
 		AE627C332EA68CD500FBD70C /* UrgeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeRow.swift; sourceTree = "<group>"; };
 		AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseDateFormatting.swift; sourceTree = "<group>"; };
 		AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateTimeView.swift; sourceTree = "<group>"; };
+		AE6C1BB62EB157D300F1FB88 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMomentBar.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -485,6 +487,7 @@
 				AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */,
 				AE8D5F372EAFF0F90087CB44 /* IntensityGradientSpec.swift */,
 				AEF8CA292EB045DE00779DF6 /* Haptics.swift */,
+				AE6C1BB62EB157D300F1FB88 /* Persistence.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -685,6 +688,7 @@
 				AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */,
 				AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */,
 				AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */,
+				AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
 				AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */,
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,

@@ -77,6 +77,7 @@
 		AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */; };
 		AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149662DCD54D400690F5E /* LogMomentButton.swift */; };
 		AEF5D6E02DD4E67B0013E213 /* IntensityLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */; };
+		AEF8CA2A2EB045DE00779DF6 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF8CA292EB045DE00779DF6 /* Haptics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		AEF149642DCD544700690F5E /* EmptyStateLogButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateLogButtonView.swift; sourceTree = "<group>"; };
 		AEF149662DCD54D400690F5E /* LogMomentButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMomentButton.swift; sourceTree = "<group>"; };
 		AEF5D6DF2DD4E67B0013E213 /* IntensityLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityLabel.swift; sourceTree = "<group>"; };
+		AEF8CA292EB045DE00779DF6 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -482,6 +484,7 @@
 				AEF149602DCD4D4300690F5E /* Date+Extension.swift */,
 				AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */,
 				AE8D5F372EAFF0F90087CB44 /* IntensityGradientSpec.swift */,
+				AEF8CA292EB045DE00779DF6 /* Haptics.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -701,6 +704,7 @@
 				AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */,
 				AE622B312EA315C800A0F0F6 /* LogMomentViewModel.swift in Sources */,
 				AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */,
+				AEF8CA2A2EB045DE00779DF6 /* Haptics.swift in Sources */,
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,

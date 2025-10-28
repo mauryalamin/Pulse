@@ -24,7 +24,7 @@ struct IntensityButtonView: View {
     
     var body: some View {
         Button {
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            Haptics.lightTap()
             action()
         } label: {
             ZStack {

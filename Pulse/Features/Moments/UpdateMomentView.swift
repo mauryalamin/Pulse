@@ -109,7 +109,7 @@ struct UpdateMomentView: View {
                         // Notes
                         VStack(alignment: .leading, spacing: 8) {
                             Text("Notes").font(.subheadline).fontWeight(.semibold)
-                            NoteInputView(text: $noteText)
+                            // **** NoteInputView(text: $noteText)
                         }
 
                         Divider()

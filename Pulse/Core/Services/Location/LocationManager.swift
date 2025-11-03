@@ -45,30 +45,24 @@ enum LocationFormatter {
     }
 }
 
-/// iOS 26-ready LocationManager:
-/// - No @MainActor on the class (avoids Swift 6 protocol-isolation warning)
-/// - Uses MKReverseGeocodingRequest(location:) + await request.mapItems
-/// - Mutates observable state on the main actor
 @Observable
-final class LocationManager: NSObject, CLLocationManagerDelegate, LocationManaging {
-
+final class LocationManager: NSObject, CLLocationManagerDelegate {
     static let shared = LocationManager()
-
-    // Observable state (updated on MainActor)
-    var authorizationStatus: CLAuthorizationStatus = .notDetermined
-    var location: CLLocation?
-    var placename: String?
 
     private let manager = CLLocationManager()
 
-    private override init() {
+    // Published/observable properties
+    var location: CLLocation?
+    var placename: String?
+    var authorizationStatus: CLAuthorizationStatus = .notDetermined
+
+    override private init() {
         super.init()
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
 
-    // MARK: - Public API (UI can call these)
-    @MainActor
+    // MARK: - Permission flow
     func requestPermissionAndLocation() {
         let status = manager.authorizationStatus
         authorizationStatus = status
@@ -83,80 +77,83 @@ final class LocationManager: NSObject, CLLocationManagerDelegate, LocationManagi
         }
     }
 
-    /// One-shot snapshot used by your VMs.
-    @MainActor
-    func snapshot() async -> LocationSnapshot? {
-        if let loc = location {
-            return LocationSnapshot(lat: loc.coordinate.latitude,
-                                    lon: loc.coordinate.longitude,
-                                    place: placename)
-        }
-        requestPermissionAndLocation()
-        // Give the delegate a moment to deliver an update.
-        try? await Task.sleep(for: .seconds(1.5))
-        guard let loc = location else { return nil }
-        return LocationSnapshot(lat: loc.coordinate.latitude,
-                                lon: loc.coordinate.longitude,
-                                place: placename)
+    // ✅ New helper used by preflightAuthorization()
+    func requestLocation() {
+        manager.requestLocation()
     }
 
-    // MARK: - CLLocationManagerDelegate (nonisolated, hop to main for state)
+    // ✅ New helper used by refreshIfAuthorized()
+    func refreshIfAuthorized() {
+        switch authorizationStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            requestLocation()
+        default:
+            break
+        }
+    }
+
+    // ✅ New helper used by preflightAuthorization()
+    func preflightAuthorization() {
+        switch authorizationStatus {
+        case .notDetermined:
+            requestPermissionAndLocation()
+        default:
+            break
+        }
+    }
+
+    // MARK: - Delegate methods
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        Task { @MainActor in
-            authorizationStatus = manager.authorizationStatus
-            if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
-                self.manager.requestLocation()
-            }
+        authorizationStatus = manager.authorizationStatus
+        if authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways {
+            manager.requestLocation()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let loc = locations.first else { return }
-        Task { @MainActor in
-            self.location = loc
-        }
-
+        guard let loc = locations.last else { return }
+        location = loc
         Task {
-            // Reverse-geocode with the new MapKit API (iOS 26)
-            if let request = MKReverseGeocodingRequest(location: loc) {
-                do {
-                    let items = try await request.mapItems
-                    if let item = items.first {
-                        // Prefer the new shortAddress, then name, then coords as a last resort
-                        let display: String = {
-                            if let short = item.address?.shortAddress, !short.isEmpty {
-                                return short
-                            } else if let name = item.name, !name.isEmpty {
-                                return name
-                            } else {
-                                let c = item.location.coordinate
-                                return String(format: "%.4f, %.4f", c.latitude, c.longitude)
-                            }
-                        }()
-
-                        await MainActor.run { self.placename = display }
-                    } else {
-                        await MainActor.run { self.placename = nil }
-                    }
-                } catch {
-                    await MainActor.run { self.placename = nil }
-                    print("Reverse-geocoding failed: \(error.localizedDescription)")
-                }
-            } else {
-                await MainActor.run { self.placename = nil }
-            }
+            await reverseGeocode(loc)
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location error: \(error.localizedDescription)")
+        print("LocationManager error:", error.localizedDescription)
     }
-    
-    // LocationManager.swift
-    @MainActor
-    func refresh() {
-        // Optional: clear current label so UI shows “Retrieving…” immediately
-        placename = nil
-        manager.requestLocation()   // will trigger didUpdateLocations -> reverse geocode
+
+    // MARK: - Reverse Geocode
+    private func reverseGeocode(_ loc: CLLocation) async {
+        if let request = MKReverseGeocodingRequest(location: loc) {
+            do {
+                let items = try await request.mapItems
+                let item = items.first
+                let display =
+                    item?.address?.shortAddress ??
+                    item?.name ??
+                    "Unknown Location"
+                await MainActor.run {
+                    self.placename = display
+                }
+            } catch {
+                print("Reverse geocoding failed: \(error.localizedDescription)")
+            }
+        }
     }
+}
+
+// MARK: - Conformance
+extension LocationManager: LocationManaging {
+    func snapshot() async -> LocationSnapshot? {
+        let coord = location?.coordinate
+        return LocationSnapshot(
+            lat: coord?.latitude,
+            lon: coord?.longitude,
+            place: placename
+        )
+    }
+
+    // You already have these in your manager; this just satisfies the protocol.
+    // func requestPermissionAndLocation() { ... }
+    // func refreshIfAuthorized() { ... }
 }

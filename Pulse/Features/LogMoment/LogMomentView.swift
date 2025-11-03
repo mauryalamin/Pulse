@@ -14,31 +14,31 @@ import Observation
 struct LogMomentView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-
+    
     // Managers (Observation)
     @State private var locationManager = LocationManager.shared
-
+    
     // ViewModel is installed once we have the real ModelContext
     @State private var vm: LogMomentViewModel? = nil
-
+    
     // Weather row
     @State private var weatherVM = WeatherNowViewModel(
         weather: OpenMeteoWeatherService(),
         location: LocationManager.shared
     )
-
+    
     // Queries to populate pickers
     @Query(sort: \Urge.name) private var urges: [Urge]
     @Query(sort: \Tag.name)  private var tags:  [Tag]
-
+    
     // Local UI state
     @State private var showConfirmation = false
     @State private var showingAlert = false
     @State private var showTagPicker = false
     @State private var notesFocused = false
-
+    
     private enum FieldAnchor: Hashable { case notes }
-
+    
     var body: some View {
         NavigationStack {
             Group {
@@ -61,26 +61,26 @@ struct LogMomentView: View {
             }
         }
     }
-
+    
     // MARK: - Main content (uses @Bindable for clean bindings)
     @ViewBuilder
     private func content(_ concrete: LogMomentViewModel) -> some View {
         @Bindable var vm = concrete
-
+        
         ZStack {
             Color(.grayBackground).ignoresSafeArea()
-
+            
             ScrollViewReader { proxy in
                 ScrollView {
                     VStack(alignment: .leading, spacing: 32) {
-
+                        
                         // MARK: Urge Picker
                         VStack(alignment: .leading, spacing: 12) {
                             Text("What do you feel the urge for?")
                                 .font(.subheadline).fontWeight(.semibold)
                             UrgeMenuView(selectedUrge: $vm.selectedUrge)
                         }
-
+                        
                         // MARK: Intensity + Followed
                         HStack(spacing: 24) {
                             VStack(alignment: .leading, spacing: 12) {
@@ -102,7 +102,7 @@ struct LogMomentView: View {
                                 .labelsHidden()
                             }
                         }
-
+                        
                         // MARK: Tags (keeps your custom flow layout)
                         VStack(alignment: .leading, spacing: 12) {
                             TagsFlowSection(
@@ -110,13 +110,13 @@ struct LogMomentView: View {
                                 showTagPicker: $showTagPicker
                             )
                         }
-
+                        
                         // MARK: Notes (focus-aware; scrolls into view)
                         notesSection(vm: vm)
                             .id(FieldAnchor.notes)
-
+                        
                         Divider().padding(.top, 4)
-
+                        
                         // MARK: Around This Moment
                         contextualSection
                         Divider()
@@ -135,7 +135,7 @@ struct LogMomentView: View {
                     }
                 }
             }
-
+            
             if showConfirmation {
                 ZStack {
                     Color.white.opacity(0.9).ignoresSafeArea()
@@ -161,7 +161,7 @@ struct LogMomentView: View {
         .ignoresSafeArea(.keyboard)
         .animation(.easeInOut, value: showConfirmation)
         .navigationTitle("Log Moment")
-
+        
         // Bottom save bar (unchanged visuals/logic)
         .safeAreaInset(edge: .bottom) {
             SaveMomentBar(
@@ -170,9 +170,9 @@ struct LogMomentView: View {
                 onTap: { await onSaveTapped(vm) }
             )
         }
-
+        
         .interactiveDismissDisabled(notesFocused)
-
+        
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button { dismiss() } label: {
@@ -191,22 +191,36 @@ struct LogMomentView: View {
                     .font(.body.weight(.semibold))
             }
         }
-
+        
         // Errors from VM save
         .alert("Error", isPresented: .constant(vm.errorMessage != nil)) {
             Button("OK") { vm.errorMessage = nil }
         } message: {
             Text(vm.errorMessage ?? "")
         }
-
+        
         // Weather refresh hooks
         .onChange(of: locationManager.location)            { _, _ in weatherVM.locationDidChange() }
         .onChange(of: locationManager.authorizationStatus) { _, _ in weatherVM.locationDidChange() }
+        // LogMomentView.swift (inside body)
+        .task {
+            // Preflight location ONCE when the sheet appears
+            locationManager.preflightAuthorization()
+            locationManager.refreshIfAuthorized()   // optional nudge
+        }
+        
+        // If you kick off weather, only do so after auth changes or fixes:
+        .onChange(of: locationManager.authorizationStatus) { _, _ in
+            weatherVM.locationDidChange()
+        }
+        .onChange(of: locationManager.location) { _, _ in
+            weatherVM.locationDidChange()
+        }
         .task { weatherVM.start() }
     }
-
+    
     // MARK: - Pieces preserved
-
+    
     @ViewBuilder
     private func notesSection(vm: LogMomentViewModel) -> some View {
         @Bindable var vm = vm
@@ -222,26 +236,26 @@ struct LogMomentView: View {
                 .transaction { tx in tx.disablesAnimations = true }
         }
     }
-
+    
     @ViewBuilder
     private var contextualSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Around This Moment")
                 .font(.title3).fontWeight(.semibold)
-
+            
             CurrentDateTimeView()
             WeatherNowRow(state: weatherVM.state)
-
+            
             let isAuth = locationManager.authorizationStatus == .authorizedWhenInUse
-                      || locationManager.authorizationStatus == .authorizedAlways
-
+            || locationManager.authorizationStatus == .authorizedAlways
+            
             let locationLabel = LocationFormatter.displayName(
                 placename: locationManager.placename,
                 lat: locationManager.location?.coordinate.latitude,
                 lon: locationManager.location?.coordinate.longitude,
                 isAuthorized: isAuth
             )
-
+            
             HStack(spacing: 6) {
                 Image(systemName: "mappin.circle.fill")
                     .accessibilityHidden(true)
@@ -258,7 +272,7 @@ struct LogMomentView: View {
         .accessibilityElement(children: .contain)
         .accessibilityHint("Contextual information for this moment.")
     }
-
+    
     @ViewBuilder
     private func saveToolbarButton(vm: LogMomentViewModel) -> some View {
         let enabled = vm.canSave && !vm.isSaving
@@ -266,7 +280,7 @@ struct LogMomentView: View {
             .symbolRenderingMode(.monochrome)
             .font(.headline)
             .frame(minWidth: 28, minHeight: 28)
-
+        
         if enabled {
             Button { Task { await onSaveTapped(vm) } } label: { label }
                 .buttonStyle(.glassProminent)
@@ -281,11 +295,11 @@ struct LogMomentView: View {
                 .accessibilityLabel("Save (disabled)")
         }
     }
-
+    
     private func bumpTagUsage(vm: LogMomentViewModel) {
         vm.selectedTags.forEach { $0.usageCount += 1 }
     }
-
+    
     private func showAndDismissConfirmation() async {
         await MainActor.run { showConfirmation = true }
         try? await Task.sleep(for: .milliseconds(1200))
@@ -294,7 +308,7 @@ struct LogMomentView: View {
             dismiss()
         }
     }
-
+    
     @MainActor
     private func onSaveTapped(_ vm: LogMomentViewModel) async {
         guard vm.canSave else {
@@ -305,11 +319,13 @@ struct LogMomentView: View {
         print("🟡 onSaveTapped: calling vm.save()")
         await vm.save()
         print("🟢 onSaveTapped: returned from vm.save(), error=\(String(describing: vm.errorMessage))")
-
+        
         if vm.errorMessage == nil {
             bumpTagUsage(vm: vm)
             await showAndDismissConfirmation()
             print("✅ onSaveTapped: finished UI updates")
+            let gen = UINotificationFeedbackGenerator()
+            gen.notificationOccurred(.success)
         }
     }
 }
@@ -317,6 +333,6 @@ struct LogMomentView: View {
 // MARK: - Previews
 #Preview {
     LogMomentView()
-        // Previews can stay in-memory; app build uses the real persistent store
+    // Previews can stay in-memory; app build uses the real persistent store
         .modelContainer(for: [Moment.self, Urge.self, Tag.self], inMemory: true)
 }

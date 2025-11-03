@@ -69,8 +69,10 @@ struct CreateMomentUseCase {
         }
 
         // Optional: weather (ignored for mapping test)
-        if let loc = dto.location {
-            let coord = CLLocationCoordinate2D(latitude: loc.lat, longitude: loc.lon)
+        if let loc = dto.location,
+           let lat = loc.lat,
+           let lon = loc.lon {
+            let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             _ = try? await weather.fetchWeather(for: coord, at: dto.timestamp)
         }
 

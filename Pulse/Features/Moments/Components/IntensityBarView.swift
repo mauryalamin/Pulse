@@ -13,6 +13,7 @@ struct IntensityBarView: View {
     var height: CGFloat = 12
     var stepWidth: CGFloat = 30
     var fallbackColor: Color = .gray
+    var includeBug: Bool
     
     private let brightness = [0.4, 0.3, 0.2, 0.1, 0.0]   // 0.0 = no change
     private let saturation = [0.6, 0.7, 0.8, 0.9, 1.0]   // 1.0 = no change
@@ -43,20 +44,22 @@ struct IntensityBarView: View {
             }
             
             // Intensity Number
-            ZStack (alignment: .center){
-                Image(systemName: "circle.fill")
-                    .font(.title3)
-                    .foregroundStyle(Color(UIColor.systemGray4))
-                Text("\(intensity)")
-                    .font(.caption2)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.primary)
+            if includeBug {
+                ZStack (alignment: .center){
+                    Image(systemName: "circle.fill")
+                        .font(.title3)
+                        .foregroundStyle(Color(UIColor.systemGray4))
+                    Text("\(intensity)")
+                        .font(.caption2)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.primary)
+                }
             }
         }
     }
 }
 
 #Preview {
-    IntensityBarView(intensity: 4, hexColor: "#4285F4")
+    IntensityBarView(intensity: 4, hexColor: "#4285F4", includeBug: true)
 }
 

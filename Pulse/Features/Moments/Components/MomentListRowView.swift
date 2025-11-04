@@ -24,7 +24,7 @@ struct MomentListRowView: View {
                     Text(moment.urge.name)
                         .font(.title3)
                         .fontWeight(.semibold)
-                IntensityBarView(intensity: moment.intensity, hexColor: moment.urge.colorHex)
+                IntensityBarView(intensity: moment.intensity, hexColor: moment.urge.colorHex, includeBug: true)
             }
             Spacer()
             VStack  (alignment: .trailing) {

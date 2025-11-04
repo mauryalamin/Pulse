@@ -74,14 +74,14 @@ struct LogMomentView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 32) {
                         
-                        // MARK: Urge Picker
+                        // MARK: - Urge Picker
                         VStack(alignment: .leading, spacing: 12) {
                             Text("What do you feel the urge for?")
                                 .font(.subheadline).fontWeight(.semibold)
                             UrgeMenuView(selectedUrge: $vm.selectedUrge)
                         }
                         
-                        // MARK: Intensity + Followed
+                        // MARK: - Intensity + Followed
                         HStack(spacing: 24) {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text("How strong is the urge?")
@@ -103,7 +103,7 @@ struct LogMomentView: View {
                             }
                         }
                         
-                        // MARK: Tags (keeps your custom flow layout)
+                        // MARK: - Tags (keeps your custom flow layout)
                         VStack(alignment: .leading, spacing: 12) {
                             TagsFlowSection(
                                 selectedTags: $vm.selectedTags,
@@ -111,13 +111,13 @@ struct LogMomentView: View {
                             )
                         }
                         
-                        // MARK: Notes (focus-aware; scrolls into view)
+                        // MARK: - Notes (focus-aware; scrolls into view)
                         notesSection(vm: vm)
                             .id(FieldAnchor.notes)
                         
                         Divider().padding(.top, 4)
                         
-                        // MARK: Around This Moment
+                        // MARK: - Around This Moment
                         contextualSection
                         Divider()
                     }

@@ -21,73 +21,78 @@ struct MomentDetailView: View {
             ScrollView {
                 VStack {
                     VStack (alignment: .leading, spacing: 32) {
-                        VStack (alignment: .leading, spacing: 12) {
+                        VStack (alignment: .leading, spacing: 16) {
                             Text("LOGGED DETAILS")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.pulseBlue)
+                                .foregroundStyle(.primary)
                             Divider()
                             
-                            // MARK: - Urge Type
-                            HStack (spacing: 12) {
-                                ZStack (alignment: .center) {
-                                    Image(systemName: "circle.fill")
-                                        .font(.system(size: 19))
-                                        .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
-                                    Image(systemName: "circle.fill")
-                                        .font(.system(size: 38))
-                                        .foregroundColor(Color(hex: moment.urge.colorHex)?.opacity(0.5) ?? .gray)
-                                }
-                                VStack (alignment: .leading) {
+                            VStack (alignment: .leading, spacing: 24) {
+                                // MARK: - Urge Type
+                                VStack (alignment: .leading, spacing: 4) {
                                     Text("What did you feel the urge for?")
-                                        .font(.title3)
+                                        .font(.headline)
                                         .fontWeight(.medium)
-                                    Text(moment.urge.name)
-                                        .fontWeight(.light)
-                                }
-                            }
-                            Divider()
-                            
-                            // MARK: - Intensity
-                            if let descriptor = IntensityLabel.from(moment.intensity) {
-                                HStack(spacing: 12) {
-                                    Image(systemName: descriptor.symbolName)
-                                        .font(.system(size: 38))
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
-                                    VStack (alignment: .leading) {
-                                        Text("How strong was the urge?")
+                                        .foregroundStyle(.secondary)
+                                    HStack {
+                                        Image(systemName: "circle.fill")
+                                            .font(.callout)
+                                            .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
+                                        Text(moment.urge.name)
                                             .font(.title3)
-                                            .fontWeight(.medium)
-                                        Text(descriptor.label)
-                                            .font(.body)
-                                            .fontWeight(.light)
                                     }
                                 }
-                            }
-                            Divider()
-                            
-                            // MARK: - Response
-                            HStack (spacing: 12) {
-                                Image(systemName: moment.gaveIn ? "exclamationmark.triangle.fill" : "checkmark.seal.fill")
-                                    .font(.system(size: 38))
-                                    .foregroundStyle(moment.gaveIn ? .gaveIn : .sageGreen)
-                                VStack (alignment: .leading) {
-                                    Text("How did you respond?")
-                                        .font(.title3)
-                                        .fontWeight(.medium)
-                                    Text(moment.gaveIn ? "I gave in" : "Stayed Present")
-                                        .fontWeight(.light)
+                                
+                                // MARK: - Intensity
+                                if let descriptor = IntensityLabel.from(moment.intensity) {
+                                    VStack (alignment: .leading, spacing: 4) {
+                                        Text("How strong was the urge?")
+                                            .font(.headline)
+                                            .fontWeight(.medium)
+                                            .foregroundStyle(.secondary)
+                                        HStack {
+                                            Image(systemName: descriptor.symbolName)
+                                                .font(.callout)
+                                                .fontWeight(.semibold)
+                                                .foregroundColor(Color(hex: moment.urge.colorHex) ?? .gray)
+                                            Text(descriptor.label)
+                                                .font(.title3)
+                                        }
+                                        IntensityBarView(intensity: moment.intensity, hexColor: moment.urge.colorHex, includeBug: false)
+                                        
+                                    }
                                 }
+                                
+                                // MARK: - Response
+                                VStack (alignment: .leading, spacing: 4) {
+                                    Text("How did you respond?")
+                                        .font(.headline)
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(.secondary)
+                                    ResponseTypeTagView(iGaveIn: moment.gaveIn)
+                                }
+                                .padding(.bottom, 6)
                             }
+                            
                             Divider()
                         }
                         
-                        VStack (alignment: .leading, spacing: 24) {
-                            Text("TAGS & NOTES")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .foregroundStyle(.pulseBlue)
+                        // MARK: - Tags & Notes
+                        
+                        VStack (alignment: .leading, spacing: 16) {
+                            HStack {
+                                Image(systemName: "tag.fill")
+                                    .font(.body)
+                                    .foregroundStyle(.blue)
+                                Image(systemName: "text.bubble.fill")
+                                    .font(.body)
+                                    .foregroundStyle(.green)
+                                Text("TAGS & NOTES")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                    .foregroundStyle(.primary)
+                            }
                             
                             // MARK: - Tags
                             if let tags = moment.tags, !tags.isEmpty {
@@ -131,10 +136,10 @@ struct MomentDetailView: View {
                                         Image(systemName: WeatherSnapshot(temperature: moment.temperature, conditionCode: moment.weatherCode).sfSymbol)
                                             .font(.body)
                                             .foregroundStyle(.secondary)
-
+                                        
                                         VStack(alignment: .leading, spacing: 2) {
                                             Text(WeatherSnapshotFormatter.formatted(code: moment.weatherCode, temp: moment.temperature))
-
+                                            
                                             
                                         }
                                     }
@@ -143,7 +148,7 @@ struct MomentDetailView: View {
                                         Image(systemName: "cloud.sun.fill")
                                             .font(.body)
                                             .foregroundStyle(.secondary)
-
+                                        
                                         Text("No weather data was captured.")
                                             .font(.body)
                                             .foregroundStyle(.secondary)
@@ -202,6 +207,7 @@ struct MomentDetailView: View {
                 .cornerRadius(20)
             }
             .navigationTitle("Logged Moment")
+            .navigationSubtitle(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
             .sheet(isPresented: $showingEditSheet) {
                 UpdateMomentView(moment: moment)
             }

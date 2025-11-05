@@ -9,12 +9,11 @@ import Testing
 import SwiftUI
 @testable import Pulse
 
-struct IntensitySelectorTests {
+struct IntensityGradientSpecTests {
 
     // 1) Spec mapping is exact for levels 1...5
     @Test
     func gradient_pairs_match_spec() {
-        // (brightness, saturation) spec we expect
         let expected: [(Double, Double)] = [
             (0.4, 0.6),
             (0.3, 0.7),
@@ -30,7 +29,7 @@ struct IntensitySelectorTests {
         }
     }
 
-    // Clamp behavior at edges (defensive)
+    // 2) Clamp behavior at edges
     @Test
     func gradient_pairs_clamp_out_of_range_levels() {
         let lo = IntensityGradientSpec.pair(for: 0)   // clamp to 1
@@ -39,17 +38,13 @@ struct IntensitySelectorTests {
         #expect(hi.brightness == 0.0 && hi.saturation == 1.0)
     }
 
-    // 2) Fill logic: first N are filled, others not
+    // 3) Fill logic: first N are filled, others not
     @Test
     func fill_logic_marks_first_N_as_filled() {
         let N = 3
         for level in 1...5 {
             let filled = IntensityGradientSpec.isFilled(level: level, selected: N)
-            if level <= N {
-                #expect(filled == true)
-            } else {
-                #expect(filled == false)
-            }
+            #expect(filled == (level <= N))
         }
     }
 
@@ -60,7 +55,7 @@ struct IntensitySelectorTests {
         }
     }
 
-    // 3) Base color fallback
+    // 4) Base color fallback
     @Test
     func base_color_uses_fallback_when_hex_is_nil_or_invalid() {
         let fb: Color = .pulseBlue
@@ -68,14 +63,12 @@ struct IntensitySelectorTests {
         let c1 = IntensityGradientSpec.baseColor(from: nil, fallback: fb)
         let c2 = IntensityGradientSpec.baseColor(from: "INVALID", fallback: fb)
 
-        // We can only check equality via description safely here.
         #expect(String(describing: c1) == String(describing: fb))
         #expect(String(describing: c2) == String(describing: fb))
     }
 
     @Test
     func base_color_uses_valid_hex() {
-        // A real hex; equality is string-based to avoid internal style differences
         let chosen = IntensityGradientSpec.baseColor(from: "#8B3A3A", fallback: .pulseBlue)
         #expect(String(describing: chosen) != String(describing: Color.pulseBlue))
     }

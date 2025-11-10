@@ -21,7 +21,6 @@ struct TagView: View {
             .clipShape(Capsule())
             .lineLimit(1)
             .truncationMode(.tail)
-        
     }
 }
 

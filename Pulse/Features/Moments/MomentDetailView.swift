@@ -95,17 +95,7 @@ struct MomentDetailView: View {
                             }
                             
                             // MARK: - Tags
-                            if let tags = moment.tags, !tags.isEmpty {
-                                LazyVGrid(columns: [GridItem(.adaptive(minimum: 80), spacing: 8)], alignment: .leading, spacing: 8) {
-                                    ForEach(tags, id: \.id) { tag in
-                                        TagView(tag: tag.name)
-                                    }
-                                }
-                            } else {
-                                Text("No tags added")
-                                    .foregroundStyle(.secondary)
-                                    .font(.subheadline)
-                            }
+                            TagsReadOnlySectionView(tags: moment.tags ?? [])
                             
                             // MARK: - Notes
                             if let note = moment.note {

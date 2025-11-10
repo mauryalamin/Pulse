@@ -53,6 +53,8 @@
 		AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */; };
 		AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */; };
 		AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */; };
+		AED342F82EC288C700B1CFB2 /* TagChipReadOnlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED342F72EC288C700B1CFB2 /* TagChipReadOnlyView.swift */; };
+		AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED342F92EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift */; };
 		AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */; };
 		AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */; };
 		AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEDF6A742DD563D200589F11 /* RadioButtonView.swift */; };
@@ -149,6 +151,8 @@
 		AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepTwoView.swift; sourceTree = "<group>"; };
 		AECB69AD2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepThreeView.swift; sourceTree = "<group>"; };
+		AED342F72EC288C700B1CFB2 /* TagChipReadOnlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagChipReadOnlyView.swift; sourceTree = "<group>"; };
+		AED342F92EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsReadOnlySectionView.swift; sourceTree = "<group>"; };
 		AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		AEDF6A722DD55E0600589F11 /* OnboardingStepFourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepFourView.swift; sourceTree = "<group>"; };
 		AEDF6A742DD563D200589F11 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
@@ -391,6 +395,8 @@
 				AE31EDA52DDD2799009F838C /* FilterSectionHeader.swift */,
 				AE622B442EA453B600A0F0F6 /* ResponseTypeTagView.swift */,
 				AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */,
+				AED342F72EC288C700B1CFB2 /* TagChipReadOnlyView.swift */,
+				AED342F92EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -676,6 +682,7 @@
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
 				AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */,
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
+				AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */,
 				AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */,
@@ -694,6 +701,7 @@
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,
 				AE31EDAE2DDD52A2009F838C /* LocationManager.swift in Sources */,
 				AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */,
+				AED342F82EC288C700B1CFB2 /* TagChipReadOnlyView.swift in Sources */,
 				AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */,
 				AE2CA1D82DD664C0000DF21E /* TagView.swift in Sources */,
 				AE9730C62EA9569C003D5971 /* WeatherFormatting.swift in Sources */,

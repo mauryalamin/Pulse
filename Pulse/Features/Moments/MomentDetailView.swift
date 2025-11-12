@@ -98,13 +98,7 @@ struct MomentDetailView: View {
                             TagsReadOnlySectionView(tags: moment.tags ?? [])
                             
                             // MARK: - Notes
-                            if let note = moment.note {
-                                Text(note)
-                            } else {
-                                Text("No notes")
-                                    .font(.subheadline)
-                                    .foregroundStyle(.secondary)
-                            }
+                            NotesReadOnlySectionView(note: moment.note)
                             
                             Divider()
                         }

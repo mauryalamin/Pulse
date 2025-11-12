@@ -29,7 +29,7 @@ struct TagsReadOnlySectionView: View {
             // Header lives in your Detail view (per your note), so body only shows the collection
             if tags.isEmpty {
                 Text("No tags added")
-                    .font(.footnote)
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
                 JustifiedTagsLayout(

@@ -43,6 +43,7 @@
 		AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */; };
 		AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C1BB62EB157D300F1FB88 /* Persistence.swift */; };
 		AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */; };
+		AE827BD62EC4DA5800E835CA /* NotesReadOnlySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE827BD52EC4DA5800E835CA /* NotesReadOnlySectionView.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
 		AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8804102DD2A97D0076B724 /* MomentDetailView.swift */; };
@@ -140,6 +141,7 @@
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE827BD52EC4DA5800E835CA /* NotesReadOnlySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesReadOnlySectionView.swift; sourceTree = "<group>"; };
 		AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		AE88040E2DD28ACA0076B724 /* NoteInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInputView.swift; sourceTree = "<group>"; };
 		AE8804102DD2A97D0076B724 /* MomentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentDetailView.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				AE622B482EA45C7100A0F0F6 /* IntensityBarView.swift */,
 				AED342F72EC288C700B1CFB2 /* TagChipReadOnlyView.swift */,
 				AED342F92EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift */,
+				AE827BD52EC4DA5800E835CA /* NotesReadOnlySectionView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				AE8D5F382EAFF0F90087CB44 /* IntensityGradientSpec.swift in Sources */,
 				AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
+				AE827BD62EC4DA5800E835CA /* NotesReadOnlySectionView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
 				AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */,
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,

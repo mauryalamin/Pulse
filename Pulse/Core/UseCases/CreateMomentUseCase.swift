@@ -89,16 +89,22 @@ struct CreateMomentUseCase {
             tags: dto.tags
         )
 
+        // Map location snapshot directly to stored properties
         if let loc = dto.location {
+            newMoment.locationDescription = loc.place
             newMoment.latitude = loc.lat
             newMoment.longitude = loc.lon
-            // newMoment.locationDescription = loc.place
         }
 
-        // Optional: weather (doesn’t affect mapping)
-        if let loc = dto.location, let lat = loc.lat, let lon = loc.lon {
+        // Optional: resolve weather *once* and store the snapshot
+        if let loc = dto.location,
+           let lat = loc.lat, let lon = loc.lon {
             let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-            _ = try? await weather.fetchWeather(for: coord, at: dto.timestamp)
+            if let snap = try? await weather.fetchWeather(for: coord, at: dto.timestamp) {
+                // Store as model fields for later display in Detail
+                newMoment.temperature = snap.temperature        // Celsius
+                newMoment.weatherCode = snap.conditionCode
+            }
         }
 
         try persist(newMoment, in: ctx)

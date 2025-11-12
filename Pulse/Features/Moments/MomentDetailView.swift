@@ -108,55 +108,29 @@ struct MomentDetailView: View {
                             Text("AROUND THIS MOMENT")
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundStyle(.pulseBlue)
+                                .foregroundStyle(.primary)
                             
                             // Timestamp
                             Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
-                            
-                            HStack (alignment: .top, spacing: 32) {
-                                // MARK: - Weather
-                                if moment.temperature != nil || moment.weatherCode != nil {
-                                    HStack(alignment: .top, spacing: 8) {
-                                        Image(systemName: WeatherSnapshot(temperature: moment.temperature, conditionCode: moment.weatherCode).sfSymbol)
-                                            .font(.body)
-                                            .foregroundStyle(.secondary)
-                                        
-                                        VStack(alignment: .leading, spacing: 2) {
-                                            Text(WeatherSnapshotFormatter.formatted(code: moment.weatherCode, temp: moment.temperature))
-                                            
-                                            
-                                        }
-                                    }
-                                } else {
-                                    HStack(alignment: .top, spacing: 8) {
-                                        Image(systemName: "cloud.sun.fill")
-                                            .font(.body)
-                                            .foregroundStyle(.secondary)
-                                        
-                                        Text("No weather data was captured.")
-                                            .font(.body)
-                                            .foregroundStyle(.secondary)
-                                            .italic()
-                                    }
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                                                        
+                             HStack (spacing: 36) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: moment.weatherIcon)   // ← renders ☁️ (etc.), not the text "cloud.fill"
+                                    Text(temperatureString(fromCelsius: moment.temperature))
                                 }
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
                                 
-                                // MARK: - Location
-                                HStack(alignment: .top, spacing: 8) {
-                                    Image(systemName: "mappin.circle.fill")
-                                        .font(.body)
-                                        .foregroundStyle(.green)
-                                    
-                                    if let location = moment.locationDescription {
-                                        Text(location)
-                                            .font(.body)
-                                            .foregroundStyle(.primary)
-                                            .multilineTextAlignment(.leading)
-                                    } else {
-                                        Text("No location was captured.")
-                                            .font(.body)
-                                            .foregroundStyle(.secondary)
-                                            .italic()
+                                // Location (saved snapshot)
+                                if let place = moment.locationDescription {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "mappin.circle.fill")
+                                        Text(place)
                                     }
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
                                 }
                             }
                             
@@ -187,8 +161,9 @@ struct MomentDetailView: View {
                     
                 }
                 .padding(.bottom, 200)
-                .background(.white)
+                .background(.cardBackground)
                 .cornerRadius(20)
+                .shadow(color: .black.opacity(0.1), radius: 25, x: 0, y: -3)
             }
             .navigationTitle("Logged Moment")
             .navigationSubtitle(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
@@ -205,10 +180,42 @@ struct MomentDetailView: View {
         }
     }
     
+    private func temperatureString(fromCelsius celsius: Double?) -> String {
+        guard let celsius else { return "—" }
+
+        // Modern locale check (replaces deprecated usesMetricSystem)
+        let usesFahrenheit = Locale.current.measurementSystem == .us
+
+        // Convert and round
+        let value: Double = usesFahrenheit ? (celsius * 9.0/5.0 + 32.0) : celsius
+        let rounded = Int((value).rounded())
+
+        // Force the unit suffix so it never disappears
+        let unit = usesFahrenheit ? "F" : "C"
+        return "\(rounded)°\(unit)"
+    }
+    
 }
 
 #Preview {
     NavigationStack {
-        MomentDetailView(moment: Moment(timestamp: .now, urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"), intensity: 5, gaveIn: false))
+        MomentDetailView(
+            moment: Moment(
+                timestamp: .now.addingTimeInterval(-3600), // 1 hour ago
+                urge: Urge(name: "Alcohol", colorHex: "#8B3A3A"),
+                intensity: 5,
+                gaveIn: false,
+                note: "Felt the urge after a long day, but stayed present.",
+                tags: [
+                    Tag(name: "After Work"),
+                    Tag(name: "Stress Relief")
+                ],
+                locationDescription: "Chicago, IL",
+                latitude: 41.8781,
+                longitude: -87.6298,
+                temperature: 13.6,
+                weatherCode: 3 // cloud.fill in SF Symbols mapping
+            )
+        )
     }
 }

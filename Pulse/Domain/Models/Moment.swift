@@ -42,7 +42,33 @@ class Moment {
 }
 
 extension Moment {
+    
     var weatherIcon: String {
         WeatherSnapshot(temperature: temperature, conditionCode: weatherCode).sfSymbol
+    }
+    
+    /// Formats the saved temperature to the user’s unit (°F/°C).
+    var formattedTemperature: String? {
+        guard let t = temperature else { return nil }
+        let measurement = Measurement(value: t, unit: UnitTemperature.celsius) // store is Celsius
+        let usesF = Locale.current.usesFahrenheit
+        let display = usesF ? measurement.converted(to: .fahrenheit) : measurement
+        let fmt = MeasurementFormatter()
+        fmt.unitOptions = .providedUnit
+        fmt.unitStyle = .short
+        return fmt.string(from: display) // e.g., "65°F" or "18°C"
+    }
+
+    /// Single string for UI like: "☁️ 65°F"
+    var weatherBadge: String? {
+        guard let temp = formattedTemperature, weatherCode != nil else { return nil }
+        return "\(weatherIcon) \(temp)"
+    }
+}
+
+private extension Locale {
+    var usesFahrenheit: Bool {
+        ((self as NSLocale).object(forKey: .measurementSystem) as? String)?
+            .lowercased() == "us"
     }
 }

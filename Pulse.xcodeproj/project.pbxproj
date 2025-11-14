@@ -13,6 +13,8 @@
 		AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1534822EAEA9F200DDAF7A /* TagsFlowSection.swift */; };
 		AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1635152DE0C6360077D14B /* AppLockManager.swift */; };
 		AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */; };
+		AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */; };
+		AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */; };
 		AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */; };
 		AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */; };
 		AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */; };
@@ -109,6 +111,8 @@
 		AE1534822EAEA9F200DDAF7A /* TagsFlowSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsFlowSection.swift; sourceTree = "<group>"; };
 		AE1635152DE0C6360077D14B /* AppLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockManager.swift; sourceTree = "<group>"; };
 		AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
+		AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentView.swift; sourceTree = "<group>"; };
+		AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentViewModel.swift; sourceTree = "<group>"; };
 		AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUrgeView.swift; sourceTree = "<group>"; };
 		AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStartupWrapper.swift; sourceTree = "<group>"; };
@@ -227,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				AE622B302EA315C800A0F0F6 /* LogMomentViewModel.swift */,
+				AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */,
 				AE622B352EA317FF00A0F0F6 /* SettingsViewModel.swift */,
 				AE622B372EA3183B00A0F0F6 /* MomentsListViewModel.swift */,
 				AEE44B002EA96561006954CD /* WeatherNowViewModel.swift */,
@@ -342,6 +347,7 @@
 			children = (
 				AE8804102DD2A97D0076B724 /* MomentDetailView.swift */,
 				AEF149552DCC245800690F5E /* UpdateMomentView.swift */,
+				AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */,
 				AE7DA0572EA2EB30007690C4 /* Components */,
 			);
 			path = Moments;
@@ -705,6 +711,7 @@
 				AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */,
 				AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
+				AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */,
 				AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */,
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,
 				AE31EDAE2DDD52A2009F838C /* LocationManager.swift in Sources */,
@@ -718,6 +725,7 @@
 				AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */,
 				AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
+				AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */,
 				AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */,
 				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,
 				AE622B492EA45C7100A0F0F6 /* IntensityBarView.swift in Sources */,

@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct MomentDetailView: View {
-    
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
     let moment: Moment
     
-    @State private var showingEditSheet = false
+    @State private var isShowingEdit = false
     
     var body: some View {
         ZStack {
@@ -114,8 +115,8 @@ struct MomentDetailView: View {
                             Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
-                                                        
-                             HStack (spacing: 36) {
+                            
+                            HStack (spacing: 36) {
                                 HStack(spacing: 6) {
                                     Image(systemName: moment.weatherIcon)   // ← renders ☁️ (etc.), not the text "cloud.fill"
                                     Text(temperatureString(fromCelsius: moment.temperature))
@@ -144,16 +145,6 @@ struct MomentDetailView: View {
                             }
                             
                         }
-                        
-                        // MARK: - Edit Moment Button
-                        HStack {
-                            Spacer()
-                            Button("Edit This Moment") {
-                                showingEditSheet = true
-                            }
-                            
-                            Spacer()
-                        }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
@@ -167,29 +158,29 @@ struct MomentDetailView: View {
             }
             .navigationTitle("Logged Moment")
             .navigationSubtitle(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
-            .sheet(isPresented: $showingEditSheet) {
-                UpdateMomentView(moment: moment)
-            }
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Edit") {
-                        showingEditSheet = true
+                        isShowingEdit = true
                     }
                 }
+            }
+            .sheet(isPresented: $isShowingEdit) {
+                EditMomentView(moment: moment)
             }
         }
     }
     
     private func temperatureString(fromCelsius celsius: Double?) -> String {
         guard let celsius else { return "—" }
-
+        
         // Modern locale check (replaces deprecated usesMetricSystem)
         let usesFahrenheit = Locale.current.measurementSystem == .us
-
+        
         // Convert and round
         let value: Double = usesFahrenheit ? (celsius * 9.0/5.0 + 32.0) : celsius
         let rounded = Int((value).rounded())
-
+        
         // Force the unit suffix so it never disappears
         let unit = usesFahrenheit ? "F" : "C"
         return "\(rounded)°\(unit)"

@@ -111,7 +111,7 @@ struct LogMomentView: View {
                             )
                         }
                         
-                        // MARK: - Notes (focus-aware; scrolls into view)
+                        // MARK: - Notes
                         notesSection(vm: vm)
                             .id(FieldAnchor.notes)
                         

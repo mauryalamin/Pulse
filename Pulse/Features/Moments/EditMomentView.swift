@@ -169,12 +169,11 @@ struct EditMomentView: View {
                     }
                     .accessibilityLabel("Cancel")
                 }
-                
-                // Save (real save behavior will come in next story)
+
+                // Save
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        // In this story, just dismiss — we’ll wire saving next
-                        dismiss()
+                        onSaveTapped()
                     } label: {
                         Image(systemName: "checkmark")
                             .symbolRenderingMode(.monochrome)
@@ -187,7 +186,7 @@ struct EditMomentView: View {
                     .opacity(vm.canSave ? 1 : 0.4)
                     .accessibilityLabel("Save Changes")
                 }
-                
+
                 // Keyboard toolbar
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -213,6 +212,18 @@ struct EditMomentView: View {
             // Fahrenheit
             let f = celsius * 9.0 / 5.0 + 32.0
             return String(format: "%.0f°F", f)
+        }
+    }
+    
+    // MARK: - Save handler
+
+    private func onSaveTapped() {
+        do {
+            try vm.save(in: context)
+            dismiss()
+        } catch {
+            // For now, just log; later stories can surface an alert
+            print("❌ EditMomentView save failed: \(error)")
         }
     }
 }

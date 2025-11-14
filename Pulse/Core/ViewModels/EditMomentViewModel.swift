@@ -35,4 +35,28 @@ final class EditMomentViewModel {
         self.selectedTags = moment.tags ?? []
         self.notes = moment.note ?? ""
     }
+
+    /// Apply the edited values back onto the SwiftData `Moment` and save.
+    @MainActor
+    func save(in context: ModelContext) throws {
+        // Don’t try to save if the form is invalid
+        guard canSave else { return }
+
+        // 1) Urge — the main focus of this story
+        if let newUrge = selectedUrge {
+            originalMoment.urge = newUrge
+        }
+
+        // 2) Keep the rest in sync too (helps future edit stories)
+        originalMoment.intensity = intensity
+        originalMoment.gaveIn = response.gaveIn
+
+        let trimmed = notes.trimmingCharacters(in: .whitespacesAndNewlines)
+        originalMoment.note = trimmed.isEmpty ? nil : trimmed
+
+        originalMoment.tags = selectedTags
+
+        // 3) Persist to SwiftData
+        try context.save()
+    }
 }

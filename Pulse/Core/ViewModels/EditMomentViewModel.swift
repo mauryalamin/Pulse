@@ -42,21 +42,25 @@ final class EditMomentViewModel {
         // Don’t try to save if the form is invalid
         guard canSave else { return }
 
-        // 1) Urge — the main focus of this story
+        // 1) Urge — keep in sync with editor
         if let newUrge = selectedUrge {
             originalMoment.urge = newUrge
         }
 
-        // 2) Keep the rest in sync too (helps future edit stories)
+        // 2) Intensity
         originalMoment.intensity = intensity
+
+        // 3) Response → maps onto gaveIn Bool
         originalMoment.gaveIn = response.gaveIn
 
+        // 4) Notes (normalize empty → nil)
         let trimmed = notes.trimmingCharacters(in: .whitespacesAndNewlines)
         originalMoment.note = trimmed.isEmpty ? nil : trimmed
 
+        // 5) Tags
         originalMoment.tags = selectedTags
 
-        // 3) Persist to SwiftData
+        // 6) Persist to SwiftData
         try context.save()
     }
 }

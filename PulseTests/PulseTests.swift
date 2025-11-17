@@ -405,5 +405,47 @@ struct EditMomentViewModelTests {
         // And the in-memory instance should now reflect 5 as well
         #expect(moment.intensity == 5)
     }
+    
+    @Test
+    func saving_updates_response_on_moment() throws {
+        // Arrange: in-memory store + seed a Moment
+        let container = try makeContainer()
+        let ctx = ModelContext(container)
+
+        let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
+        ctx.insert(urge)
+
+        let moment = Moment(
+            timestamp: .now,
+            urge: urge,
+            intensity: 3,
+            gaveIn: false,            // starts as "Stayed Present"
+            note: "Original note",
+            tags: []
+        )
+        ctx.insert(moment)
+        try ctx.save()
+
+        // Precondition
+        #expect(moment.gaveIn == false)
+
+        // Act: edit response → .followed and save
+        let vm = EditMomentViewModel(moment: moment)
+        #expect(vm.response == .stayedPresent)   // mirrors gaveIn == false
+
+        vm.response = .followed                 // user flips the toggle
+        try vm.save(in: ctx)
+
+        // Assert: fetched Moment has updated gaveIn
+        let fetch = try ctx.fetch(FetchDescriptor<Moment>())
+        #expect(fetch.count == 1)
+
+        guard let updated = fetch.first else {
+            Issue.record("No Moment found after save")
+            return
+        }
+
+        #expect(updated.gaveIn == true)
+    }
 }
 

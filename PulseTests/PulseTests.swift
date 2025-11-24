@@ -306,13 +306,6 @@ struct TagUsageBumpTests {
 @MainActor
 struct EditMomentViewModelTests {
     
-    private func makeContainer() throws -> ModelContainer {
-        try ModelContainer(
-            for: Moment.self, Urge.self, Tag.self,
-            configurations: ModelConfiguration(isStoredInMemoryOnly: true)
-        )
-    }
-    
     @Test
     func editing_urge_updates_existing_moment_reference() throws {
         // Arrange: in-memory SwiftData stack
@@ -447,5 +440,63 @@ struct EditMomentViewModelTests {
 
         #expect(updated.gaveIn == true)
     }
+    
+    @Test
+        func editing_tags_replaces_moments_tags() throws {
+            // Arrange
+            let container = try makeContainer()
+            let ctx = ModelContext(container)
+
+            let urge = Urge(name: "Alcohol", colorHex: "#8B3A3A")
+
+            let tagA = AppTag(name: "After Work")
+            let tagB = AppTag(name: "Stress")
+            let tagC = AppTag(name: "Evening")
+
+            ctx.insert(urge)
+            ctx.insert(tagA)
+            ctx.insert(tagB)
+            ctx.insert(tagC)
+            try ctx.save()
+
+            // Original Moment has [A, B]
+            let moment = Moment(
+                timestamp: Date(),
+                urge: urge,
+                intensity: 3,
+                gaveIn: false,
+                note: "Original note",
+                tags: [tagA, tagB]
+            )
+            ctx.insert(moment)
+            try ctx.save()
+
+            // Act: user edits via EditMomentViewModel
+            var vm = EditMomentViewModel(moment: moment)
+
+            // sanity: starts with [A, B]
+            let initialTagIDs = Set(vm.selectedTags.map(\.id))
+            #expect(initialTagIDs == Set([tagA.id, tagB.id]))
+
+            // Simulate user: remove A, add C → [B, C]
+            vm.selectedTags = [tagB, tagC]
+
+            // Call save(in:) to persist
+            try vm.save(in: ctx)
+
+            // Assert
+            let fetched = try ctx.fetch(FetchDescriptor<Moment>())
+            #expect(fetched.count == 1)
+
+            guard let updated = fetched.first else {
+                Issue.record("No Moment found after editing tags")
+                return
+            }
+
+            let updatedTagIDs = Set((updated.tags ?? []).map(\.id))
+
+            // ✅ Only B + C, A is gone
+            #expect(updatedTagIDs == Set([tagB.id, tagC.id]))
+        }
 }
 

@@ -19,6 +19,9 @@ struct EditMomentView: View {
     @State private var vm: EditMomentViewModel
     @State private var showTagPicker = false
     @State private var notesFocused = false
+    @State private var showDateTimeSheet = false
+    @State private var showWeatherSheet = false
+    @State private var showLocationPlaceholderSheet = false
     
     // MARK: - Init
     
@@ -44,13 +47,6 @@ struct EditMomentView: View {
                     vm.intensity = value
                 }
             }
-        )
-    }
-
-    private var temperatureBinding: Binding<Double> {
-        Binding(
-            get: { vm.temperatureCelsius },
-            set: { vm.temperatureCelsius = $0 }
         )
     }
 
@@ -126,80 +122,36 @@ struct EditMomentView: View {
                             Text("Around This Moment")
                                 .font(.title3)
                                 .fontWeight(.semibold)
-                            // Editable Context Items
-                            // Timestamp
-                            // MARK: - Date and Time
-                            VStack(alignment: .leading, spacing: 12) {
-                                HStack {
-                                    Image(systemName: "clock")
-                                    Text("When did this happen?")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                }
 
-                                DatePicker(
-                                    "Date",
-                                    selection: $vm.timestamp,
-                                    displayedComponents: [.date]
+                            Button {
+                                showDateTimeSheet = true
+                            } label: {
+                                EditableContextRow(
+                                    iconName: "calendar",
+                                    valueText: vm.timestamp.formatted(date: .long, time: .shortened)
                                 )
-                                .datePickerStyle(.compact)
+                            }
+                            .buttonStyle(.plain)
 
-                                DatePicker(
-                                    "Time",
-                                    selection: $vm.timestamp,
-                                    displayedComponents: [.hourAndMinute]
+                            Button {
+                                showWeatherSheet = true
+                            } label: {
+                                EditableContextRow(
+                                    iconName: WeatherFormatting.symbolName(for: nil, code: vm.weatherCode),
+                                    valueText: formattedTemperature(fromCelsius: vm.temperatureCelsius)
                                 )
-                                .datePickerStyle(.compact)
                             }
-                            
-                            
-                            VStack(alignment: .leading, spacing: 12) {
-                                HStack {
-                                    Image(systemName: "cloud.sun.fill")
-                                        .foregroundStyle(.secondary)
-                                    Text("Weather")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                }
+                            .buttonStyle(.plain)
 
-                                if vm.hasWeatherSnapshot {
-                                    HStack {
-                                        Text("Conditions")
-                                        Spacer()
-                                        Picker("Condition", selection: $vm.weatherCode) {
-                                            ForEach(weatherConditionOptions, id: \.code) { option in
-                                                Text(option.label).tag(option.code)
-                                            }
-                                        }
-                                        .pickerStyle(.menu)
-                                    }
-
-                                    HStack(spacing: 8) {
-                                        Image(systemName: WeatherFormatting.symbolName(for: nil, code: vm.weatherCode))
-                                            .foregroundStyle(.secondary)
-
-                                        Text(formattedTemperature(fromCelsius: vm.temperatureCelsius))
-                                            .font(.footnote)
-                                            .foregroundStyle(.secondary)
-
-                                        Spacer()
-
-                                        Stepper("", value: temperatureBinding, in: -50...60, step: 1)
-                                            .labelsHidden()
-                                    }
-                                }
+                            Button {
+                                showLocationPlaceholderSheet = true
+                            } label: {
+                                EditableContextRow(
+                                    iconName: "mappin.circle.fill",
+                                    valueText: moment.locationDescription ?? "Add location"
+                                )
                             }
-                            
-                            // Location (only if we have one)
-                            if let place = moment.locationDescription {
-                                HStack(spacing: 6) {
-                                    Image(systemName: "mappin.circle.fill")
-                                        .foregroundStyle(.secondary)
-                                    Text(place)
-                                }
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                            }
+                            .buttonStyle(.plain)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -210,6 +162,29 @@ struct EditMomentView: View {
             }
             .sheet(isPresented: $showTagPicker) {
                 TagPickerView(selectedTags: $vm.selectedTags)
+            }
+            .sheet(isPresented: $showDateTimeSheet) {
+                DateTimeEditSheet(
+                    initialDate: vm.timestamp,
+                    onSave: { newTimestamp in
+                        vm.timestamp = newTimestamp
+                    }
+                )
+            }
+            .sheet(isPresented: $showWeatherSheet) {
+                WeatherEditSheet(
+                    initialWeatherCode: vm.weatherCode,
+                    initialTemperatureCelsius: vm.temperatureCelsius,
+                    weatherConditionOptions: weatherConditionOptions,
+                    onSave: { code, temperature in
+                        vm.hasWeatherSnapshot = true
+                        vm.weatherCode = code
+                        vm.temperatureCelsius = temperature
+                    }
+                )
+            }
+            .sheet(isPresented: $showLocationPlaceholderSheet) {
+                LocationPlaceholderSheet()
             }
             .interactiveDismissDisabled(notesFocused)
             .navigationTitle("Edit Moment")
@@ -269,6 +244,156 @@ struct EditMomentView: View {
         } catch {
             // For now, just log; later stories can surface an alert
             print("❌ EditMomentView save failed: \(error)")
+        }
+    }
+}
+
+private struct EditableContextRow: View {
+    let iconName: String
+    let valueText: String
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: iconName)
+                .imageScale(.small)
+                .foregroundStyle(.blue)
+
+            Text(valueText)
+                .font(.body)
+                .foregroundStyle(.blue)
+                .lineLimit(1)
+
+            Spacer(minLength: 8)
+
+            Image(systemName: "pencil")
+                .imageScale(.small)
+                .foregroundStyle(.blue)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 11)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+    }
+}
+
+private struct DateTimeEditSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var draftDate: Date
+    let onSave: (Date) -> Void
+
+    init(initialDate: Date, onSave: @escaping (Date) -> Void) {
+        _draftDate = State(initialValue: initialDate)
+        self.onSave = onSave
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                DatePicker("Date", selection: $draftDate, displayedComponents: [.date])
+                    .datePickerStyle(.graphical)
+
+                DatePicker("Time", selection: $draftDate, displayedComponents: [.hourAndMinute])
+                    .datePickerStyle(.wheel)
+            }
+            .navigationTitle("Edit Date & Time")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        onSave(draftDate)
+                        dismiss()
+                    }
+                    .fontWeight(.semibold)
+                }
+            }
+        }
+    }
+}
+
+private struct WeatherEditSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var draftWeatherCode: Int
+    @State private var draftTemperatureCelsius: Double
+
+    let weatherConditionOptions: [(code: Int, label: String)]
+    let onSave: (Int, Double) -> Void
+
+    init(
+        initialWeatherCode: Int,
+        initialTemperatureCelsius: Double,
+        weatherConditionOptions: [(code: Int, label: String)],
+        onSave: @escaping (Int, Double) -> Void
+    ) {
+        _draftWeatherCode = State(initialValue: initialWeatherCode)
+        _draftTemperatureCelsius = State(initialValue: initialTemperatureCelsius)
+        self.weatherConditionOptions = weatherConditionOptions
+        self.onSave = onSave
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Picker("Condition", selection: $draftWeatherCode) {
+                    ForEach(weatherConditionOptions, id: \.code) { option in
+                        Text(option.label).tag(option.code)
+                    }
+                }
+                .pickerStyle(.menu)
+
+                HStack {
+                    Image(systemName: WeatherFormatting.symbolName(for: nil, code: draftWeatherCode))
+                        .foregroundStyle(.secondary)
+                    Text(WeatherFormatting.formattedTempCompact(celsius: draftTemperatureCelsius))
+                        .font(.body)
+                }
+
+                Stepper("Temperature", value: $draftTemperatureCelsius, in: -50...60, step: 1)
+            }
+            .navigationTitle("Edit Weather")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        onSave(draftWeatherCode, draftTemperatureCelsius)
+                        dismiss()
+                    }
+                    .fontWeight(.semibold)
+                }
+            }
+        }
+    }
+}
+
+private struct LocationPlaceholderSheet: View {
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                Image(systemName: "mappin.and.ellipse")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+                Text("Location editing is coming soon.")
+                    .font(.body)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(24)
+            .navigationTitle("Location")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") { dismiss() }
+                        .fontWeight(.semibold)
+                }
+            }
         }
     }
 }

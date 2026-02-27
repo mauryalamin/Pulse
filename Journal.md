@@ -27,6 +27,16 @@ Think of the app like a restaurant kitchen:
 - Async/await: easier-to-reason-about async flows (weather/location fetch and save choreography).
 
 ## The Journey
+### 2026-02-27 - Context Editing, But Keep the Main Screen Calm
+- Feature: converted the bottom “Around This Moment” area in `EditMomentView` into tappable value rows, matching the compact pattern used in design.
+- Bug/pitfall: inline controls (date pickers + weather controls) made the edit screen feel crowded and harder to scan.
+- Fix:
+  - Replaced inline Date/Time, Weather, and Location UI with tappable rows.
+  - Added a dedicated Date/Time sheet with draft state and explicit Save.
+  - Added a dedicated Weather sheet for condition + temperature adjustments with explicit Save.
+  - Made Location row tappable and routed it to a placeholder sheet for future location editing.
+- Lesson: dense edit screens work better when high-frequency fields stay inline and contextual metadata moves behind focused sub-flows.
+
 ### 2026-02-27 - Weather Control, Not Weather Fate
 - Feature: `EditMomentView` can now edit a moment’s weather snapshot directly (condition + temperature).
 - Bug/pitfall: the screen showed weather context but treated it like museum glass, so incorrect captures were stuck forever.

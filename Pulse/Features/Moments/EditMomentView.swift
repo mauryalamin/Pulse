@@ -46,6 +46,18 @@ struct EditMomentView: View {
             }
         )
     }
+
+    private var temperatureBinding: Binding<Double> {
+        Binding(
+            get: { vm.temperatureCelsius },
+            set: { vm.temperatureCelsius = $0 }
+        )
+    }
+
+    private let weatherConditionOptions: [(code: Int, label: String)] = WeatherSnapshot
+        .codeDescription
+        .sorted { $0.key < $1.key }
+        .map { (code: $0.key, label: $0.value) }
     
     var body: some View {
         NavigationStack {
@@ -141,15 +153,41 @@ struct EditMomentView: View {
                             }
                             
                             
-                            // Weather (only if we have a snapshot)
-                            if let temperature = moment.temperature,
-                               let _ = moment.weatherCode {
-                                HStack(spacing: 6) {
-                                    Image(systemName: moment.weatherIcon)
-                                    Text(formattedTemperature(fromCelsius: temperature))
+                            VStack(alignment: .leading, spacing: 12) {
+                                HStack {
+                                    Image(systemName: "cloud.sun.fill")
+                                        .foregroundStyle(.secondary)
+                                    Text("Weather")
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
                                 }
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
+
+                                if vm.hasWeatherSnapshot {
+                                    HStack {
+                                        Text("Conditions")
+                                        Spacer()
+                                        Picker("Condition", selection: $vm.weatherCode) {
+                                            ForEach(weatherConditionOptions, id: \.code) { option in
+                                                Text(option.label).tag(option.code)
+                                            }
+                                        }
+                                        .pickerStyle(.menu)
+                                    }
+
+                                    HStack(spacing: 8) {
+                                        Image(systemName: WeatherFormatting.symbolName(for: nil, code: vm.weatherCode))
+                                            .foregroundStyle(.secondary)
+
+                                        Text(formattedTemperature(fromCelsius: vm.temperatureCelsius))
+                                            .font(.footnote)
+                                            .foregroundStyle(.secondary)
+
+                                        Spacer()
+
+                                        Stepper("", value: temperatureBinding, in: -50...60, step: 1)
+                                            .labelsHidden()
+                                    }
+                                }
                             }
                             
                             // Location (only if we have one)
@@ -219,17 +257,7 @@ struct EditMomentView: View {
     // MARK: - Helpers
     
     private func formattedTemperature(fromCelsius celsius: Double) -> String {
-        // Use the user’s measurement system (metric vs US/customary)
-        let usesMetric = Locale.current.measurementSystem == .metric
-        
-        if usesMetric {
-            // Celsius
-            return String(format: "%.0f°C", celsius)
-        } else {
-            // Fahrenheit
-            let f = celsius * 9.0 / 5.0 + 32.0
-            return String(format: "%.0f°F", f)
-        }
+        WeatherFormatting.formattedTempCompact(celsius: celsius)
     }
     
     // MARK: - Save handler

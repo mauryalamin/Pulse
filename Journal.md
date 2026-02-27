@@ -27,6 +27,18 @@ Think of the app like a restaurant kitchen:
 - Async/await: easier-to-reason-about async flows (weather/location fetch and save choreography).
 
 ## The Journey
+### 2026-02-27 - Weather Control, Not Weather Fate
+- Feature: `EditMomentView` can now edit a moment’s weather snapshot directly (condition + temperature).
+- Bug/pitfall: the screen showed weather context but treated it like museum glass, so incorrect captures were stuck forever.
+- Fix:
+  - Added editable weather state to `EditMomentViewModel`: `hasWeatherSnapshot`, `weatherCode`, and `temperatureCelsius`.
+  - Persisted weather edits in `save(in:)`, including the ability to clear weather entirely.
+  - Replaced the read-only weather row in `EditMomentView` with:
+    - a toggle to include/remove weather snapshot
+    - a condition picker backed by `WeatherSnapshot.codeDescription`
+    - a temperature stepper with localized display formatting
+- Lesson: context fields are still first-class data. If users can trust them for reflection, they must be correctable.
+
 ### 2026-02-27 - Time Travel Fix (The Useful Kind)
 - Feature: added date and time editing in `EditMomentView`.
 - Bug/pitfall: editing a moment let you change almost everything except when it actually happened, which made historical corrections impossible.

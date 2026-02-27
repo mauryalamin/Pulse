@@ -22,6 +22,9 @@ final class EditMomentViewModel {
     var response: MomentResponse
     var selectedTags: [Tag]
     var notes: String
+    var hasWeatherSnapshot: Bool
+    var weatherCode: Int
+    var temperatureCelsius: Double
 
     // You can reuse the same rule as LogMomentView if you like
     var canSave: Bool {
@@ -36,6 +39,9 @@ final class EditMomentViewModel {
         self.response = moment.gaveIn ? .followed : .stayedPresent
         self.selectedTags = moment.tags ?? []
         self.notes = moment.note ?? ""
+        self.hasWeatherSnapshot = moment.temperature != nil || moment.weatherCode != nil
+        self.weatherCode = moment.weatherCode ?? 0
+        self.temperatureCelsius = moment.temperature ?? 20
     }
 
     /// Apply the edited values back onto the SwiftData `Moment` and save.
@@ -65,7 +71,16 @@ final class EditMomentViewModel {
         // 6) Tags
         originalMoment.tags = selectedTags
 
-        // 7) Persist to SwiftData
+        // 7) Weather snapshot
+        if hasWeatherSnapshot {
+            originalMoment.weatherCode = weatherCode
+            originalMoment.temperature = temperatureCelsius
+        } else {
+            originalMoment.weatherCode = nil
+            originalMoment.temperature = nil
+        }
+
+        // 8) Persist to SwiftData
         try context.save()
     }
 }

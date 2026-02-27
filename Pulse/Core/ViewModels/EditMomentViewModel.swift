@@ -17,6 +17,7 @@ final class EditMomentViewModel {
 
     // Editable fields
     var selectedUrge: Urge?
+    var timestamp: Date
     var intensity: Int
     var response: MomentResponse
     var selectedTags: [Tag]
@@ -30,6 +31,7 @@ final class EditMomentViewModel {
     init(moment: Moment) {
         self.originalMoment = moment
         self.selectedUrge = moment.urge
+        self.timestamp = moment.timestamp
         self.intensity = moment.intensity
         self.response = moment.gaveIn ? .followed : .stayedPresent
         self.selectedTags = moment.tags ?? []
@@ -50,17 +52,20 @@ final class EditMomentViewModel {
         // 2) Intensity
         originalMoment.intensity = intensity
 
-        // 3) Response → maps onto gaveIn Bool
+        // 3) Timestamp
+        originalMoment.timestamp = timestamp
+
+        // 4) Response → maps onto gaveIn Bool
         originalMoment.gaveIn = response.gaveIn
 
-        // 4) Notes (normalize empty → nil)
+        // 5) Notes (normalize empty → nil)
         let trimmed = notes.trimmingCharacters(in: .whitespacesAndNewlines)
         originalMoment.note = trimmed.isEmpty ? nil : trimmed
 
-        // 5) Tags
+        // 6) Tags
         originalMoment.tags = selectedTags
 
-        // 6) Persist to SwiftData
+        // 7) Persist to SwiftData
         try context.save()
     }
 }

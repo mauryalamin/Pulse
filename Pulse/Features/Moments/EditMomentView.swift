@@ -116,13 +116,30 @@ struct EditMomentView: View {
                                 .fontWeight(.semibold)
                             
                             // Timestamp
-                            HStack(spacing: 6) {
-                                Image(systemName: "clock")
-                                    .foregroundStyle(.secondary)
-                                Text(moment.timestamp.formatted(date: .abbreviated, time: .shortened))
+                            // MARK: - Date and Time
+                            VStack(alignment: .leading, spacing: 12) {
+                                HStack {
+                                    Image(systemName: "clock")
+                                    Text("When did this happen?")
+                                        .font(.subheadline)
+                                        .fontWeight(.semibold)
+                                }
+
+                                DatePicker(
+                                    "Date",
+                                    selection: $vm.timestamp,
+                                    displayedComponents: [.date]
+                                )
+                                .datePickerStyle(.compact)
+
+                                DatePicker(
+                                    "Time",
+                                    selection: $vm.timestamp,
+                                    displayedComponents: [.hourAndMinute]
+                                )
+                                .datePickerStyle(.compact)
                             }
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
+                            
                             
                             // Weather (only if we have a snapshot)
                             if let temperature = moment.temperature,

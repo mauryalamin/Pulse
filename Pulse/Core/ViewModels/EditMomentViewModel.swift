@@ -25,6 +25,9 @@ final class EditMomentViewModel {
     var hasWeatherSnapshot: Bool
     var weatherCode: Int
     var temperatureCelsius: Double
+    var locationDescription: String
+    var latitude: Double?
+    var longitude: Double?
 
     // You can reuse the same rule as LogMomentView if you like
     var canSave: Bool {
@@ -42,6 +45,9 @@ final class EditMomentViewModel {
         self.hasWeatherSnapshot = moment.temperature != nil || moment.weatherCode != nil
         self.weatherCode = moment.weatherCode ?? 0
         self.temperatureCelsius = moment.temperature ?? 20
+        self.locationDescription = moment.locationDescription ?? ""
+        self.latitude = moment.latitude
+        self.longitude = moment.longitude
     }
 
     /// Apply the edited values back onto the SwiftData `Moment` and save.
@@ -80,7 +86,19 @@ final class EditMomentViewModel {
             originalMoment.temperature = nil
         }
 
-        // 8) Persist to SwiftData
+        // 8) Location snapshot (keep label optional, coordinates internal)
+        let trimmedLocation = locationDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        originalMoment.locationDescription = trimmedLocation.isEmpty ? nil : trimmedLocation
+
+        if let latitude, let longitude {
+            originalMoment.latitude = latitude
+            originalMoment.longitude = longitude
+        } else {
+            originalMoment.latitude = nil
+            originalMoment.longitude = nil
+        }
+
+        // 9) Persist to SwiftData
         try context.save()
     }
 }

@@ -27,6 +27,37 @@ Think of the app like a restaurant kitchen:
 - Async/await: easier-to-reason-about async flows (weather/location fetch and save choreography).
 
 ## The Journey
+### 2026-03-02 - Location Picker Glow-Up: Journal/Photos Vibes
+- Feature: transformed `EditMomentView` location editing into a native-feeling search experience with original location context, live search, and nearby suggestions.
+- Bug/pitfall: the earlier text-only location edit was functional but flat; it lacked the “search and choose” flow users expect from iOS Journal/Photos.
+- Fix:
+  - Added a top “Moment Location” header block that shows the original saved location for quick orientation.
+  - Rebuilt the sheet around a search field + dynamic list experience.
+  - Implemented autocomplete refresh with `MKLocalSearchCompleter` as the user types.
+  - Resolved completion entries to concrete map items and rendered subtitles as `distance • town` (for example, `500 ft • Vernon Hills`), with a dedicated `Current Location` row.
+  - Kept latitude/longitude fully internal; users only see human-readable places while map-ready coordinates are still saved under the hood.
+- Lesson: “native feel” is often about choreography, not just controls. Showing context at the top, then immediate search + ranked options below, makes the screen feel trustworthy and fast.
+
+### 2026-03-02 - Journal-Style Location Editing (Human Text In, Coordinates Behind the Curtain)
+- Feature: location editing now behaves like a native journaling flow: users type a place name, address, or ZIP instead of hand-entering coordinates.
+- Bug/pitfall: exposing latitude/longitude made the UI feel technical and intimidating, and deprecation warnings surfaced when using legacy geocoding APIs.
+- Fix:
+  - Removed all coordinate fields from `EditMomentView` location UI and replaced them with one natural-language location field.
+  - Added hidden geocoding on Save using `MKGeocodingRequest` (MapKit iOS 26+) to resolve user input into latitude/longitude.
+  - Kept coordinates internal-only while still persisting them for future map features.
+  - Updated save behavior so a readable location label can persist even when coordinates are absent.
+- Lesson: people think in places, not in decimal pairs. Great UX lets humans speak human while the app translates for machines.
+
+### 2026-03-02 - From “Somewhere-ish” to Real Coordinates
+- Feature: `EditMomentView` now supports editing a saved moment’s location with real latitude/longitude values.
+- Bug/pitfall: location in edit mode was a dead-end placeholder, so users could not correct bad capture data and future map features had no trustworthy coordinates to use.
+- Fix:
+  - Replaced the location placeholder sheet with a real `LocationEditSheet`.
+  - Added editable fields in `EditMomentViewModel` for `locationDescription`, `latitude`, and `longitude`.
+  - Added guardrails in the sheet: latitude must be `-90...90`, longitude must be `-180...180`, and coordinates must be provided as a complete pair.
+  - Persisted location updates in `save(in:)`, clearing all location fields when coordinates are removed.
+- Lesson: if data is destined for maps, “pretty text only” location is like an address without a house number. Human-friendly labels are great, but coordinates are the real source of truth.
+
 ### 2026-02-27 - Context Editing, But Keep the Main Screen Calm
 - Feature: converted the bottom “Around This Moment” area in `EditMomentView` into tappable value rows, matching the compact pattern used in design.
 - Bug/pitfall: inline controls (date pickers + weather controls) made the edit screen feel crowded and harder to scan.

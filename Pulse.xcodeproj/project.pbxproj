@@ -45,6 +45,10 @@
 		AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */; };
 		AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C1BB62EB157D300F1FB88 /* Persistence.swift */; };
 		AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */; };
+		AE7FCB1F2F5753DE00ABBF06 /* EditableContextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB1E2F5753DD00ABBF06 /* EditableContextRow.swift */; };
+		AE7FCB212F5753EB00ABBF06 /* DateTimeEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB202F5753EB00ABBF06 /* DateTimeEditSheet.swift */; };
+		AE7FCB232F57542E00ABBF06 /* WeatherEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB222F57542E00ABBF06 /* WeatherEditSheet.swift */; };
+		AE7FCB252F57542E00ABBF06 /* LocationEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB242F57542E00ABBF06 /* LocationEditSheet.swift */; };
 		AE827BD62EC4DA5800E835CA /* NotesReadOnlySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE827BD52EC4DA5800E835CA /* NotesReadOnlySectionView.swift */; };
 		AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */; };
 		AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE88040E2DD28ACA0076B724 /* NoteInputView.swift */; };
@@ -146,6 +150,10 @@
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE7FCB1E2F5753DD00ABBF06 /* EditableContextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableContextRow.swift; sourceTree = "<group>"; };
+		AE7FCB202F5753EB00ABBF06 /* DateTimeEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeEditSheet.swift; sourceTree = "<group>"; };
+		AE7FCB222F57542E00ABBF06 /* WeatherEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEditSheet.swift; sourceTree = "<group>"; };
+		AE7FCB242F57542E00ABBF06 /* LocationEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationEditSheet.swift; sourceTree = "<group>"; };
 		AE827BD52EC4DA5800E835CA /* NotesReadOnlySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesReadOnlySectionView.swift; sourceTree = "<group>"; };
 		AE88040C2DD2736F0076B724 /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 		AE88040E2DD28ACA0076B724 /* NoteInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteInputView.swift; sourceTree = "<group>"; };
@@ -537,6 +545,10 @@
 			children = (
 				AE2CA1D72DD664C0000DF21E /* TagView.swift */,
 				AE31EDA72DDD27DD009F838C /* CapsuleButton.swift */,
+				AE7FCB1E2F5753DD00ABBF06 /* EditableContextRow.swift */,
+				AE7FCB202F5753EB00ABBF06 /* DateTimeEditSheet.swift */,
+				AE7FCB222F57542E00ABBF06 /* WeatherEditSheet.swift */,
+				AE7FCB242F57542E00ABBF06 /* LocationEditSheet.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -687,10 +699,12 @@
 				AE5CE7D82DE66A4600EC0EB0 /* SettingsView.swift in Sources */,
 				AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */,
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
+				AE7FCB1F2F5753DE00ABBF06 /* EditableContextRow.swift in Sources */,
 				AE622B432EA320E100A0F0F6 /* MomentResponse.swift in Sources */,
 				AE8D5F382EAFF0F90087CB44 /* IntensityGradientSpec.swift in Sources */,
 				AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */,
 				AEDF6A732DD55E0600589F11 /* OnboardingStepFourView.swift in Sources */,
+				AE7FCB252F57542E00ABBF06 /* LocationEditSheet.swift in Sources */,
 				AE827BD62EC4DA5800E835CA /* NotesReadOnlySectionView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
 				AE9447452EC50C73007F0338 /* WeatherSnapshotRowView.swift in Sources */,
@@ -698,6 +712,7 @@
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
 				AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
+				AE7FCB232F57542E00ABBF06 /* WeatherEditSheet.swift in Sources */,
 				AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */,
 				AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */,
 				AE622B3D2EA31C8700A0F0F6 /* StealthIconManager.swift in Sources */,
@@ -739,6 +754,7 @@
 				AEE44AFF2EA95FF2006954CD /* WeatherNowRow.swift in Sources */,
 				AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */,
 				AEE4DEE32DDE35AB00FE46D6 /* WeatherSnapshot.swift in Sources */,
+				AE7FCB212F5753EB00ABBF06 /* DateTimeEditSheet.swift in Sources */,
 				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
 				AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */,
 				AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */,

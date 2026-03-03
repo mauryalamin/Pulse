@@ -27,6 +27,18 @@ Think of the app like a restaurant kitchen:
 - Async/await: easier-to-reason-about async flows (weather/location fetch and save choreography).
 
 ## The Journey
+### 2026-03-03 - After-the-Fact Logging: Context Became Editable in Log Flow
+- Feature: `LogMomentView` now supports editing Date/Time, Weather, and Location before save, using the same "Adjust row + sheet" interaction pattern as `EditMomentView`.
+- Bug/pitfall: log flow previously hard-coded `timestamp: Date()` and relied only on live-captured weather/location, which blocked accurate backfilling when users logged a moment later.
+- Fix:
+  - Replaced read-only contextual rows in `LogMomentView` with reusable `EditableContextRow` buttons.
+  - Added `DateTimeEditSheet`, `WeatherEditSheet`, and `LocationEditSheet` to the shared `Features/SubViews` area so both Log and Edit screens can use the same components.
+  - Extended `LogMomentViewModel` with editable contextual state (`timestamp`, weather, location) and guardrails so auto-updating context does not overwrite manual edits.
+  - Updated `CreateMomentDTO` and `CreateMomentUseCase` to support optional weather overrides:
+    - If user manually adjusts weather, that snapshot is saved directly.
+    - Otherwise weather is still fetched from coordinates and timestamp, preserving existing behavior.
+- Lesson: "auto-captured" context should be a smart default, not an immutable truth. The best logging UX starts with automation but lets users correct reality.
+
 ### 2026-03-02 - Location Picker Glow-Up: Journal/Photos Vibes
 - Feature: transformed `EditMomentView` location editing into a native-feeling search experience with original location context, live search, and nearby suggestions.
 - Bug/pitfall: the earlier text-only location edit was functional but flat; it lacked the “search and choose” flow users expect from iOS Journal/Photos.

@@ -21,6 +21,7 @@ struct CreateMomentDTO {
     let notes: String?
     let tags: [Tag]
     let location: LocationSnapshot?
+    let weatherSnapshotOverride: WeatherSnapshot?
     let timestamp: Date               // match your model’s initializer
 
     init(urge: Urge,
@@ -29,6 +30,7 @@ struct CreateMomentDTO {
          notes: String?,
          tags: [Tag],
          location: LocationSnapshot?,
+         weatherSnapshotOverride: WeatherSnapshot? = nil,
          timestamp: Date = .now) {
         self.urge = urge
         self.intensity = intensity
@@ -36,6 +38,7 @@ struct CreateMomentDTO {
         self.notes = notes
         self.tags = tags
         self.location = location
+        self.weatherSnapshotOverride = weatherSnapshotOverride
         self.timestamp = timestamp
     }
 }
@@ -96,9 +99,12 @@ struct CreateMomentUseCase {
             newMoment.longitude = loc.lon
         }
 
-        // Optional: resolve weather *once* and store the snapshot
-        if let loc = dto.location,
-           let lat = loc.lat, let lon = loc.lon {
+        if let override = dto.weatherSnapshotOverride {
+            newMoment.temperature = override.temperature
+            newMoment.weatherCode = override.conditionCode
+        } else if let loc = dto.location,
+                  let lat = loc.lat, let lon = loc.lon {
+            // Optional: resolve weather *once* and store the snapshot
             let coord = CLLocationCoordinate2D(latitude: lat, longitude: lon)
             if let snap = try? await weather.fetchWeather(for: coord, at: dto.timestamp) {
                 // Store as model fields for later display in Detail

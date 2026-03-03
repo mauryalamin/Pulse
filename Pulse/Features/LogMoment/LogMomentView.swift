@@ -36,8 +36,16 @@ struct LogMomentView: View {
     @State private var showingAlert = false
     @State private var showTagPicker = false
     @State private var notesFocused = false
+    @State private var showDateTimeSheet = false
+    @State private var showWeatherSheet = false
+    @State private var showLocationSheet = false
     
     private enum FieldAnchor: Hashable { case notes }
+
+    private let weatherConditionOptions: [(code: Int, label: String)] = WeatherSnapshot
+        .codeDescription
+        .sorted { $0.key < $1.key }
+        .map { (code: $0.key, label: $0.value) }
     
     var body: some View {
         NavigationStack {
@@ -118,7 +126,7 @@ struct LogMomentView: View {
                         Divider().padding(.top, 4)
                         
                         // MARK: - Around This Moment
-                        contextualSection
+                        contextualSection(vm: vm)
                         Divider()
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -157,6 +165,38 @@ struct LogMomentView: View {
         }
         .sheet(isPresented: $showTagPicker) {
             TagPickerView(selectedTags: $vm.selectedTags)
+        }
+        .sheet(isPresented: $showDateTimeSheet) {
+            DateTimeEditSheet(
+                initialDate: vm.timestamp,
+                onSave: { newTimestamp in
+                    vm.setTimestamp(newTimestamp)
+                }
+            )
+        }
+        .sheet(isPresented: $showWeatherSheet) {
+            WeatherEditSheet(
+                initialWeatherCode: vm.weatherCode,
+                initialTemperatureCelsius: vm.temperatureCelsius,
+                weatherConditionOptions: weatherConditionOptions,
+                onSave: { code, temperature in
+                    vm.updateWeather(code: code, temperatureCelsius: temperature)
+                }
+            )
+        }
+        .sheet(isPresented: $showLocationSheet) {
+            LocationEditSheet(
+                initialLocationDescription: vm.locationDescription,
+                initialLatitude: vm.latitude,
+                initialLongitude: vm.longitude,
+                onSave: { locationDescription, latitude, longitude in
+                    vm.updateLocation(
+                        description: locationDescription,
+                        latitude: latitude,
+                        longitude: longitude
+                    )
+                }
+            )
         }
         .ignoresSafeArea(.keyboard)
         .animation(.easeInOut, value: showConfirmation)
@@ -202,11 +242,43 @@ struct LogMomentView: View {
         // Weather refresh hooks
         .onChange(of: locationManager.location)            { _, _ in weatherVM.locationDidChange() }
         .onChange(of: locationManager.authorizationStatus) { _, _ in weatherVM.locationDidChange() }
+        .onChange(of: weatherVM.state) { _, newState in
+            if case let .loaded(snapshot) = newState {
+                vm.ingestAutoWeather(snapshot)
+            }
+        }
+        .onChange(of: locationManager.location) { _, _ in
+            vm.ingestAutoLocation(
+                LocationSnapshot(
+                    lat: locationManager.location?.coordinate.latitude,
+                    lon: locationManager.location?.coordinate.longitude,
+                    place: locationManager.placename
+                )
+            )
+        }
+        .onChange(of: locationManager.placename) { _, _ in
+            vm.ingestAutoLocation(
+                LocationSnapshot(
+                    lat: locationManager.location?.coordinate.latitude,
+                    lon: locationManager.location?.coordinate.longitude,
+                    place: locationManager.placename
+                )
+            )
+        }
         // LogMomentView.swift (inside body)
         .task {
             // Preflight location ONCE when the sheet appears
             locationManager.preflightAuthorization()
             locationManager.refreshIfAuthorized()   // optional nudge
+        }
+        .task {
+            vm.ingestAutoLocation(
+                LocationSnapshot(
+                    lat: locationManager.location?.coordinate.latitude,
+                    lon: locationManager.location?.coordinate.longitude,
+                    place: locationManager.placename
+                )
+            )
         }
         
         // If you kick off weather, only do so after auth changes or fixes:
@@ -238,39 +310,70 @@ struct LogMomentView: View {
     }
     
     @ViewBuilder
-    private var contextualSection: some View {
+    private func contextualSection(vm: LogMomentViewModel) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Around This Moment")
                 .font(.title3).fontWeight(.semibold)
-            
-            CurrentDateTimeView()
-            WeatherNowRow(state: weatherVM.state)
-            
-            let isAuth = locationManager.authorizationStatus == .authorizedWhenInUse
-            || locationManager.authorizationStatus == .authorizedAlways
-            
-            let locationLabel = LocationFormatter.displayName(
-                placename: locationManager.placename,
-                lat: locationManager.location?.coordinate.latitude,
-                lon: locationManager.location?.coordinate.longitude,
-                isAuthorized: isAuth
-            )
-            
-            HStack(spacing: 6) {
-                Image(systemName: "mappin.circle.fill")
-                    .accessibilityHidden(true)
-                Text(locationLabel)
-                    .accessibilityLabel("Location")
-                    .accessibilityValue(locationLabel)
+
+            Button {
+                showDateTimeSheet = true
+            } label: {
+                EditableContextRow(
+                    iconName: "calendar",
+                    valueText: vm.timestamp.formatted(date: .long, time: .shortened)
+                )
             }
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .accessibilityElement(children: .combine)
+            .buttonStyle(.plain)
+
+            Button {
+                showWeatherSheet = true
+            } label: {
+                EditableContextRow(
+                    iconName: WeatherFormatting.symbolName(for: nil, code: vm.weatherCode),
+                    valueText: formattedWeatherValue(vm: vm)
+                )
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                showLocationSheet = true
+            } label: {
+                EditableContextRow(
+                    iconName: "mappin.circle.fill",
+                    valueText: formattedLocationValue(vm: vm)
+                )
+            }
+            .buttonStyle(.plain)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityElement(children: .contain)
         .accessibilityHint("Contextual information for this moment.")
+    }
+
+    private func formattedWeatherValue(vm: LogMomentViewModel) -> String {
+        switch weatherVM.state {
+        case .loading where !vm.hasCustomWeatherSnapshot:
+            return "Retrieving weather..."
+        case .failed where !vm.hasCustomWeatherSnapshot:
+            return "Weather unavailable"
+        default:
+            return WeatherFormatting.formattedTempCompact(celsius: vm.temperatureCelsius)
+        }
+    }
+
+    private func formattedLocationValue(vm: LogMomentViewModel) -> String {
+        let trimmedDescription = vm.locationDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedDescription.isEmpty {
+            return trimmedDescription
+        }
+
+        if vm.latitude != nil, vm.longitude != nil {
+            return "Saved location"
+        }
+
+        let isAuthorized = locationManager.authorizationStatus == .authorizedWhenInUse
+            || locationManager.authorizationStatus == .authorizedAlways
+        return isAuthorized ? "Retrieving your location..." : "Location unavailable"
     }
     
     @ViewBuilder

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct OnboardingStepThreeView: View {
     @AppStorage("isOnboarding") var isOnboarding: Bool = true
+    @Environment(AppLockManager.self) private var lock
     
     var headline: String
     var subtitle: String
@@ -69,7 +70,7 @@ struct OnboardingStepThreeView: View {
                             Spacer()
                             VStack (spacing: 24) {
                                 Button("Enable Face ID") {
-                                    
+                                    Task { await lock.requestBiometricsOptIn() }
                                 }
                             }
                             Spacer()
@@ -107,4 +108,5 @@ struct OnboardingStepThreeView: View {
     NavigationStack {
         OnboardingStepThreeView(headline: "Your privacy comes first", subtitle: "Everything stays on your phone…", image: "Onboarding-3")
     }
+    .environment(AppLockManager.shared)
 }

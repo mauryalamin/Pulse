@@ -22,9 +22,15 @@ struct SettingsView: View {
                 Section(header: Text("Privacy")) {
                     Toggle("Require Face ID", isOn: $useBiometrics)
                         .onChange(of: useBiometrics) { _, newValue in
-                            // Optional behavior: if user enables Face ID and we’re currently locked, prompt now
-                            if newValue && !lock.isUnlocked {
-                                Task { await lock.authenticate() }
+                            if newValue {
+                                Task {
+                                    let enabled = await lock.requestBiometricsOptIn()
+                                    if !enabled {
+                                        useBiometrics = false
+                                    }
+                                }
+                            } else {
+                                lock.disableBiometrics()
                             }
                         }
                 }

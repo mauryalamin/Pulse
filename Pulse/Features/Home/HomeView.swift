@@ -88,11 +88,11 @@ struct HomeView: View {
             }
             // Lock overlay (Observation-based)
             .overlay {
-                if !lock.isUnlocked {
+                if lock.shouldLockUI {
                     VisualEffectBlur(blurStyle: .systemUltraThinMaterial) { EmptyView() }
                         .ignoresSafeArea()
                         .transition(.opacity)
-                        .animation(.easeInOut(duration: 0.2), value: lock.isUnlocked)
+                        .animation(.easeInOut(duration: 0.2), value: lock.shouldLockUI)
                 }
             }
             // Initial load

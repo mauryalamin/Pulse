@@ -112,8 +112,37 @@ Think of the app like a restaurant kitchen:
   - Added editable `timestamp` state to `EditMomentViewModel`.
   - Wired `save(in:)` to persist `originalMoment.timestamp`.
   - Added separate Date and Time pickers in `EditMomentView`.
-  - Updated contextual timestamp display to reflect in-progress edits.
+- Updated contextual timestamp display to reflect in-progress edits.
 - Lesson: if a screen says “Edit,” users assume all core fields are editable unless clearly labeled read-only.
+
+### 2026-03-06 - Face ID Became Truly Optional (No More Onboarding Trap)
+- Feature: Face ID now behaves as a real opt-in choice from onboarding instead of a hidden requirement.
+- Bug/pitfall: users who tapped `Start Using Pulse` without enabling Face ID could still get blocked by lock UI later because lock conditions assumed biometrics were required globally.
+- Fix:
+  - Added lock policy state in `AppLockManager`:
+    - `isBiometricsEnabled` for persisted opt-in status
+    - `shouldLockUI` as the single source of truth for whether lock overlays should appear
+  - Updated auth flow:
+    - `authenticate()` now short-circuits to unlocked when biometrics are not enabled
+    - background/foreground lock transitions only enforce re-lock if biometrics are enabled
+  - Added `requestBiometricsOptIn()` to explicitly prompt Face ID and persist opt-in only after successful auth.
+  - Wired onboarding:
+    - `Enable Face ID` in `OnboardingStepThreeView` now triggers the Face ID prompt directly.
+  - Updated root/home UI gates:
+    - `PulseApp` and `HomeView` now key overlays off `shouldLockUI` instead of raw `isUnlocked`.
+- Lesson: privacy controls should be user-driven policy, not side effects from default state. If lock policy lives in one place, UI stops inventing its own rules.
+
+### 2026-03-06 - Face ID Foreground Deadlock + Settings Toggle Safety Net
+- Bug/pitfall: enabling Face ID from Settings could create a lock screen that said "Unlocking with Face ID..." after returning from Home screen, but never actually triggered Face ID. Relaunching the app would trigger auth, which made this feel random and fragile.
+- Root cause (the sneaky one): on background, we immediately set `isUnlocked = false` for privacy blur; on foreground, if background time was under 20 seconds, we skipped auth but forgot to restore `isUnlocked = true`. Result: locked UI with no auth call.
+- Fix:
+  - In `handleWillEnterForeground()`, when elapsed background time is `<= 20s`, explicitly restore unlocked state (`isUnlocked = true`) to match the "skip auth" policy.
+  - Hardened Settings opt-in flow:
+    - `requestBiometricsOptIn()` now returns `Bool` and is the single gate that decides whether biometric preference can stay enabled.
+    - On any failure/unavailable state, biometric preference is reverted to `false` and app is kept usable (`isUnlocked = true`).
+    - Added `disableBiometrics()` to centralize opt-out behavior.
+  - Updated `SettingsView` so toggling on now attempts real biometric verification and auto-rolls back the toggle on failure.
+- Lesson: lock policy and unlock policy must be mirror images. If one side says "don't challenge," the other side must say "then stay open," or you build a polite dead end.
 
 ## Engineer's Wisdom
 - Keep domain truth in one place: mutation happens in view models/use-cases, not ad-hoc across views.

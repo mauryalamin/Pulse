@@ -61,16 +61,15 @@ struct PulseApp: App {
                 } else {
                     ZStack {
                         ContentStartupWrapper()
-                            .environment(lock)
-                            .blur(radius: lock.isUnlocked ? 0 : 30)
-                            .animation(.easeInOut(duration: 0.4), value: lock.isUnlocked)
+                            .blur(radius: lock.shouldLockUI ? 30 : 0)
+                            .animation(.easeInOut(duration: 0.4), value: lock.shouldLockUI)
 
-                        if !lock.isUnlocked {
+                        if lock.shouldLockUI {
                             Color.clear
                                 .background(.ultraThinMaterial)
                                 .ignoresSafeArea()
                                 .transition(.opacity)
-                                .animation(.easeInOut(duration: 0.4), value: lock.isUnlocked)
+                                .animation(.easeInOut(duration: 0.4), value: lock.shouldLockUI)
 
                             VStack(spacing: 16) {
                                 Image(systemName: "lock.fill")
@@ -81,11 +80,11 @@ struct PulseApp: App {
                                     .foregroundStyle(.secondary)
                             }
                             .transition(.opacity)
-                            .animation(.easeInOut(duration: 0.4), value: lock.isUnlocked)
+                            .animation(.easeInOut(duration: 0.4), value: lock.shouldLockUI)
                         }
                     }
                     .task {
-                        if !lock.isUnlocked { await lock.authenticate() }
+                        if lock.shouldLockUI { await lock.authenticate() }
                     }
                     .onChange(of: scenePhase) {
                         switch scenePhase {
@@ -96,6 +95,7 @@ struct PulseApp: App {
                     }
                 }
             }
+            .environment(lock)
         }
         // ✅ Inject the explicit, file-backed container for the whole app
         .modelContainer(Persistence.shared)

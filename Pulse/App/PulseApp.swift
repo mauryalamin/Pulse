@@ -12,8 +12,6 @@ import SwiftData
 struct PulseApp: App {
 
     @AppStorage("isOnboarding") var isOnboarding: Bool = true
-    @AppStorage("isStealthModeEnabled") var isStealthModeEnabled: Bool = false
-    @AppStorage("selectedStealthIcon") var selectedStealthIcon: String?
 
     @Environment(\.scenePhase) private var scenePhase
     @State private var lock = AppLockManager.shared

@@ -44,7 +44,7 @@ struct OnboardingStepThreeView: View {
                     
                     // MARK: - Body Content
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Everything stays on your phone—no accounts, no syncing, no tracking. You can protect Pulse with Face ID and hide its purpose with Stealth Mode.")
+                        Text("Everything stays on your phone—no accounts, no syncing, no tracking. You can protect Pulse with Face ID.")
                         VStack(alignment: .leading, spacing: 8) {
                             HStack (alignment: .top){
                                 Text("•")
@@ -55,11 +55,6 @@ struct OnboardingStepThreeView: View {
                                 Text("•")
                                     .frame(width: 20)
                                 Text("Optional Face ID / passcode lock")
-                            }
-                            HStack (alignment: .top){
-                                Text("•")
-                                    .frame(width: 20)
-                                Text("Stealth Mode hides app appearance & behavior")
                             }
                         }
                     }
@@ -76,17 +71,13 @@ struct OnboardingStepThreeView: View {
                                 Button("Enable Face ID") {
                                     
                                 }
-                                
-                                NavigationLink(destination: OnboardingStepFourView(headline: "Make Pulse less visible", subtitle: "Choose an icon that feels more private to you.", image: "Onboarding-4")) {
-                                    Text("Enable Stealth Mode")
-                                }
                             }
                             Spacer()
                         }
                         .padding(.bottom)
-                        Text("You can change these settings anytime in the app")
-                            .font(.caption)
                     }
+                    
+                    Spacer()
                     
                     // MARK: - Next Button
                     Button {

@@ -27,6 +27,19 @@ Think of the app like a restaurant kitchen:
 - Async/await: easier-to-reason-about async flows (weather/location fetch and save choreography).
 
 ## The Journey
+### 2026-03-06 - Stealth Mode Retirement: Less Surface Area, Fewer Hidden Rules
+- Architectural decision: removed Stealth Mode entirely (onboarding pitch, settings toggle, icon switching logic, and notification suppression coupling).
+- Why: the feature added extra privacy-state branches across onboarding, settings, notifications, and app icon handling, but delivered overlapping value with Face ID lock.
+- What changed:
+  - Deleted onboarding step 4 and removed the “Enable Stealth Mode” path from step 3.
+  - Removed Stealth messaging from onboarding copy so privacy positioning is now clear and single-track.
+  - Simplified `SettingsView` privacy section to Face ID only.
+  - Removed app icon switching internals by deleting `StealthIconPickerView` and `StealthIconManager`.
+  - Removed notification gating tied to Stealth Mode; notification auth flow is now unconditional and predictable.
+  - Cleaned app-level `AppStorage` keys for Stealth state from `PulseApp`.
+- Bug/pitfall avoided: “invisible feature creep” where one toggle quietly mutates behavior in unrelated systems (notifications, icon state, onboarding navigation), which is hard to reason about and easy to regress.
+- Lesson: privacy controls should be explicit and composable. If two knobs solve similar trust concerns, the app usually gets safer by keeping the one users can actually understand at a glance.
+
 ### 2026-03-03 - After-the-Fact Logging: Context Became Editable in Log Flow
 - Feature: `LogMomentView` now supports editing Date/Time, Weather, and Location before save, using the same "Adjust row + sheet" interaction pattern as `EditMomentView`.
 - Bug/pitfall: log flow previously hard-coded `timestamp: Date()` and relied only on live-captured weather/location, which blocked accurate backfilling when users logged a moment later.

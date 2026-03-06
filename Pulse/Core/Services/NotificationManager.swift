@@ -15,12 +15,6 @@ final class NotificationManager {
     private init() { }
 
     func requestAuthorizationIfNeeded() async {
-        let isStealth = UserDefaults.standard.bool(forKey: "isStealthModeEnabled")
-        guard !isStealth else {
-            print("🔕 Stealth Mode enabled — skipping notification prompt.")
-            return
-        }
-
         let center = UNUserNotificationCenter.current()
         let settings = await center.notificationSettings()
 

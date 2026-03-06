@@ -472,7 +472,7 @@ struct EditMomentViewModelTests {
             try ctx.save()
 
             // Act: user edits via EditMomentViewModel
-            var vm = EditMomentViewModel(moment: moment)
+            let vm = EditMomentViewModel(moment: moment)
 
             // sanity: starts with [A, B]
             let initialTagIDs = Set(vm.selectedTags.map(\.id))

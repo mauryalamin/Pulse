@@ -78,7 +78,6 @@
 		AEF149512DCBFFE800690F5E /* PulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1494B2DCBFFE800690F5E /* PulseApp.swift */; };
 		AEF149522DCBFFE800690F5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEF1494A2DCBFFE800690F5E /* Assets.xcassets */; };
 		AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149532DCC04D000690F5E /* LogMomentView.swift */; };
-		AEF149562DCC245800690F5E /* UpdateMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149552DCC245800690F5E /* UpdateMomentView.swift */; };
 		AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF149572DCCE79E00690F5E /* FactoidView.swift */; };
 		AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */; };
 		AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */; };
@@ -184,7 +183,6 @@
 		AEF1494A2DCBFFE800690F5E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEF1494B2DCBFFE800690F5E /* PulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseApp.swift; sourceTree = "<group>"; };
 		AEF149532DCC04D000690F5E /* LogMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMomentView.swift; sourceTree = "<group>"; };
-		AEF149552DCC245800690F5E /* UpdateMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMomentView.swift; sourceTree = "<group>"; };
 		AEF149572DCCE79E00690F5E /* FactoidView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidView.swift; sourceTree = "<group>"; };
 		AEF1495A2DCCE9C600690F5E /* FactoidGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoidGroupView.swift; sourceTree = "<group>"; };
 		AEF1495C2DCCF45E00690F5E /* MomentListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentListRowView.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				AE8804102DD2A97D0076B724 /* MomentDetailView.swift */,
-				AEF149552DCC245800690F5E /* UpdateMomentView.swift */,
 				AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */,
 				AE7DA0572EA2EB30007690C4 /* Components */,
 			);
@@ -771,7 +768,6 @@
 				AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */,
 				AEE4DEE82DDE367700FE46D6 /* WeatherSnapshotFormatter.swift in Sources */,
 				AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */,
-				AEF149562DCC245800690F5E /* UpdateMomentView.swift in Sources */,
 				AE622B3B2EA31A2100A0F0F6 /* LocationManaging.swift in Sources */,
 				AEE44B012EA96561006954CD /* WeatherNowViewModel.swift in Sources */,
 				AE2CA1D42DD65ABD000DF21E /* TagDefaults.swift in Sources */,

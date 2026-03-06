@@ -18,7 +18,7 @@ struct EditableContextRow: View {
                 .foregroundStyle(.secondary)
 
             Text(valueText)
-                .font(.body)
+                .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
 
@@ -31,7 +31,32 @@ struct EditableContextRow: View {
         .padding(.horizontal, 12)
         .padding(.vertical, 11)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+    }
+}
+
+#Preview("Contextual Group") {
+    VStack (alignment: .leading, spacing: 12) {
+        Text("Around This Moment")
+            .font(.title3).fontWeight(.semibold)
+            .padding(.horizontal)
+        
+        EditableContextRow(
+            iconName: "calendar",
+            valueText: Date.now.formatted(date: .long, time: .shortened)
+        )
+        .padding(.horizontal)
+        
+        EditableContextRow(
+            iconName: "cloud.sun.fill",
+            valueText: "72°F"
+        )
+        .padding(.horizontal)
+        
+        EditableContextRow(
+            iconName: "mappin.circle.fill",
+            valueText: "Chicago, IL"
+        )
+        .padding(.horizontal)
     }
 }
 

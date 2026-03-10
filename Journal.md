@@ -41,6 +41,29 @@ Aha moment:
 Pitfall avoided:
 - Reusing SwiftData `@Model` classes directly in insights payloads would create unnecessary coupling and reduce portability. We stayed with value types.
 
+### 2026-03-10 - Story 2: Build Insights Computation Service
+This was the \"turn ingredients into plated meals\" phase. We already had the Insights containers; now we taught Pulse how to fill them with deterministic data from raw moments.
+
+What we added:
+- `InsightsComputationService` as a synchronous, testable service that maps `[Moment] + InsightsPeriod` into `InsightsSnapshot`.
+- Period filtering plus previous-period comparison window support for trend-style factoids.
+- Deterministic computations for:
+  - Data state (`empty`, `insufficientData`, `ready`)
+  - Factoid candidates with eligibility flags
+  - Day-by-day activity series
+  - Time-of-day bucket summaries
+  - Top tags and urge breakdown percentages
+  - Template-based observations grounded in multi-signal patterns
+  - Template summary fallback text
+
+Aha moment:
+- Treating observation generation as \"structured evidence + safe templates\" gives us useful narrative now, while keeping the door open for Foundation Models later without changing payload contracts.
+
+Pitfalls avoided:
+- No AI text generation in this layer, so behavior is deterministic and easy to test.
+- No UI assumptions leaked into compute logic.
+- Sparse-data guards prevent overconfident statements when context fields (location/weather/tags) are thin.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.

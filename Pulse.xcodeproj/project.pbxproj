@@ -55,6 +55,7 @@
 		AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C332EA68CD500FBD70C /* UrgeRow.swift */; };
 		AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */; };
 		AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */; };
+		AE6788BD2F60B2CA00F669D8 /* InsightsComputationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */; };
 		AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C1BB62EB157D300F1FB88 /* Persistence.swift */; };
 		AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */; };
 		AE7FCB1F2F5753DE00ABBF06 /* EditableContextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB1E2F5753DD00ABBF06 /* EditableContextRow.swift */; };
@@ -166,6 +167,7 @@
 		AE627C332EA68CD500FBD70C /* UrgeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeRow.swift; sourceTree = "<group>"; };
 		AE627C352EA6D23100FBD70C /* PulseDateFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseDateFormatting.swift; sourceTree = "<group>"; };
 		AE627C382EA6D30000FBD70C /* CurrentDateTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateTimeView.swift; sourceTree = "<group>"; };
+		AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsComputationService.swift; sourceTree = "<group>"; };
 		AE6C1BB62EB157D300F1FB88 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveMomentBar.swift; sourceTree = "<group>"; };
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -309,6 +311,14 @@
 				AE9730C52EA9569C003D5971 /* WeatherFormatting.swift */,
 			);
 			path = Formatting;
+			sourceTree = "<group>";
+		};
+		AE6788BB2F60B25800F669D8 /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */,
+			);
+			path = Insights;
 			sourceTree = "<group>";
 		};
 		AE7BFDE12DCBEE4900A5836B = {
@@ -505,6 +515,7 @@
 				AE622B392EA31A0400A0F0F6 /* Location */,
 				AED8FE862DE8E3FE00135FC3 /* NotificationManager.swift */,
 				AEE4DEE42DDE35B200FE46D6 /* Weather */,
+				AE6788BB2F60B25800F669D8 /* Insights */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -765,6 +776,7 @@
 				AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */,
 				AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */,
 				AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */,
+				AE6788BD2F60B2CA00F669D8 /* InsightsComputationService.swift in Sources */,
 				AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
 				AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */,

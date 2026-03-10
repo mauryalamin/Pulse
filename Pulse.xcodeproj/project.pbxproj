@@ -12,6 +12,19 @@
 		AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */; };
 		AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1534822EAEA9F200DDAF7A /* TagsFlowSection.swift */; };
 		AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1635152DE0C6360077D14B /* AppLockManager.swift */; };
+		AE16AE2E2F607FBA0080D64A /* InsightsPeriod.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE2D2F607FBA0080D64A /* InsightsPeriod.swift */; };
+		AE16AE302F607FBA0080D64A /* InsightFactoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE2F2F607FBA0080D64A /* InsightFactoid.swift */; };
+		AE16AE322F607FBA0080D64A /* InsightObservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE312F607FBA0080D64A /* InsightObservation.swift */; };
+		AE16AE342F607FBA0080D64A /* InsightsSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE332F607FBA0080D64A /* InsightsSnapshot.swift */; };
+		AE16AE362F607FBA0080D64A /* InsightsSupportingEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE352F607FBA0080D64A /* InsightsSupportingEnums.swift */; };
+		AE16AE382F607FCD0080D64A /* Journal.md in Resources */ = {isa = PBXBuildFile; fileRef = AE16AE372F607FCD0080D64A /* Journal.md */; };
+		AE16AE3A2F6080C30080D64A /* InsightsSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE392F6080C30080D64A /* InsightsSummary.swift */; };
+		AE16AE3C2F6080C40080D64A /* ActivityDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE3B2F6080C40080D64A /* ActivityDataPoint.swift */; };
+		AE16AE3E2F6080C40080D64A /* TimePatternSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE3D2F6080C40080D64A /* TimePatternSummary.swift */; };
+		AE16AE402F6080C40080D64A /* TimeBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE3F2F6080C40080D64A /* TimeBucket.swift */; };
+		AE16AE422F6080C40080D64A /* TimeBucketInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE412F6080C40080D64A /* TimeBucketInsight.swift */; };
+		AE16AE442F6080C40080D64A /* TagInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE432F6080C40080D64A /* TagInsight.swift */; };
+		AE16AE462F6080C40080D64A /* UrgeBreakdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */; };
 		AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */; };
 		AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */; };
 		AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */; };
@@ -110,6 +123,19 @@
 		AE0F9A832DCE4CEA00C1CC62 /* IntensityGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGroupView.swift; sourceTree = "<group>"; };
 		AE1534822EAEA9F200DDAF7A /* TagsFlowSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsFlowSection.swift; sourceTree = "<group>"; };
 		AE1635152DE0C6360077D14B /* AppLockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockManager.swift; sourceTree = "<group>"; };
+		AE16AE2D2F607FBA0080D64A /* InsightsPeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsPeriod.swift; sourceTree = "<group>"; };
+		AE16AE2F2F607FBA0080D64A /* InsightFactoid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightFactoid.swift; sourceTree = "<group>"; };
+		AE16AE312F607FBA0080D64A /* InsightObservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightObservation.swift; sourceTree = "<group>"; };
+		AE16AE332F607FBA0080D64A /* InsightsSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSnapshot.swift; sourceTree = "<group>"; };
+		AE16AE352F607FBA0080D64A /* InsightsSupportingEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSupportingEnums.swift; sourceTree = "<group>"; };
+		AE16AE372F607FCD0080D64A /* Journal.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Journal.md; sourceTree = "<group>"; };
+		AE16AE392F6080C30080D64A /* InsightsSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSummary.swift; sourceTree = "<group>"; };
+		AE16AE3B2F6080C40080D64A /* ActivityDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataPoint.swift; sourceTree = "<group>"; };
+		AE16AE3D2F6080C40080D64A /* TimePatternSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePatternSummary.swift; sourceTree = "<group>"; };
+		AE16AE3F2F6080C40080D64A /* TimeBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBucket.swift; sourceTree = "<group>"; };
+		AE16AE412F6080C40080D64A /* TimeBucketInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBucketInsight.swift; sourceTree = "<group>"; };
+		AE16AE432F6080C40080D64A /* TagInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagInsight.swift; sourceTree = "<group>"; };
+		AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeBreakdownItem.swift; sourceTree = "<group>"; };
 		AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentView.swift; sourceTree = "<group>"; };
 		AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentViewModel.swift; sourceTree = "<group>"; };
@@ -227,6 +253,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AE16AE2C2F607F930080D64A /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				AE16AE2D2F607FBA0080D64A /* InsightsPeriod.swift */,
+				AE16AE2F2F607FBA0080D64A /* InsightFactoid.swift */,
+				AE16AE312F607FBA0080D64A /* InsightObservation.swift */,
+				AE16AE332F607FBA0080D64A /* InsightsSnapshot.swift */,
+				AE16AE352F607FBA0080D64A /* InsightsSupportingEnums.swift */,
+				AE16AE392F6080C30080D64A /* InsightsSummary.swift */,
+				AE16AE3B2F6080C40080D64A /* ActivityDataPoint.swift */,
+				AE16AE3D2F6080C40080D64A /* TimePatternSummary.swift */,
+				AE16AE3F2F6080C40080D64A /* TimeBucket.swift */,
+				AE16AE412F6080C40080D64A /* TimeBucketInsight.swift */,
+				AE16AE432F6080C40080D64A /* TagInsight.swift */,
+				AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
 		AE622B2F2EA313E400A0F0F6 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +318,7 @@
 				AE7BFDFA2DCBEE4A00A5836B /* PulseTests */,
 				AE7BFE042DCBEE4A00A5836B /* PulseUITests */,
 				AE7BFDEB2DCBEE4900A5836B /* Products */,
+				AE16AE372F607FCD0080D64A /* Journal.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -489,6 +535,7 @@
 				AEF149442DCBFFE800690F5E /* Urge.swift */,
 				AE2CA1D12DD65A4E000DF21E /* Tag.swift */,
 				AE622B422EA320E100A0F0F6 /* MomentResponse.swift */,
+				AE16AE2C2F607F930080D64A /* Insights */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -666,6 +713,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE16AE382F607FCD0080D64A /* Journal.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,24 +736,31 @@
 				AE2CA1D22DD65A4E000DF21E /* Tag.swift in Sources */,
 				AEF1494D2DCBFFE800690F5E /* Moment.swift in Sources */,
 				AE7FCB1F2F5753DE00ABBF06 /* EditableContextRow.swift in Sources */,
+				AE16AE322F607FBA0080D64A /* InsightObservation.swift in Sources */,
 				AE622B432EA320E100A0F0F6 /* MomentResponse.swift in Sources */,
 				AE8D5F382EAFF0F90087CB44 /* IntensityGradientSpec.swift in Sources */,
 				AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */,
 				AE7FCB252F57542E00ABBF06 /* LocationEditSheet.swift in Sources */,
+				AE16AE2E2F607FBA0080D64A /* InsightsPeriod.swift in Sources */,
 				AE827BD62EC4DA5800E835CA /* NotesReadOnlySectionView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
 				AE9447452EC50C73007F0338 /* WeatherSnapshotRowView.swift in Sources */,
 				AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */,
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
+				AE16AE362F607FBA0080D64A /* InsightsSupportingEnums.swift in Sources */,
 				AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AE7FCB232F57542E00ABBF06 /* WeatherEditSheet.swift in Sources */,
+				AE16AE342F607FBA0080D64A /* InsightsSnapshot.swift in Sources */,
+				AE16AE442F6080C40080D64A /* TagInsight.swift in Sources */,
 				AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */,
 				AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */,
 				AE622B412EA31F7700A0F0F6 /* GeocodingAdapter.swift in Sources */,
 				AE622B382EA3183B00A0F0F6 /* MomentsListViewModel.swift in Sources */,
 				AE622B362EA317FF00A0F0F6 /* SettingsViewModel.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
+				AE16AE462F6080C40080D64A /* UrgeBreakdownItem.swift in Sources */,
+				AE16AE3C2F6080C40080D64A /* ActivityDataPoint.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,
 				AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */,
 				AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */,
@@ -717,6 +772,7 @@
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,
 				AE31EDAE2DDD52A2009F838C /* LocationManager.swift in Sources */,
 				AE88040D2DD273700076B724 /* KeyboardResponder.swift in Sources */,
+				AE16AE3A2F6080C30080D64A /* InsightsSummary.swift in Sources */,
 				AED342F82EC288C700B1CFB2 /* TagChipReadOnlyView.swift in Sources */,
 				AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */,
 				AE2CA1D82DD664C0000DF21E /* TagView.swift in Sources */,
@@ -724,6 +780,7 @@
 				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
 				AE622B342EA316B900A0F0F6 /* CreateMomentUseCase.swift in Sources */,
 				AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */,
+				AE16AE3E2F6080C40080D64A /* TimePatternSummary.swift in Sources */,
 				AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
 				AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */,
@@ -748,12 +805,15 @@
 				AE59C85E2EAE9DA5004DF39A /* JustifiedTagsLayout.swift in Sources */,
 				AE622B3F2EA31D5000A0F0F6 /* WeatherProviding.swift in Sources */,
 				AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */,
+				AE16AE422F6080C40080D64A /* TimeBucketInsight.swift in Sources */,
+				AE16AE402F6080C40080D64A /* TimeBucket.swift in Sources */,
 				AE2CA1D62DD662C8000DF21E /* TagPickerView.swift in Sources */,
 				AE0F9A842DCE4CEA00C1CC62 /* IntensityGroupView.swift in Sources */,
 				AE8804112DD2A97D0076B724 /* MomentDetailView.swift in Sources */,
 				AEE4DEE62DDE360B00FE46D6 /* OpenMeteoWeatherService.swift in Sources */,
 				AEF1495D2DCCF45E00690F5E /* MomentListRowView.swift in Sources */,
 				AE0F9A802DCE453900C1CC62 /* UrgeMenuView.swift in Sources */,
+				AE16AE302F607FBA0080D64A /* InsightFactoid.swift in Sources */,
 				AEE4DEE82DDE367700FE46D6 /* WeatherSnapshotFormatter.swift in Sources */,
 				AEF149542DCC04D000690F5E /* LogMomentView.swift in Sources */,
 				AE622B3B2EA31A2100A0F0F6 /* LocationManaging.swift in Sources */,

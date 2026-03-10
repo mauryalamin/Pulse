@@ -14,6 +14,9 @@ import Observation
 final class AppLockManager {
     static let shared = AppLockManager()
     private let biometricsPreferenceKey = "useBiometrics"
+    private var isUITestBiometricsBypassEnabled: Bool {
+        ProcessInfo.processInfo.arguments.contains("UITEST_BYPASS_BIOMETRICS")
+    }
 
     // Observable UI state
     var isUnlocked: Bool = false
@@ -38,6 +41,12 @@ final class AppLockManager {
 
     func authenticate() async {
         guard isBiometricsEnabled else {
+            isUnlocked = true
+            authError = nil
+            return
+        }
+
+        if isUITestBiometricsBypassEnabled {
             isUnlocked = true
             authError = nil
             return
@@ -78,6 +87,13 @@ final class AppLockManager {
 
     @discardableResult
     func requestBiometricsOptIn() async -> Bool {
+        if isUITestBiometricsBypassEnabled {
+            UserDefaults.standard.set(true, forKey: biometricsPreferenceKey)
+            isUnlocked = true
+            authError = nil
+            return true
+        }
+
         let context = LAContext()
         var error: NSError?
 

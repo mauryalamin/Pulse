@@ -38,4 +38,24 @@ final class PulseUITests: XCTestCase {
             XCUIApplication().launch()
         }
     }
+
+    @MainActor
+    func testFaceIDEnabledShortBackgroundDoesNotGetStuckLocked() throws {
+        let app = XCUIApplication()
+        app.launchArguments += [
+            "-isOnboarding", "NO",
+            "-useBiometrics", "YES",
+            "UITEST_BYPASS_BIOMETRICS"
+        ]
+        app.launch()
+
+        XCTAssertTrue(app.navigationBars["Moments"].waitForExistence(timeout: 5))
+
+        XCUIDevice.shared.press(.home)
+        app.activate()
+
+        let lockMessage = app.staticTexts["Unlocking with Face ID..."]
+        XCTAssertFalse(lockMessage.waitForExistence(timeout: 2))
+        XCTAssertTrue(app.navigationBars["Moments"].waitForExistence(timeout: 5))
+    }
 }

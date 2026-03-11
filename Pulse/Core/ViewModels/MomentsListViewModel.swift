@@ -22,12 +22,19 @@ final class MomentsListViewModel {
 
     // MARK: - Render source
     var moments: [Moment] = []
+    var insightsSnapshot: InsightsSnapshot
 
     // MARK: - Infra
     @ObservationIgnored private let context: ModelContext
+    @ObservationIgnored private let insightsService: InsightsComputing
 
-    init(context: ModelContext) {
+    init(
+        context: ModelContext,
+        insightsService: InsightsComputing = InsightsComputationService()
+    ) {
         self.context = context
+        self.insightsService = insightsService
+        self.insightsSnapshot = Self.makeInitialSnapshot()
     }
 
     // Keep DB predicate SIMPLE (numeric/bool only) to avoid #Predicate complexity
@@ -49,7 +56,9 @@ final class MomentsListViewModel {
                 sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
             )
             let serverResults = try context.fetch(desc)
-            self.moments = applyClientFilters(to: serverResults)
+            let filtered = applyClientFilters(to: serverResults)
+            self.moments = filtered
+            self.insightsSnapshot = makeInsightsSnapshot(from: filtered, now: .now)
             // Debug (optional)
             // print("📥 Reloaded \(moments.count) moments (server: \(serverResults.count))")
         } catch {
@@ -91,5 +100,44 @@ final class MomentsListViewModel {
     func setSelectedUrges(_ ids: Set<PersistentIdentifier>) async {
         self.selectedUrgeIDs = ids
         await reload()
+    }
+}
+
+private extension MomentsListViewModel {
+    func makeInsightsSnapshot(from moments: [Moment], now: Date) -> InsightsSnapshot {
+        let period = Self.defaultInsightsPeriod(referenceDate: now)
+        return insightsService.makeSnapshot(from: moments, for: period, now: now)
+    }
+
+    static func defaultInsightsPeriod(referenceDate: Date) -> InsightsPeriod {
+        let calendar = Calendar.current
+        let endDate = referenceDate
+        let startDay = calendar.startOfDay(for: endDate)
+        let startDate = calendar.date(byAdding: .day, value: -6, to: startDay) ?? startDay
+
+        return InsightsPeriod(
+            label: "Last 7 Days",
+            startDate: startDate,
+            endDate: endDate,
+            kind: .last7Days
+        )
+    }
+
+    static func makeInitialSnapshot() -> InsightsSnapshot {
+        let now = Date.now
+        let period = defaultInsightsPeriod(referenceDate: now)
+
+        return InsightsSnapshot(
+            period: period,
+            summary: nil,
+            factoids: [],
+            activitySeries: [],
+            timePattern: nil,
+            observations: [],
+            topTags: [],
+            urgeBreakdown: [],
+            dataState: .empty,
+            lastRefreshedAt: now
+        )
     }
 }

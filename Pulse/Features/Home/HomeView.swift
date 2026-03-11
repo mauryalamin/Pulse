@@ -107,21 +107,14 @@ struct HomeView: View {
     @ViewBuilder
     private func content(_ vm: MomentsListViewModel) -> some View {
         VStack {
-            // Top factoids + filter button row
-            HStack {
-                FactoidGroupView()
-                Spacer()
-                Divider().frame(width: 1)
-                Button { showFilterSheet = true } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .font(.largeTitle)
-                        .fontWeight(.light)
-                }
+            InsightsTeaserView(snapshot: vm.insightsSnapshot) {
+                // Story 3 will route this to the full Insights screen.
             }
-            .frame(height: 50)
             .padding(.horizontal)
 
-            headerLabel(filtersActive: filtersAreActive(vm))
+            if !vm.moments.isEmpty {
+                headerLabel(filtersActive: filtersAreActive(vm))
+            }
 
             // Timeline
             List {
@@ -188,7 +181,7 @@ struct HomeView: View {
         guard vm == nil else { return }
         vm = MomentsListViewModel(context: context)
     }
-    
+
     private func dumpAllMoments(_ tag: String) {
         do {
             let all = try context.fetch(FetchDescriptor<Moment>(sortBy: [SortDescriptor(\.timestamp, order: .reverse)]))

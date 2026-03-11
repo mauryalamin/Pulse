@@ -69,6 +69,8 @@
 		AE8D5F382EAFF0F90087CB44 /* IntensityGradientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8D5F372EAFF0F90087CB44 /* IntensityGradientSpec.swift */; };
 		AE9447452EC50C73007F0338 /* WeatherSnapshotRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9447442EC50C73007F0338 /* WeatherSnapshotRowView.swift */; };
 		AE9730C62EA9569C003D5971 /* WeatherFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9730C52EA9569C003D5971 /* WeatherFormatting.swift */; };
+		AEC9E62C2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */; };
+		AEC9E62E2F61007D009B8C33 /* InsightsTeaserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */; };
 		AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */; };
 		AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */; };
 		AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */; };
@@ -185,6 +187,8 @@
 		AE9447442EC50C73007F0338 /* WeatherSnapshotRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSnapshotRowView.swift; sourceTree = "<group>"; };
 		AE9730C52EA9569C003D5971 /* WeatherFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFormatting.swift; sourceTree = "<group>"; };
 		AEBFBE3F2DE2C76300E45A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTeaserFactoidItem.swift; sourceTree = "<group>"; };
+		AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTeaserView.swift; sourceTree = "<group>"; };
 		AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepOneView.swift; sourceTree = "<group>"; };
 		AECB69A72DCFD80B00B4EA5F /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
 		AECB69A92DCFD91500B4EA5F /* OnboardingStepTwoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepTwoView.swift; sourceTree = "<group>"; };
@@ -385,6 +389,7 @@
 			isa = PBXGroup;
 			children = (
 				AEF149482DCBFFE800690F5E /* HomeView.swift */,
+				AEC9E62A2F61001C009B8C33 /* Components */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -526,6 +531,15 @@
 				AE1635152DE0C6360077D14B /* AppLockManager.swift */,
 			);
 			path = Privacy;
+			sourceTree = "<group>";
+		};
+		AEC9E62A2F61001C009B8C33 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */,
+				AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		AEE4DEE42DDE35B200FE46D6 /* Weather */ = {
@@ -768,6 +782,7 @@
 				AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */,
 				AE622B412EA31F7700A0F0F6 /* GeocodingAdapter.swift in Sources */,
 				AE622B382EA3183B00A0F0F6 /* MomentsListViewModel.swift in Sources */,
+				AEC9E62C2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift in Sources */,
 				AE622B362EA317FF00A0F0F6 /* SettingsViewModel.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
 				AE16AE462F6080C40080D64A /* UrgeBreakdownItem.swift in Sources */,
@@ -800,6 +815,7 @@
 				AEF149612DCD4D4300690F5E /* Date+Extension.swift in Sources */,
 				AE622B492EA45C7100A0F0F6 /* IntensityBarView.swift in Sources */,
 				AEF149652DCD544700690F5E /* EmptyStateLogButtonView.swift in Sources */,
+				AEC9E62E2F61007D009B8C33 /* InsightsTeaserView.swift in Sources */,
 				AE622B312EA315C800A0F0F6 /* LogMomentViewModel.swift in Sources */,
 				AECB69A82DCFD80B00B4EA5F /* OnboardingFlowView.swift in Sources */,
 				AEF8CA2A2EB045DE00779DF6 /* Haptics.swift in Sources */,

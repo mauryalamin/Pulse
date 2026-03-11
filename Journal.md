@@ -64,6 +64,22 @@ Pitfalls avoided:
 - No UI assumptions leaked into compute logic.
 - Sparse-data guards prevent overconfident statements when context fields (location/weather/tags) are thin.
 
+### 2026-03-11 - Story 3 Slice: By the Numbers Teaser on Home
+Today we put a front counter in the restaurant: a compact \"By the Numbers\" teaser at the top of the Moments screen.
+
+What shipped:
+- A reusable `InsightsTeaserView` that renders from `InsightsSnapshot` (not raw moments).
+- A small display mapper model (`InsightsTeaserFactoidItem`) to keep view-body logic lean.
+- Home screen integration that replaces the old `FactoidGroupView()` placeholder.
+- Teaser states for `.empty`, `.insufficientData`, `.ready`, and `.locked`.
+- Liquid Glass styling using SwiftUI’s native `glassEffect(_:in:)`, matching the app’s existing glass usage.
+
+Aha moment:
+- Moving snapshot creation into `MomentsListViewModel` kept HomeView declarative and made the teaser almost plug-and-play for future navigation.
+
+Gotcha:
+- The teaser currently reflects the same filtered moment set used by the list. That’s coherent for now, but product may want global-period insights independent of list filters in a later story.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.

@@ -69,6 +69,15 @@
 		AE8D5F382EAFF0F90087CB44 /* IntensityGradientSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE8D5F372EAFF0F90087CB44 /* IntensityGradientSpec.swift */; };
 		AE9447452EC50C73007F0338 /* WeatherSnapshotRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9447442EC50C73007F0338 /* WeatherSnapshotRowView.swift */; };
 		AE9730C62EA9569C003D5971 /* WeatherFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9730C52EA9569C003D5971 /* WeatherFormatting.swift */; };
+		AE98D4152F63813A00D9784B /* InsightsSectionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4142F63813A00D9784B /* InsightsSectionCard.swift */; };
+		AE98D4172F63813B00D9784B /* InsightsSummarySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4162F63813B00D9784B /* InsightsSummarySectionView.swift */; };
+		AE98D4192F63813B00D9784B /* InsightsByTheNumbersSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4182F63813B00D9784B /* InsightsByTheNumbersSectionView.swift */; };
+		AE98D41B2F63813B00D9784B /* InsightsActivitySectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D41A2F63813B00D9784B /* InsightsActivitySectionView.swift */; };
+		AE98D41D2F63813B00D9784B /* InsightsTimePatternsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D41C2F63813B00D9784B /* InsightsTimePatternsSectionView.swift */; };
+		AE98D41F2F63813B00D9784B /* InsightsObservationsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D41E2F63813B00D9784B /* InsightsObservationsSectionView.swift */; };
+		AE98D4212F63813B00D9784B /* InsightsTagsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4202F63813B00D9784B /* InsightsTagsSectionView.swift */; };
+		AE98D4232F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4222F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift */; };
+		AE98D4252F63819300D9784B /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4242F63819300D9784B /* InsightsView.swift */; };
 		AEC9E62C2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */; };
 		AEC9E62E2F61007D009B8C33 /* InsightsTeaserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */; };
 		AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */; };
@@ -186,6 +195,15 @@
 		AE8D5F372EAFF0F90087CB44 /* IntensityGradientSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityGradientSpec.swift; sourceTree = "<group>"; };
 		AE9447442EC50C73007F0338 /* WeatherSnapshotRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSnapshotRowView.swift; sourceTree = "<group>"; };
 		AE9730C52EA9569C003D5971 /* WeatherFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherFormatting.swift; sourceTree = "<group>"; };
+		AE98D4142F63813A00D9784B /* InsightsSectionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSectionCard.swift; sourceTree = "<group>"; };
+		AE98D4162F63813B00D9784B /* InsightsSummarySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsSummarySectionView.swift; sourceTree = "<group>"; };
+		AE98D4182F63813B00D9784B /* InsightsByTheNumbersSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsByTheNumbersSectionView.swift; sourceTree = "<group>"; };
+		AE98D41A2F63813B00D9784B /* InsightsActivitySectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsActivitySectionView.swift; sourceTree = "<group>"; };
+		AE98D41C2F63813B00D9784B /* InsightsTimePatternsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTimePatternsSectionView.swift; sourceTree = "<group>"; };
+		AE98D41E2F63813B00D9784B /* InsightsObservationsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsObservationsSectionView.swift; sourceTree = "<group>"; };
+		AE98D4202F63813B00D9784B /* InsightsTagsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTagsSectionView.swift; sourceTree = "<group>"; };
+		AE98D4222F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsUrgeBreakdownSectionView.swift; sourceTree = "<group>"; };
+		AE98D4242F63819300D9784B /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		AEBFBE3F2DE2C76300E45A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTeaserFactoidItem.swift; sourceTree = "<group>"; };
 		AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTeaserView.swift; sourceTree = "<group>"; };
@@ -381,6 +399,7 @@
 				AE7DA0542EA2EA70007690C4 /* Onboarding */,
 				AE7DA0552EA2EA89007690C4 /* Settings */,
 				AEF149592DCCE7B200690F5E /* SubViews */,
+				AE98D4122F6380F600D9784B /* Insights */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -531,6 +550,30 @@
 				AE1635152DE0C6360077D14B /* AppLockManager.swift */,
 			);
 			path = Privacy;
+			sourceTree = "<group>";
+		};
+		AE98D4122F6380F600D9784B /* Insights */ = {
+			isa = PBXGroup;
+			children = (
+				AE98D4132F6380F700D9784B /* Components */,
+				AE98D4242F63819300D9784B /* InsightsView.swift */,
+			);
+			path = Insights;
+			sourceTree = "<group>";
+		};
+		AE98D4132F6380F700D9784B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AE98D4142F63813A00D9784B /* InsightsSectionCard.swift */,
+				AE98D4162F63813B00D9784B /* InsightsSummarySectionView.swift */,
+				AE98D4182F63813B00D9784B /* InsightsByTheNumbersSectionView.swift */,
+				AE98D41A2F63813B00D9784B /* InsightsActivitySectionView.swift */,
+				AE98D41C2F63813B00D9784B /* InsightsTimePatternsSectionView.swift */,
+				AE98D41E2F63813B00D9784B /* InsightsObservationsSectionView.swift */,
+				AE98D4202F63813B00D9784B /* InsightsTagsSectionView.swift */,
+				AE98D4222F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		AEC9E62A2F61001C009B8C33 /* Components */ = {
@@ -766,14 +809,18 @@
 				AE8D5F382EAFF0F90087CB44 /* IntensityGradientSpec.swift in Sources */,
 				AE627C362EA6D23100FBD70C /* PulseDateFormatting.swift in Sources */,
 				AE7FCB252F57542E00ABBF06 /* LocationEditSheet.swift in Sources */,
+				AE98D4172F63813B00D9784B /* InsightsSummarySectionView.swift in Sources */,
 				AE16AE2E2F607FBA0080D64A /* InsightsPeriod.swift in Sources */,
 				AE827BD62EC4DA5800E835CA /* NotesReadOnlySectionView.swift in Sources */,
+				AE98D4212F63813B00D9784B /* InsightsTagsSectionView.swift in Sources */,
 				AE1635162DE0C6360077D14B /* AppLockManager.swift in Sources */,
 				AE9447452EC50C73007F0338 /* WeatherSnapshotRowView.swift in Sources */,
 				AE622B452EA453B600A0F0F6 /* ResponseTypeTagView.swift in Sources */,
 				AED8FE872DE8E3FE00135FC3 /* NotificationManager.swift in Sources */,
 				AE16AE362F607FBA0080D64A /* InsightsSupportingEnums.swift in Sources */,
+				AE98D41D2F63813B00D9784B /* InsightsTimePatternsSectionView.swift in Sources */,
 				AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */,
+				AE98D4252F63819300D9784B /* InsightsView.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AE7FCB232F57542E00ABBF06 /* WeatherEditSheet.swift in Sources */,
 				AE16AE342F607FBA0080D64A /* InsightsSnapshot.swift in Sources */,
@@ -794,6 +841,7 @@
 				AE6788BD2F60B2CA00F669D8 /* InsightsComputationService.swift in Sources */,
 				AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */,
 				AEF1495B2DCCE9C600690F5E /* FactoidGroupView.swift in Sources */,
+				AE98D4192F63813B00D9784B /* InsightsByTheNumbersSectionView.swift in Sources */,
 				AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */,
 				AEF1495F2DCCFA3C00690F5E /* UrgeDefaults.swift in Sources */,
 				AECB69AA2DCFD91500B4EA5F /* OnboardingStepTwoView.swift in Sources */,
@@ -807,8 +855,10 @@
 				AEF149582DCCE79E00690F5E /* FactoidView.swift in Sources */,
 				AE622B342EA316B900A0F0F6 /* CreateMomentUseCase.swift in Sources */,
 				AE2CA1DA2DD692DA000DF21E /* FlowLayout.swift in Sources */,
+				AE98D41F2F63813B00D9784B /* InsightsObservationsSectionView.swift in Sources */,
 				AE16AE3E2F6080C40080D64A /* TimePatternSummary.swift in Sources */,
 				AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */,
+				AE98D4232F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift in Sources */,
 				AEF1494E2DCBFFE800690F5E /* Urge.swift in Sources */,
 				AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */,
 				AEF149632DCD50FA00690F5E /* EmptyStateView.swift in Sources */,
@@ -824,6 +874,7 @@
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,
 				AEE44AFF2EA95FF2006954CD /* WeatherNowRow.swift in Sources */,
 				AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */,
+				AE98D41B2F63813B00D9784B /* InsightsActivitySectionView.swift in Sources */,
 				AEE4DEE32DDE35AB00FE46D6 /* WeatherSnapshot.swift in Sources */,
 				AE7FCB212F5753EB00ABBF06 /* DateTimeEditSheet.swift in Sources */,
 				AE0F9A822DCE48BE00C1CC62 /* IntensityButtonView.swift in Sources */,
@@ -831,6 +882,7 @@
 				AE627C342EA68CD500FBD70C /* UrgeRow.swift in Sources */,
 				AE88040F2DD28ACA0076B724 /* NoteInputView.swift in Sources */,
 				AE59C85E2EAE9DA5004DF39A /* JustifiedTagsLayout.swift in Sources */,
+				AE98D4152F63813A00D9784B /* InsightsSectionCard.swift in Sources */,
 				AE622B3F2EA31D5000A0F0F6 /* WeatherProviding.swift in Sources */,
 				AECB69AE2DCFDE2100B4EA5F /* OnboardingStepThreeView.swift in Sources */,
 				AE16AE422F6080C40080D64A /* TimeBucketInsight.swift in Sources */,

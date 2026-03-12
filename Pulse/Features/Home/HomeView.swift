@@ -33,6 +33,7 @@ struct HomeView: View {
     // MARK: - State
     @State private var isShowingLogMomentSheet = false
     @State private var showFilterSheet = false
+    @State private var showInsights = false
 
     // Drive UI from VM (created once we have the real ModelContext)
     @State private var vm: MomentsListViewModel?
@@ -71,6 +72,9 @@ struct HomeView: View {
             .onReceive(NotificationCenter.default.publisher(for: .momentDidSave)) { _ in
                 Task { await vm?.reload() }
             }
+            .navigationDestination(isPresented: $showInsights) {
+                insightsDestination()
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button { showFilterSheet = true } label: {
@@ -108,7 +112,7 @@ struct HomeView: View {
     private func content(_ vm: MomentsListViewModel) -> some View {
         VStack {
             InsightsTeaserView(snapshot: vm.insightsSnapshot) {
-                // Story 3 will route this to the full Insights screen.
+                showInsights = true
             }
             .padding(.horizontal)
 
@@ -162,6 +166,15 @@ struct HomeView: View {
         vm.minIntensity != 1 ||
         vm.maxIntensity != 5 ||
         vm.stayedPresentOnly
+    }
+
+    @ViewBuilder
+    private func insightsDestination() -> some View {
+        if let vm {
+            InsightsView(snapshot: vm.insightsSnapshot)
+        } else {
+            ProgressView()
+        }
     }
 
     @ViewBuilder

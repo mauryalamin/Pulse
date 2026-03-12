@@ -80,6 +80,28 @@ Aha moment:
 Gotcha:
 - The teaser currently reflects the same filtered moment set used by the list. That’s coherent for now, but product may want global-period insights independent of list filters in a later story.
 
+### 2026-03-12 - Story 4: Full Insights Screen Skeleton
+This was the dining room build-out. We had appetizers (the teaser), now we needed the full table service: all sections, one coherent flow, and clear states for empty/sparse/ready/locked.
+
+What shipped:
+- A dedicated `InsightsView` screen powered directly by `InsightsSnapshot`.
+- Modular section views in approved order:
+  - Weekly Summary
+  - By the Numbers
+  - Activity
+  - Time Patterns
+  - What Stood Out
+  - Top Tags / Common Contexts
+  - Urge Breakdown
+- State-aware rendering for `.empty`, `.insufficientData`, `.ready`, `.locked`.
+- Navigation wiring from the Home teaser tap into the new full Insights destination.
+
+Aha moment:
+- Building one reusable section-card container kept the screen consistent and made each section small, testable, and swappable.
+
+Pitfall avoided:
+- No raw `Moment` computation leaked into SwiftUI. The view reads snapshot data only, preserving the compute/UI boundary from Story 2.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.

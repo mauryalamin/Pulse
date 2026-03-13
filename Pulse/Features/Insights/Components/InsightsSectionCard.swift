@@ -30,3 +30,12 @@ struct InsightsSectionCard<Content: View>: View {
         .background(.cardBackground, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
+
+#Preview {
+    InsightsSectionCard(title: "Weekly Summary") {
+        Text("You logged 16 moments this week and stayed present in 75% of them.")
+            .font(.body)
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}

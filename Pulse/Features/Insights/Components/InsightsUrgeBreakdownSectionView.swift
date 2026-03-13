@@ -61,3 +61,21 @@ struct InsightsUrgeBreakdownSectionView: View {
         }
     }
 }
+
+#Preview("Ready") {
+    InsightsUrgeBreakdownSectionView(
+        urgeBreakdown: InsightsPreviewFixtures.urgeBreakdown,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Locked") {
+    InsightsUrgeBreakdownSectionView(
+        urgeBreakdown: [],
+        dataState: .locked
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}

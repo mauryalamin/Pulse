@@ -66,3 +66,21 @@ struct InsightsObservationsSectionView: View {
         }
     }
 }
+
+#Preview("Ready") {
+    InsightsObservationsSectionView(
+        observations: InsightsPreviewFixtures.observations,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Empty") {
+    InsightsObservationsSectionView(
+        observations: [],
+        dataState: .empty
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}

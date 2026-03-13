@@ -10,6 +10,8 @@ import SwiftUI
 struct InsightsTagsSectionView: View {
     let topTags: [TagInsight]
     let dataState: InsightsDataState
+    var interitemSpacing: CGFloat = 12
+    var rowSpacing: CGFloat = 8
 
     var body: some View {
         InsightsSectionCard(title: "Top Tags / Common Contexts") {
@@ -18,18 +20,12 @@ struct InsightsTagsSectionView: View {
                     .font(.body)
                     .foregroundStyle(.secondary)
             } else {
-                VStack(spacing: 8) {
+                JustifiedTagsLayout(
+                    interitemSpacing: interitemSpacing,
+                    rowSpacing: rowSpacing
+                ) {
                     ForEach(topTags) { tag in
-                        HStack {
-                            Text(tag.name)
-                                .font(.body)
-                            Spacer()
-                            Text("\(tag.count)")
-                                .font(.subheadline)
-                                .fontWeight(.semibold)
-                                .fontDesign(.rounded)
-                                .foregroundStyle(.secondary)
-                        }
+                        InsightsCountedTagChipView(text: tag.name, count: tag.count)
                     }
                 }
             }
@@ -48,4 +44,22 @@ struct InsightsTagsSectionView: View {
             return "Top tags are locked."
         }
     }
+}
+
+#Preview("Ready") {
+    InsightsTagsSectionView(
+        topTags: InsightsPreviewFixtures.topTags,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("No Tags") {
+    InsightsTagsSectionView(
+        topTags: [],
+        dataState: .insufficientData
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
 }

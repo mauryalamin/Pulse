@@ -47,3 +47,21 @@ struct InsightsSummarySectionView: View {
         }
     }
 }
+
+#Preview("Ready") {
+    InsightsSummarySectionView(
+        summary: InsightsPreviewFixtures.summary,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Empty") {
+    InsightsSummarySectionView(
+        summary: nil,
+        dataState: .empty
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}

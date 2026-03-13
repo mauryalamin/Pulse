@@ -78,6 +78,8 @@
 		AE98D4212F63813B00D9784B /* InsightsTagsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4202F63813B00D9784B /* InsightsTagsSectionView.swift */; };
 		AE98D4232F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4222F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift */; };
 		AE98D4252F63819300D9784B /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE98D4242F63819300D9784B /* InsightsView.swift */; };
+		AEA7C2192F645DB7003061F4 /* InsightsPreviewFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7C2182F645DB7003061F4 /* InsightsPreviewFixtures.swift */; };
+		AEA7C21B2F646C54003061F4 /* InsightsCountedTagChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA7C21A2F646C54003061F4 /* InsightsCountedTagChipView.swift */; };
 		AEC9E62C2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */; };
 		AEC9E62E2F61007D009B8C33 /* InsightsTeaserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */; };
 		AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AECB69A52DCFCF9600B4EA5F /* OnboardingStepOneView.swift */; };
@@ -204,6 +206,8 @@
 		AE98D4202F63813B00D9784B /* InsightsTagsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTagsSectionView.swift; sourceTree = "<group>"; };
 		AE98D4222F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsUrgeBreakdownSectionView.swift; sourceTree = "<group>"; };
 		AE98D4242F63819300D9784B /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
+		AEA7C2182F645DB7003061F4 /* InsightsPreviewFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsPreviewFixtures.swift; sourceTree = "<group>"; };
+		AEA7C21A2F646C54003061F4 /* InsightsCountedTagChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsCountedTagChipView.swift; sourceTree = "<group>"; };
 		AEBFBE3F2DE2C76300E45A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AEC9E62B2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTeaserFactoidItem.swift; sourceTree = "<group>"; };
 		AEC9E62D2F61007D009B8C33 /* InsightsTeaserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsTeaserView.swift; sourceTree = "<group>"; };
@@ -557,6 +561,7 @@
 			children = (
 				AE98D4132F6380F700D9784B /* Components */,
 				AE98D4242F63819300D9784B /* InsightsView.swift */,
+				AEA7C2182F645DB7003061F4 /* InsightsPreviewFixtures.swift */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -572,6 +577,7 @@
 				AE98D41E2F63813B00D9784B /* InsightsObservationsSectionView.swift */,
 				AE98D4202F63813B00D9784B /* InsightsTagsSectionView.swift */,
 				AE98D4222F63813B00D9784B /* InsightsUrgeBreakdownSectionView.swift */,
+				AEA7C21A2F646C54003061F4 /* InsightsCountedTagChipView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -821,6 +827,7 @@
 				AE98D41D2F63813B00D9784B /* InsightsTimePatternsSectionView.swift in Sources */,
 				AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */,
 				AE98D4252F63819300D9784B /* InsightsView.swift in Sources */,
+				AEA7C21B2F646C54003061F4 /* InsightsCountedTagChipView.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,
 				AE7FCB232F57542E00ABBF06 /* WeatherEditSheet.swift in Sources */,
 				AE16AE342F607FBA0080D64A /* InsightsSnapshot.swift in Sources */,
@@ -836,6 +843,7 @@
 				AE16AE3C2F6080C40080D64A /* ActivityDataPoint.swift in Sources */,
 				AEF149672DCD54D400690F5E /* LogMomentButton.swift in Sources */,
 				AE31EDA82DDD27DD009F838C /* CapsuleButton.swift in Sources */,
+				AEA7C2192F645DB7003061F4 /* InsightsPreviewFixtures.swift in Sources */,
 				AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */,
 				AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */,
 				AE6788BD2F60B2CA00F669D8 /* InsightsComputationService.swift in Sources */,

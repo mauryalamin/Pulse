@@ -58,3 +58,21 @@ struct InsightsActivitySectionView: View {
         }
     }
 }
+
+#Preview("Ready") {
+    InsightsActivitySectionView(
+        activitySeries: InsightsPreviewFixtures.activitySeries,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Empty") {
+    InsightsActivitySectionView(
+        activitySeries: [],
+        dataState: .empty
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}

@@ -58,3 +58,21 @@ struct InsightsTimePatternsSectionView: View {
         }
     }
 }
+
+#Preview("Ready") {
+    InsightsTimePatternsSectionView(
+        timePattern: InsightsPreviewFixtures.timePattern,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Insufficient") {
+    InsightsTimePatternsSectionView(
+        timePattern: nil,
+        dataState: .insufficientData
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}

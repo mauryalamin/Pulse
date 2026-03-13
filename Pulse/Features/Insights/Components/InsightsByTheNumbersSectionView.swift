@@ -77,3 +77,21 @@ struct InsightsByTheNumbersSectionView: View {
         }
     }
 }
+#Preview("Ready") {
+    InsightsByTheNumbersSectionView(
+        factoids: InsightsPreviewFixtures.factoids,
+        dataState: .ready
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Insufficient") {
+    InsightsByTheNumbersSectionView(
+        factoids: [],
+        dataState: .insufficientData
+    )
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+

@@ -12,26 +12,22 @@ struct InsightsSummarySectionView: View {
     let dataState: InsightsDataState
 
     var body: some View {
-        InsightsSectionCard(title: "Weekly Summary") {
+        Group {
             if let summary {
-                VStack(alignment: .leading, spacing: 8) {
-                    if let title = summary.title, !title.isEmpty {
-                        Text(title)
-                            .font(.headline)
-                            .fontWeight(.semibold)
-                    }
-
-                    Text(summary.body)
-                        .font(.body)
-                        .foregroundStyle(.primary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                Text(summary.body)
+                    .font(.system(.title, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundStyle(.pulseBlue)
+                    .fixedSize(horizontal: false, vertical: true)
             } else {
                 Text(fallbackCopy)
-                    .font(.body)
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 4)
     }
 
     private var fallbackCopy: String {

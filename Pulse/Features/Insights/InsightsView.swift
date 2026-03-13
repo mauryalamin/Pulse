@@ -9,6 +9,7 @@ import SwiftUI
 
 struct InsightsView: View {
     let snapshot: InsightsSnapshot
+    @State private var isStateBannerDismissed = false
 
     var body: some View {
         ZStack {
@@ -21,16 +22,20 @@ struct InsightsView: View {
                     case .locked:
                         lockedShell
                     case .empty:
-                        stateBanner(
-                            title: "Insights Are Waiting For Your First Data",
-                            body: "Log a few moments and this screen will fill in with trends and patterns."
-                        )
+                        if !isStateBannerDismissed {
+                            stateBanner(
+                                title: "Insights Are Waiting For Your First Data",
+                                body: "Log a few moments and this screen will fill in with trends and patterns."
+                            )
+                        }
                         contentSections
                     case .insufficientData:
-                        stateBanner(
-                            title: "Keep Logging To Unlock Stronger Patterns",
-                            body: "You already have data. Add a few more moments to improve reliability across sections."
-                        )
+                        if !isStateBannerDismissed {
+                            stateBanner(
+                                title: "Keep Logging To Unlock Stronger Patterns",
+                                body: "You already have data. Add a few more moments to improve reliability across sections."
+                            )
+                        }
                         contentSections
                     case .ready:
                         contentSections
@@ -88,15 +93,36 @@ struct InsightsView: View {
 
     private func stateBanner(title: String, body: String) -> some View {
         InsightsSectionCard(title: "Insights Status") {
-            VStack(alignment: .leading, spacing: 6) {
-                Text(title)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                Text(body)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(title)
+                            .font(.subheadline)
+                            .fontWeight(.semibold)
+                        Text(body)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer()
+
+                    Button {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            isStateBannerDismissed = true
+                        }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                            .padding(6)
+                            .background(Color(UIColor.systemGray5), in: Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Dismiss insights status")
+                }
             }
         }
+        .transition(.opacity.combined(with: .scale(scale: 0.98)))
     }
 }
 

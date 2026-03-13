@@ -42,6 +42,7 @@ struct InsightsView: View {
             }
         }
         .navigationTitle("Insights")
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private var contentSections: some View {

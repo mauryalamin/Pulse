@@ -32,21 +32,22 @@ struct InsightsObservationsSectionView: View {
             } else {
                 VStack(alignment: .leading, spacing: 12) {
                     ForEach(topObservations) { observation in
-                        VStack(alignment: .leading, spacing: 6) {
-                            if let title = observation.title, !title.isEmpty {
-                                Text(title)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                            }
+                        HStack(alignment: .top, spacing: 16) {
+                            Image(systemName: "lightbulb.fill")
+                                .font(.title3)
+                                .foregroundStyle(.white)
+                                .frame(width: 42, height: 42)
+                                .background(Color.pulseBlue.opacity(0.85))
+                                .clipShape(Circle())
 
                             Text(observation.body)
-                                .font(.body)
+                                .font(.subheadline)
                                 .foregroundStyle(.primary)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
-
-                        if observation.id != topObservations.last?.id {
-                            Divider()
-                        }
+                        .padding(16)
+                        .background(Color(UIColor.systemGray5), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
                     }
                 }
             }

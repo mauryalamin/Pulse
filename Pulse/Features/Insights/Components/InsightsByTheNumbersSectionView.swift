@@ -55,7 +55,7 @@ struct InsightsByTheNumbersSectionView: View {
                                     .lineLimit(2)
                             }
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                         .padding(10)
                         .background(.gray.opacity(0.08), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
                     }
@@ -94,4 +94,3 @@ struct InsightsByTheNumbersSectionView: View {
     .padding()
     .background(Color(.systemGroupedBackground))
 }
-

@@ -102,6 +102,22 @@ Aha moment:
 Pitfall avoided:
 - No raw `Moment` computation leaked into SwiftUI. The view reads snapshot data only, preserving the compute/UI boundary from Story 2.
 
+### 2026-03-15 - Story 5: Foundation Models for Weekly Summary
+This was the "writer's room" layer: deterministic insights still do the math, and Foundation Models only turns those facts into a cleaner headline.
+
+What shipped:
+- New `InsightsWeeklySummaryGenerationService` dedicated to Weekly Summary text generation.
+- New structured input (`InsightsWeeklySummaryInput`) built from existing deterministic snapshot fields.
+- Integration in `MomentsListViewModel` so generation happens during controlled reload flow, not in SwiftUI rendering.
+- Signature-based caching to avoid regenerating when summary inputs did not change.
+- Fallback preserved: deterministic template summary remains source-of-truth when model is unavailable or generation fails.
+
+Aha moment:
+- Splitting analyst vs writer roles keeps behavior stable: computation service remains deterministic, model stays bounded to wording.
+
+Gotcha:
+- Optional chaining line breaks can be parsed as ternary in Swift; explicit `if let` helpers were more robust in this file.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.

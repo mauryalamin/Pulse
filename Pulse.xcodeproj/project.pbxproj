@@ -58,6 +58,7 @@
 		AE6788BD2F60B2CA00F669D8 /* InsightsComputationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */; };
 		AE6C1BB72EB157D300F1FB88 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6C1BB62EB157D300F1FB88 /* Persistence.swift */; };
 		AE77C4E32EAA9C1C00E70E6C /* SaveMomentBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE77C4E22EAA9C1C00E70E6C /* SaveMomentBar.swift */; };
+		AE7F32372F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7F32362F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift */; };
 		AE7FCB1F2F5753DE00ABBF06 /* EditableContextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB1E2F5753DD00ABBF06 /* EditableContextRow.swift */; };
 		AE7FCB212F5753EB00ABBF06 /* DateTimeEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB202F5753EB00ABBF06 /* DateTimeEditSheet.swift */; };
 		AE7FCB232F57542E00ABBF06 /* WeatherEditSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE7FCB222F57542E00ABBF06 /* WeatherEditSheet.swift */; };
@@ -186,6 +187,7 @@
 		AE7BFDEA2DCBEE4900A5836B /* Pulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFDF72DCBEE4A00A5836B /* PulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE7BFE012DCBEE4A00A5836B /* PulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE7F32362F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsWeeklySummaryGenerationService.swift; sourceTree = "<group>"; };
 		AE7FCB1E2F5753DD00ABBF06 /* EditableContextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableContextRow.swift; sourceTree = "<group>"; };
 		AE7FCB202F5753EB00ABBF06 /* DateTimeEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeEditSheet.swift; sourceTree = "<group>"; };
 		AE7FCB222F57542E00ABBF06 /* WeatherEditSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherEditSheet.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */,
+				AE7F32362F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				AE16AE342F607FBA0080D64A /* InsightsSnapshot.swift in Sources */,
 				AE16AE442F6080C40080D64A /* TagInsight.swift in Sources */,
 				AE627C392EA6D30000FBD70C /* CurrentDateTimeView.swift in Sources */,
+				AE7F32372F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift in Sources */,
 				AE1534832EAEA9F200DDAF7A /* TagsFlowSection.swift in Sources */,
 				AE622B412EA31F7700A0F0F6 /* GeocodingAdapter.swift in Sources */,
 				AE622B382EA3183B00A0F0F6 /* MomentsListViewModel.swift in Sources */,

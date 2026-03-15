@@ -27,13 +27,18 @@ final class MomentsListViewModel {
     // MARK: - Infra
     @ObservationIgnored private let context: ModelContext
     @ObservationIgnored private let insightsService: InsightsComputing
+    @ObservationIgnored private let weeklySummaryGenerator: InsightsWeeklySummaryGenerating
+    @ObservationIgnored private var generatedSummaryCache: [String: InsightsSummary] = [:]
+    @ObservationIgnored private var lastFailedSummarySignature: String?
 
     init(
         context: ModelContext,
-        insightsService: InsightsComputing = InsightsComputationService()
+        insightsService: InsightsComputing = InsightsComputationService(),
+        weeklySummaryGenerator: InsightsWeeklySummaryGenerating = InsightsWeeklySummaryGenerationService()
     ) {
         self.context = context
         self.insightsService = insightsService
+        self.weeklySummaryGenerator = weeklySummaryGenerator
         self.insightsSnapshot = Self.makeInitialSnapshot()
     }
 
@@ -58,7 +63,12 @@ final class MomentsListViewModel {
             let serverResults = try context.fetch(desc)
             let filtered = applyClientFilters(to: serverResults)
             self.moments = filtered
-            self.insightsSnapshot = makeInsightsSnapshot(from: filtered, now: .now)
+            let now = Date.now
+            let deterministicSnapshot = makeInsightsSnapshot(from: filtered, now: now)
+            self.insightsSnapshot = await withGeneratedWeeklySummaryIfNeeded(
+                from: deterministicSnapshot,
+                generatedAt: now
+            )
             // Debug (optional)
             // print("📥 Reloaded \(moments.count) moments (server: \(serverResults.count))")
         } catch {
@@ -113,13 +123,13 @@ private extension MomentsListViewModel {
         let calendar = Calendar.current
         let endDate = referenceDate
         let startDay = calendar.startOfDay(for: endDate)
-        let startDate = calendar.date(byAdding: .day, value: -6, to: startDay) ?? startDay
+        let startDate = calendar.date(byAdding: .month, value: -6, to: startDay) ?? startDay
 
         return InsightsPeriod(
-            label: "Last 7 Days",
+            label: "Last 6 Months",
             startDate: startDate,
             endDate: endDate,
-            kind: .last7Days
+            kind: .custom
         )
     }
 
@@ -138,6 +148,85 @@ private extension MomentsListViewModel {
             urgeBreakdown: [],
             dataState: .empty,
             lastRefreshedAt: now
+        )
+    }
+
+    func withGeneratedWeeklySummaryIfNeeded(
+        from snapshot: InsightsSnapshot,
+        generatedAt: Date
+    ) async -> InsightsSnapshot {
+        guard snapshot.dataState == .ready else { return snapshot }
+        guard let input = makeWeeklySummaryInput(from: snapshot) else { return snapshot }
+
+        let signature = input.signature
+
+        if let cached = generatedSummaryCache[signature] {
+            return snapshotWithSummary(cached, from: snapshot)
+        }
+
+        if lastFailedSummarySignature == signature {
+            return snapshot
+        }
+
+        do {
+            let generated = try await weeklySummaryGenerator.generateWeeklySummary(from: input, generatedAt: generatedAt)
+            generatedSummaryCache[signature] = generated
+            lastFailedSummarySignature = nil
+            return snapshotWithSummary(generated, from: snapshot)
+        } catch {
+            // Keep deterministic template summary when generation is unavailable/fails.
+            lastFailedSummarySignature = signature
+            return snapshot
+        }
+    }
+
+    func makeWeeklySummaryInput(from snapshot: InsightsSnapshot) -> InsightsWeeklySummaryInput? {
+        guard let momentsLogged = factoidValue(for: .momentsLogged, in: snapshot),
+              let stayedPresentRate = factoidValue(for: .stayedPresentRate, in: snapshot) else {
+            return nil
+        }
+
+        let dominantTimeWindow = snapshot.timePattern?.primaryBucket?.label
+        let mostCommonUrge = factoidValue(for: .mostCommonUrge, in: snapshot)
+        let topTag = factoidValue(for: .topTag, in: snapshot)
+        let changeFactoid = factoidValue(for: .changeVsLastWeek, in: snapshot)
+        let change: String?
+        if let changeFactoid, changeFactoid != "—" {
+            change = changeFactoid
+        } else {
+            change = nil
+        }
+
+        return InsightsWeeklySummaryInput(
+            periodLabel: snapshot.period.label,
+            momentsLogged: momentsLogged,
+            stayedPresentRate: stayedPresentRate,
+            dominantTimeWindow: dominantTimeWindow,
+            mostCommonUrge: mostCommonUrge,
+            topTag: topTag,
+            changeVsPreviousPeriod: change
+        )
+    }
+
+    func factoidValue(for kind: InsightFactoidKind, in snapshot: InsightsSnapshot) -> String? {
+        if let factoid = snapshot.factoids.first(where: { $0.kind == kind && $0.isEligible }) {
+            return factoid.valueText
+        }
+        return nil
+    }
+
+    func snapshotWithSummary(_ summary: InsightsSummary, from snapshot: InsightsSnapshot) -> InsightsSnapshot {
+        InsightsSnapshot(
+            period: snapshot.period,
+            summary: summary,
+            factoids: snapshot.factoids,
+            activitySeries: snapshot.activitySeries,
+            timePattern: snapshot.timePattern,
+            observations: snapshot.observations,
+            topTags: snapshot.topTags,
+            urgeBreakdown: snapshot.urgeBreakdown,
+            dataState: snapshot.dataState,
+            lastRefreshedAt: snapshot.lastRefreshedAt
         )
     }
 }

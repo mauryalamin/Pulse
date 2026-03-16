@@ -28,17 +28,22 @@ final class MomentsListViewModel {
     @ObservationIgnored private let context: ModelContext
     @ObservationIgnored private let insightsService: InsightsComputing
     @ObservationIgnored private let weeklySummaryGenerator: InsightsWeeklySummaryGenerating
+    @ObservationIgnored private let observationsGenerator: InsightsObservationsGenerating
     @ObservationIgnored private var generatedSummaryCache: [String: InsightsSummary] = [:]
+    @ObservationIgnored private var generatedObservationsCache: [String: [InsightObservation]] = [:]
     @ObservationIgnored private var lastFailedSummarySignature: String?
+    @ObservationIgnored private var lastFailedObservationsSignature: String?
 
     init(
         context: ModelContext,
         insightsService: InsightsComputing = InsightsComputationService(),
-        weeklySummaryGenerator: InsightsWeeklySummaryGenerating = InsightsWeeklySummaryGenerationService()
+        weeklySummaryGenerator: InsightsWeeklySummaryGenerating = InsightsWeeklySummaryGenerationService(),
+        observationsGenerator: InsightsObservationsGenerating = InsightsObservationsGenerationService()
     ) {
         self.context = context
         self.insightsService = insightsService
         self.weeklySummaryGenerator = weeklySummaryGenerator
+        self.observationsGenerator = observationsGenerator
         self.insightsSnapshot = Self.makeInitialSnapshot()
     }
 
@@ -65,8 +70,12 @@ final class MomentsListViewModel {
             self.moments = filtered
             let now = Date.now
             let deterministicSnapshot = makeInsightsSnapshot(from: filtered, now: now)
-            self.insightsSnapshot = await withGeneratedWeeklySummaryIfNeeded(
+            let summaryEnhancedSnapshot = await withGeneratedWeeklySummaryIfNeeded(
                 from: deterministicSnapshot,
+                generatedAt: now
+            )
+            self.insightsSnapshot = await withGeneratedObservationsIfNeeded(
+                from: summaryEnhancedSnapshot,
                 generatedAt: now
             )
             // Debug (optional)
@@ -180,6 +189,71 @@ private extension MomentsListViewModel {
         }
     }
 
+    func withGeneratedObservationsIfNeeded(
+        from snapshot: InsightsSnapshot,
+        generatedAt: Date
+    ) async -> InsightsSnapshot {
+        guard snapshot.dataState == .ready else { return snapshot }
+
+        let candidates = makeObservationCandidates(from: snapshot)
+        guard !candidates.isEmpty else { return snapshot }
+
+        let input = InsightsObservationsGenerationInput(
+            periodLabel: snapshot.period.label,
+            summaryBody: snapshot.summary?.body,
+            candidates: candidates
+        )
+        let signature = input.signature
+
+        if let cached = generatedObservationsCache[signature] {
+            return snapshotWithObservations(cached, from: snapshot)
+        }
+
+        if lastFailedObservationsSignature == signature {
+            return snapshot
+        }
+
+        do {
+            let generated = try await observationsGenerator.generateObservations(
+                from: input,
+                generatedAt: generatedAt
+            )
+
+            guard !generated.isEmpty else {
+                lastFailedObservationsSignature = signature
+                return snapshot
+            }
+
+            generatedObservationsCache[signature] = generated
+            lastFailedObservationsSignature = nil
+            return snapshotWithObservations(generated, from: snapshot)
+        } catch {
+            // Keep deterministic template observations when generation is unavailable/fails.
+            lastFailedObservationsSignature = signature
+            return snapshot
+        }
+    }
+
+    func makeObservationCandidates(from snapshot: InsightsSnapshot) -> [InsightsObservationCandidate] {
+        snapshot.observations
+            .filter { $0.source == .template }
+            .sorted { lhs, rhs in
+                if lhs.priority == rhs.priority {
+                    return lhs.generatedAt > rhs.generatedAt
+                }
+                return lhs.priority < rhs.priority
+            }
+            .prefix(4)
+            .map {
+                InsightsObservationCandidate(
+                    title: $0.title,
+                    body: $0.body,
+                    signalKinds: $0.signalKinds,
+                    priority: $0.priority
+                )
+            }
+    }
+
     func makeWeeklySummaryInput(from snapshot: InsightsSnapshot) -> InsightsWeeklySummaryInput? {
         guard let momentsLogged = factoidValue(for: .momentsLogged, in: snapshot),
               let stayedPresentRate = factoidValue(for: .stayedPresentRate, in: snapshot) else {
@@ -223,6 +297,24 @@ private extension MomentsListViewModel {
             activitySeries: snapshot.activitySeries,
             timePattern: snapshot.timePattern,
             observations: snapshot.observations,
+            topTags: snapshot.topTags,
+            urgeBreakdown: snapshot.urgeBreakdown,
+            dataState: snapshot.dataState,
+            lastRefreshedAt: snapshot.lastRefreshedAt
+        )
+    }
+
+    func snapshotWithObservations(
+        _ observations: [InsightObservation],
+        from snapshot: InsightsSnapshot
+    ) -> InsightsSnapshot {
+        InsightsSnapshot(
+            period: snapshot.period,
+            summary: snapshot.summary,
+            factoids: snapshot.factoids,
+            activitySeries: snapshot.activitySeries,
+            timePattern: snapshot.timePattern,
+            observations: observations,
             topTags: snapshot.topTags,
             urgeBreakdown: snapshot.urgeBreakdown,
             dataState: snapshot.dataState,

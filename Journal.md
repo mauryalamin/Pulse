@@ -118,6 +118,26 @@ Aha moment:
 Gotcha:
 - Optional chaining line breaks can be parsed as ternary in Swift; explicit `if let` helpers were more robust in this file.
 
+### 2026-03-16 - Story 6: Foundation Models for What Stood Out
+This pass gave the "What Stood Out" section its own editor, without handing over the calculator. Deterministic observation candidates still define what is true; the model only rewrites selected candidates into cleaner language.
+
+What shipped:
+- New `InsightsObservationsGenerationService` for Foundation Models-powered observation text.
+- Structured generation input (`InsightsObservationsGenerationInput`) built from deterministic candidate observations and current weekly summary text.
+- Integration in `MomentsListViewModel` after weekly summary generation, still outside SwiftUI render paths.
+- Signature-based observation caching and failed-signature suppression to prevent repeated retries.
+- Explicit anti-duplication/suppression gates:
+  - suppress outputs too similar to weekly summary
+  - suppress near-duplicate observations against each other
+  - suppress weak matches to source candidates
+- Template fallback preserved whenever generation is unavailable, fails, or yields low-value output.
+
+Aha moment:
+- Feeding the model candidate observations (not raw moments) made anti-hallucination control much easier and kept the separation of responsibilities intact.
+
+Gotcha:
+- Text generation can return format drift; forcing a strict `OBS:` line format plus defensive parsing kept failures predictable and non-breaking.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.

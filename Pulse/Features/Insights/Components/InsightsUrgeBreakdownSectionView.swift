@@ -42,7 +42,7 @@ struct InsightsUrgeBreakdownSectionView: View {
         GeometryReader { proxy in
             let width = proxy.size.width
             let clamped = max(0.0, min(1.0, value))
-            let fillWidth = max(72, width * clamped)
+            let fillWidth = max(40, width * clamped)
 
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 3, style: .continuous)

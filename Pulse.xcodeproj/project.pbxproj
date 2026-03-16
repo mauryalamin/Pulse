@@ -25,6 +25,7 @@
 		AE16AE422F6080C40080D64A /* TimeBucketInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE412F6080C40080D64A /* TimeBucketInsight.swift */; };
 		AE16AE442F6080C40080D64A /* TagInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE432F6080C40080D64A /* TagInsight.swift */; };
 		AE16AE462F6080C40080D64A /* UrgeBreakdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */; };
+		AE198BCE2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */; };
 		AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */; };
 		AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */; };
 		AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */; };
@@ -151,6 +152,7 @@
 		AE16AE412F6080C40080D64A /* TimeBucketInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeBucketInsight.swift; sourceTree = "<group>"; };
 		AE16AE432F6080C40080D64A /* TagInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagInsight.swift; sourceTree = "<group>"; };
 		AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeBreakdownItem.swift; sourceTree = "<group>"; };
+		AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsObservationsGenerationService.swift; sourceTree = "<group>"; };
 		AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentView.swift; sourceTree = "<group>"; };
 		AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentViewModel.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 			children = (
 				AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */,
 				AE7F32362F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift */,
+				AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -829,6 +832,7 @@
 				AE16AE362F607FBA0080D64A /* InsightsSupportingEnums.swift in Sources */,
 				AE98D41D2F63813B00D9784B /* InsightsTimePatternsSectionView.swift in Sources */,
 				AED342FA2EC2890E00B1CFB2 /* TagsReadOnlySectionView.swift in Sources */,
+				AE198BCE2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift in Sources */,
 				AE98D4252F63819300D9784B /* InsightsView.swift in Sources */,
 				AEA7C21B2F646C54003061F4 /* InsightsCountedTagChipView.swift in Sources */,
 				AE31EDA62DDD2799009F838C /* FilterSectionHeader.swift in Sources */,

@@ -138,6 +138,26 @@ Aha moment:
 Gotcha:
 - Text generation can return format drift; forcing a strict `OBS:` line format plus defensive parsing kept failures predictable and non-breaking.
 
+### 2026-03-16 - Story 7B: Curated By the Numbers Selection
+This was the "editorial desk" for factoids. The computation service still produces the full pool, but a dedicated selector now curates what actually appears so the screen feels stable and less repetitive.
+
+What shipped:
+- New `InsightsFactoidSelectionService` to choose a curated subset from the eligible pool.
+- Full-screen cap at 4 factoids; teaser naturally uses up to 3 from that same selected set.
+- Deterministic category-aware scoring with:
+  - anchor inclusion bias
+  - diversity bonus
+  - redundancy penalties
+  - recent-repeat penalty
+- Candidate fingerprint + 24h reuse window to keep selections stable between refreshes.
+- Lightweight local metadata in `UserDefaults` (`last shown`, `show count`, `last set`) to support freshness without random shuffling.
+
+Aha moment:
+- Separating "candidate generation" from "candidate curation" keeps analytics rich while making UI output feel premium and intentional.
+
+Gotcha:
+- Actor isolation can surprise DI defaults in Swift 6; keeping selector service non-actor-isolated avoided initializer friction in the `@MainActor` view model.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.

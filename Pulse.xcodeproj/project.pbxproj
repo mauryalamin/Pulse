@@ -26,6 +26,7 @@
 		AE16AE442F6080C40080D64A /* TagInsight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE432F6080C40080D64A /* TagInsight.swift */; };
 		AE16AE462F6080C40080D64A /* UrgeBreakdownItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */; };
 		AE198BCE2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */; };
+		AE26FDBE2F6B30A700568A48 /* InsightsFactoidSelectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE26FDBD2F6B30A700568A48 /* InsightsFactoidSelectionService.swift */; };
 		AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */; };
 		AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */; };
 		AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */; };
@@ -153,6 +154,7 @@
 		AE16AE432F6080C40080D64A /* TagInsight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagInsight.swift; sourceTree = "<group>"; };
 		AE16AE452F6080C40080D64A /* UrgeBreakdownItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrgeBreakdownItem.swift; sourceTree = "<group>"; };
 		AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsObservationsGenerationService.swift; sourceTree = "<group>"; };
+		AE26FDBD2F6B30A700568A48 /* InsightsFactoidSelectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsFactoidSelectionService.swift; sourceTree = "<group>"; };
 		AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentView.swift; sourceTree = "<group>"; };
 		AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentViewModel.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				AE6788BC2F60B2CA00F669D8 /* InsightsComputationService.swift */,
 				AE7F32362F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift */,
 				AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */,
+				AE26FDBD2F6B30A700568A48 /* InsightsFactoidSelectionService.swift */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -845,6 +848,7 @@
 				AE622B412EA31F7700A0F0F6 /* GeocodingAdapter.swift in Sources */,
 				AE622B382EA3183B00A0F0F6 /* MomentsListViewModel.swift in Sources */,
 				AEC9E62C2F61007D009B8C33 /* InsightsTeaserFactoidItem.swift in Sources */,
+				AE26FDBE2F6B30A700568A48 /* InsightsFactoidSelectionService.swift in Sources */,
 				AE622B362EA317FF00A0F0F6 /* SettingsViewModel.swift in Sources */,
 				AEDF6A752DD563D200589F11 /* RadioButtonView.swift in Sources */,
 				AE16AE462F6080C40080D64A /* UrgeBreakdownItem.swift in Sources */,

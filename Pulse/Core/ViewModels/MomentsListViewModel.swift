@@ -29,6 +29,7 @@ final class MomentsListViewModel {
     @ObservationIgnored private let insightsService: InsightsComputing
     @ObservationIgnored private let weeklySummaryGenerator: InsightsWeeklySummaryGenerating
     @ObservationIgnored private let observationsGenerator: InsightsObservationsGenerating
+    @ObservationIgnored private let factoidSelector: InsightsFactoidSelecting
     @ObservationIgnored private var generatedSummaryCache: [String: InsightsSummary] = [:]
     @ObservationIgnored private var generatedObservationsCache: [String: [InsightObservation]] = [:]
     @ObservationIgnored private var lastFailedSummarySignature: String?
@@ -38,12 +39,14 @@ final class MomentsListViewModel {
         context: ModelContext,
         insightsService: InsightsComputing = InsightsComputationService(),
         weeklySummaryGenerator: InsightsWeeklySummaryGenerating = InsightsWeeklySummaryGenerationService(),
-        observationsGenerator: InsightsObservationsGenerating = InsightsObservationsGenerationService()
+        observationsGenerator: InsightsObservationsGenerating = InsightsObservationsGenerationService(),
+        factoidSelector: InsightsFactoidSelecting = InsightsFactoidSelectionService()
     ) {
         self.context = context
         self.insightsService = insightsService
         self.weeklySummaryGenerator = weeklySummaryGenerator
         self.observationsGenerator = observationsGenerator
+        self.factoidSelector = factoidSelector
         self.insightsSnapshot = Self.makeInitialSnapshot()
     }
 
@@ -74,8 +77,12 @@ final class MomentsListViewModel {
                 from: deterministicSnapshot,
                 generatedAt: now
             )
-            self.insightsSnapshot = await withGeneratedObservationsIfNeeded(
+            let observationsEnhancedSnapshot = await withGeneratedObservationsIfNeeded(
                 from: summaryEnhancedSnapshot,
+                generatedAt: now
+            )
+            self.insightsSnapshot = withSelectedFactoids(
+                from: observationsEnhancedSnapshot,
                 generatedAt: now
             )
             // Debug (optional)
@@ -254,6 +261,19 @@ private extension MomentsListViewModel {
             }
     }
 
+    func withSelectedFactoids(
+        from snapshot: InsightsSnapshot,
+        generatedAt: Date
+    ) -> InsightsSnapshot {
+        let selectedForFullScreen = factoidSelector.selectFactoids(
+            from: snapshot.factoids,
+            dataState: snapshot.dataState,
+            asOf: generatedAt
+        )
+
+        return snapshotWithFactoids(selectedForFullScreen, from: snapshot)
+    }
+
     func makeWeeklySummaryInput(from snapshot: InsightsSnapshot) -> InsightsWeeklySummaryInput? {
         guard let momentsLogged = factoidValue(for: .momentsLogged, in: snapshot),
               let stayedPresentRate = factoidValue(for: .stayedPresentRate, in: snapshot) else {
@@ -315,6 +335,24 @@ private extension MomentsListViewModel {
             activitySeries: snapshot.activitySeries,
             timePattern: snapshot.timePattern,
             observations: observations,
+            topTags: snapshot.topTags,
+            urgeBreakdown: snapshot.urgeBreakdown,
+            dataState: snapshot.dataState,
+            lastRefreshedAt: snapshot.lastRefreshedAt
+        )
+    }
+
+    func snapshotWithFactoids(
+        _ factoids: [InsightFactoid],
+        from snapshot: InsightsSnapshot
+    ) -> InsightsSnapshot {
+        InsightsSnapshot(
+            period: snapshot.period,
+            summary: snapshot.summary,
+            factoids: factoids,
+            activitySeries: snapshot.activitySeries,
+            timePattern: snapshot.timePattern,
+            observations: snapshot.observations,
             topTags: snapshot.topTags,
             urgeBreakdown: snapshot.urgeBreakdown,
             dataState: snapshot.dataState,

@@ -30,6 +30,7 @@
 		AE2822732DE7903900D971E7 /* VisualEffectBlur.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */; };
 		AE29F8192EC69A2F00E722E5 /* EditMomentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */; };
 		AE29F81B2EC784A400E722E5 /* EditMomentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */; };
+		AE2AE8A02F6CC14700C47A76 /* InsightsContentRefreshCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2AE89F2F6CC14700C47A76 /* InsightsContentRefreshCoordinator.swift */; };
 		AE2CA1CC2DD62FBA000DF21E /* NewUrgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */; };
 		AE2CA1CE2DD63067000DF21E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */; };
 		AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */; };
@@ -158,6 +159,7 @@
 		AE2822722DE7903900D971E7 /* VisualEffectBlur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectBlur.swift; sourceTree = "<group>"; };
 		AE29F8182EC69A2F00E722E5 /* EditMomentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentView.swift; sourceTree = "<group>"; };
 		AE29F81A2EC784A400E722E5 /* EditMomentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMomentViewModel.swift; sourceTree = "<group>"; };
+		AE2AE89F2F6CC14700C47A76 /* InsightsContentRefreshCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsContentRefreshCoordinator.swift; sourceTree = "<group>"; };
 		AE2CA1CB2DD62FBA000DF21E /* NewUrgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUrgeView.swift; sourceTree = "<group>"; };
 		AE2CA1CD2DD63067000DF21E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		AE2CA1CF2DD63643000DF21E /* ContentStartupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStartupWrapper.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				AE7F32362F67609100914B1C /* InsightsWeeklySummaryGenerationService.swift */,
 				AE198BCD2F689ACD00F1AB61 /* InsightsObservationsGenerationService.swift */,
 				AE26FDBD2F6B30A700568A48 /* InsightsFactoidSelectionService.swift */,
+				AE2AE89F2F6CC14700C47A76 /* InsightsContentRefreshCoordinator.swift */,
 			);
 			path = Insights;
 			sourceTree = "<group>";
@@ -891,6 +894,7 @@
 				AEF8CA2A2EB045DE00779DF6 /* Haptics.swift in Sources */,
 				AEF1494F2DCBFFE800690F5E /* Color+Extension.swift in Sources */,
 				AE2CA1D02DD63643000DF21E /* ContentStartupWrapper.swift in Sources */,
+				AE2AE8A02F6CC14700C47A76 /* InsightsContentRefreshCoordinator.swift in Sources */,
 				AEF149502DCBFFE800690F5E /* HomeView.swift in Sources */,
 				AEE44AFF2EA95FF2006954CD /* WeatherNowRow.swift in Sources */,
 				AECB69A62DCFCF9600B4EA5F /* OnboardingStepOneView.swift in Sources */,

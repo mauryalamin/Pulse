@@ -27,25 +27,18 @@ final class MomentsListViewModel {
     // MARK: - Infra
     @ObservationIgnored private let context: ModelContext
     @ObservationIgnored private let insightsService: InsightsComputing
-    @ObservationIgnored private let weeklySummaryGenerator: InsightsWeeklySummaryGenerating
-    @ObservationIgnored private let observationsGenerator: InsightsObservationsGenerating
+    @ObservationIgnored private let contentRefreshCoordinator: InsightsContentRefreshing
     @ObservationIgnored private let factoidSelector: InsightsFactoidSelecting
-    @ObservationIgnored private var generatedSummaryCache: [String: InsightsSummary] = [:]
-    @ObservationIgnored private var generatedObservationsCache: [String: [InsightObservation]] = [:]
-    @ObservationIgnored private var lastFailedSummarySignature: String?
-    @ObservationIgnored private var lastFailedObservationsSignature: String?
 
     init(
         context: ModelContext,
         insightsService: InsightsComputing = InsightsComputationService(),
-        weeklySummaryGenerator: InsightsWeeklySummaryGenerating = InsightsWeeklySummaryGenerationService(),
-        observationsGenerator: InsightsObservationsGenerating = InsightsObservationsGenerationService(),
+        contentRefreshCoordinator: InsightsContentRefreshing = InsightsContentRefreshCoordinator(),
         factoidSelector: InsightsFactoidSelecting = InsightsFactoidSelectionService()
     ) {
         self.context = context
         self.insightsService = insightsService
-        self.weeklySummaryGenerator = weeklySummaryGenerator
-        self.observationsGenerator = observationsGenerator
+        self.contentRefreshCoordinator = contentRefreshCoordinator
         self.factoidSelector = factoidSelector
         self.insightsSnapshot = Self.makeInitialSnapshot()
     }
@@ -73,11 +66,11 @@ final class MomentsListViewModel {
             self.moments = filtered
             let now = Date.now
             let deterministicSnapshot = makeInsightsSnapshot(from: filtered, now: now)
-            let summaryEnhancedSnapshot = await withGeneratedWeeklySummaryIfNeeded(
+            let summaryEnhancedSnapshot = await withResolvedWeeklySummary(
                 from: deterministicSnapshot,
                 generatedAt: now
             )
-            let observationsEnhancedSnapshot = await withGeneratedObservationsIfNeeded(
+            let observationsEnhancedSnapshot = await withResolvedObservations(
                 from: summaryEnhancedSnapshot,
                 generatedAt: now
             )
@@ -167,78 +160,50 @@ private extension MomentsListViewModel {
         )
     }
 
-    func withGeneratedWeeklySummaryIfNeeded(
+    func withResolvedWeeklySummary(
         from snapshot: InsightsSnapshot,
         generatedAt: Date
     ) async -> InsightsSnapshot {
-        guard snapshot.dataState == .ready else { return snapshot }
-        guard let input = makeWeeklySummaryInput(from: snapshot) else { return snapshot }
+        let templateSummary = snapshot.summary
+        let input = snapshot.dataState == .ready ? makeWeeklySummaryInput(from: snapshot) : nil
 
-        let signature = input.signature
+        let resolved = await contentRefreshCoordinator.resolveWeeklySummary(
+            templateSummary: templateSummary,
+            input: input,
+            dataState: snapshot.dataState,
+            asOf: generatedAt
+        )
 
-        if let cached = generatedSummaryCache[signature] {
-            return snapshotWithSummary(cached, from: snapshot)
-        }
-
-        if lastFailedSummarySignature == signature {
-            return snapshot
-        }
-
-        do {
-            let generated = try await weeklySummaryGenerator.generateWeeklySummary(from: input, generatedAt: generatedAt)
-            generatedSummaryCache[signature] = generated
-            lastFailedSummarySignature = nil
-            return snapshotWithSummary(generated, from: snapshot)
-        } catch {
-            // Keep deterministic template summary when generation is unavailable/fails.
-            lastFailedSummarySignature = signature
-            return snapshot
-        }
+        guard let resolved else { return snapshot }
+        return snapshotWithSummary(resolved, from: snapshot)
     }
 
-    func withGeneratedObservationsIfNeeded(
+    func withResolvedObservations(
         from snapshot: InsightsSnapshot,
         generatedAt: Date
     ) async -> InsightsSnapshot {
-        guard snapshot.dataState == .ready else { return snapshot }
-
+        let templateObservations = snapshot.observations
         let candidates = makeObservationCandidates(from: snapshot)
-        guard !candidates.isEmpty else { return snapshot }
+        let input: InsightsObservationsGenerationInput?
 
-        let input = InsightsObservationsGenerationInput(
-            periodLabel: snapshot.period.label,
-            summaryBody: snapshot.summary?.body,
-            candidates: candidates
-        )
-        let signature = input.signature
-
-        if let cached = generatedObservationsCache[signature] {
-            return snapshotWithObservations(cached, from: snapshot)
-        }
-
-        if lastFailedObservationsSignature == signature {
-            return snapshot
-        }
-
-        do {
-            let generated = try await observationsGenerator.generateObservations(
-                from: input,
-                generatedAt: generatedAt
+        if snapshot.dataState == .ready, !candidates.isEmpty {
+            input = InsightsObservationsGenerationInput(
+                periodLabel: snapshot.period.label,
+                summaryBody: snapshot.summary?.body,
+                candidates: candidates
             )
-
-            guard !generated.isEmpty else {
-                lastFailedObservationsSignature = signature
-                return snapshot
-            }
-
-            generatedObservationsCache[signature] = generated
-            lastFailedObservationsSignature = nil
-            return snapshotWithObservations(generated, from: snapshot)
-        } catch {
-            // Keep deterministic template observations when generation is unavailable/fails.
-            lastFailedObservationsSignature = signature
-            return snapshot
+        } else {
+            input = nil
         }
+
+        let resolved = await contentRefreshCoordinator.resolveObservations(
+            templateObservations: templateObservations,
+            input: input,
+            dataState: snapshot.dataState,
+            asOf: generatedAt
+        )
+
+        return snapshotWithObservations(resolved, from: snapshot)
     }
 
     func makeObservationCandidates(from snapshot: InsightsSnapshot) -> [InsightsObservationCandidate] {

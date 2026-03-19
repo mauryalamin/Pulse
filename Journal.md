@@ -158,6 +158,28 @@ Aha moment:
 Gotcha:
 - Actor isolation can surprise DI defaults in Swift 6; keeping selector service non-actor-isolated avoided initializer friction in the `@MainActor` view model.
 
+### 2026-03-16 - Story 7A: AI Text Refresh, Caching, and Fallback Hardening
+This was the reliability pass. Instead of asking the model to write fresh text every time the screen opens, we added a traffic controller that decides whether to reuse, refresh, or gracefully fallback.
+
+What shipped:
+- New `InsightsContentRefreshCoordinator` for Weekly Summary + What Stood Out refresh decisions.
+- Fingerprint-driven cache keys based on structured generation inputs (`InsightsWeeklySummaryInput.signature`, `InsightsObservationsGenerationInput.signature`).
+- Lightweight persisted cache in `UserDefaults` that survives app relaunch.
+- 24-hour freshness window:
+  - same fingerprint + fresh cache => reuse cached content
+  - same fingerprint + stale cache => attempt regeneration
+  - changed fingerprint => attempt regeneration
+- Fallback priority for generation failures:
+  - prefer same-fingerprint cached AI content if available
+  - else reuse same-fingerprint cached content
+  - else fallback to deterministic template content
+
+Aha moment:
+- Moving refresh policy into one coordinator made the view model easier to reason about and reduced churn from repeated opens.
+
+Gotcha:
+- A cache that never expires can look broken; a simple 24-hour TTL plus fingerprint invalidation gave both stability and freshness without background jobs.
+
 ## 6) Engineer's Wisdom
 - Keep persisted entities and computed read models separate.
 - Make payloads explicit, typed, and boring; computation can be fancy later.
